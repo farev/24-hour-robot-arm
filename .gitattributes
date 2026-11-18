@@ -1,0 +1,13 @@
+* text=auto eol=lf
+
+# CAD and binary assets
+*.stl   binary
+*.step  binary
+*.glb   binary
+*.png   binary
+*.jpg   binary
+*.pdf   binary
+
+# Keep generated browser views out of language stats
+windows/** linguist-vendored
+viewers/** linguist-vendored

@@ -1,0 +1,249 @@
+note: 'v3 serial arm: yaw, shoulder (lower shank pitch), elbow and wrist are relative
+  angles (elbow = th2 - th1, wrist = gripper pitch - th2); finger B mirrors finger
+  A through the 1:1 gears. Known mismatch: every part position matches the pose files
+  (<= 0.0001 mm), but the round hardware on the joint axes (bearings, spacers, washers,
+  bolts, nuts, gripper mount screws and pivot) is written by build_assembly.py with
+  a fixed orientation while it travels with its link, so rig-check reports 30-150
+  deg rotation errors on those parts. They are symmetric about their own axis (the
+  y axis), so the motion looks the same; it is a placement artifact, not a rig error.'
+joints:
+- id: yaw
+  label: Base yaw
+  type: revolute
+  parent: null
+  origin:
+  - 0
+  - 0
+  - 0
+  axis:
+  - 0
+  - 0
+  - 1
+  parts:
+  - turret
+  - yaw-pulley
+  - yaw-bolt
+  - yaw-nut
+  - deck-screw-1
+  - deck-nut-1
+  - deck-screw-2
+  - deck-nut-2
+  - deck-screw-3
+  - deck-nut-3
+  - deck-screw-4
+  - deck-nut-4
+  - shoulder-motor
+  - shoulder-motor-plug-keepout
+  - shoulder-motor-pulley
+  - belt-sh1
+  - belt-sh2
+  - shoulder-motor-screw-1
+  - shoulder-motor-screw-2
+  - shoulder-motor-screw-3
+  - shoulder-motor-screw-4
+  - s-axle
+  - s-nut
+  - s-washer-left
+  - s-washer-right
+  - i-axle
+  - i-nut
+  - i-washer-left
+  - i-washer-right
+  - sh-compound
+  - i-bearing-1
+  - i-bearing-2
+  - spacer-i
+  - spacer-i-2
+  - spacer-s
+  - spacer-ls
+  - lower-bearing-1
+  - lower-bearing-2
+  home: 0
+  limits:
+  - -150
+  - 150
+- id: shoulder
+  label: Shoulder (lower shank pitch)
+  type: revolute
+  parent: yaw
+  origin:
+  - 10
+  - 0
+  - 116
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - lower-shank
+  - elbow-motor
+  - elbow-motor-plug-keepout
+  - elbow-motor-pulley
+  - belt-elbow
+  - elbow-motor-screw-1
+  - elbow-motor-screw-2
+  - elbow-motor-screw-3
+  - elbow-motor-screw-4
+  - e-bolt
+  - e-washer-1
+  - e-washer-2
+  - e-nut
+  - elbow-bearing-1
+  - elbow-bearing-2
+  - spacer-e
+  home: 90
+  limits:
+  - 20
+  - 140
+- id: elbow
+  label: Elbow (relative)
+  type: revolute
+  parent: shoulder
+  origin:
+  - 10
+  - 0
+  - 266
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - upper-shank
+  - wrist-motor
+  - wrist-motor-pulley
+  - belt-wrist
+  - wrist-motor-screw-1
+  - wrist-motor-screw-2
+  - wrist-motor-screw-3
+  - wrist-motor-screw-4
+  - wrist-axle
+  - wrist-washer
+  - wrist-bearing-1
+  - wrist-bearing-2
+  - spacer-w
+  - wrist-nut
+  home: -90
+  limits:
+  - -135
+  - 150
+- id: wrist
+  label: Wrist (relative)
+  type: revolute
+  parent: elbow
+  origin:
+  - 160
+  - 0
+  - 266
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - wrist-pulley
+  - gripper-base
+  - gripper-servo
+  - gripper-horn
+  - grip-pivot
+  - grip-pivot-nut
+  - grip-mount-screw-1
+  - grip-mount-screw-2
+  - grip-mount-screw-3
+  - grip-mount-screw-4
+  home: -90
+  limits:
+  - -150
+  - 150
+- id: finger-a
+  label: Gripper
+  type: revolute
+  parent: wrist
+  origin:
+  - 148
+  - 0
+  - 213
+  axis:
+  - 0
+  - 1
+  - 0
+  parts:
+  - finger-a
+  home: 15
+  limits:
+  - 0
+  - 30
+- id: finger-b
+  type: revolute
+  parent: wrist
+  origin:
+  - 172
+  - 0
+  - 213
+  axis:
+  - 0
+  - 1
+  - 0
+  parts:
+  - finger-b
+  home: -15
+  limits:
+  - -30
+  - 0
+  coupled:
+  - joint: finger-a
+    ratio: -1
+poses:
+- name: reach-table
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: -38.4
+    wrist: -71.6
+    finger-a: 25
+- name: elbow-up
+  values:
+    yaw: 0
+    shoulder: 70
+    elbow: 80
+    wrist: -90
+    finger-a: 15
+- name: elbow-folded
+  values:
+    yaw: 0
+    shoulder: 110
+    elbow: -135
+    wrist: 45
+    finger-a: 0
+- name: stretched
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: 0
+    wrist: 0
+    finger-a: 15
+- name: yaw-limit
+  values:
+    yaw: 150
+    shoulder: 60
+    elbow: -80
+    wrist: -70
+    finger-a: 15
+assembly_sha256: 9edd0abbb17e969933d025732000eebcf4de5dc56094140280bd783454f1f0c6
+glb_sha256: 1f0e26ca4f2fe2f5a23b4b7d0bb20b08a7070d946651f960a9a6bf159f574a17
+checked:
+  ok: false
+  poses:
+  - name: reach-table
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 70.0
+  - name: elbow-up
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 150.0
+  - name: elbow-folded
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 110.0
+  - name: stretched
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 110.0
+  - name: yaw-limit
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 30.0

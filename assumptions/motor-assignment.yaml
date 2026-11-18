@@ -1,0 +1,8 @@
+id: motor-assignment
+made_by: chat
+text: 34 mm HEM motor on base yaw (no gravity load), two XY42STH40 on shoulder and
+  elbow, third XY42STH40 kept as a spare.
+alternatives:
+- Use the 3rd XY42STH40 on base yaw and keep the 34 mm as spare
+created: '2026-11-05T01:17:46+00:00'
+override: null

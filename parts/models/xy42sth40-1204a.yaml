@@ -1,0 +1,26 @@
+part: XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm)
+model_source: datasheet
+source_url: https://luni64.github.io/TeensyStep/applications2/901_stepper/assets/datasheet_XY42STH.pdf
+datasheet: https://luni64.github.io/TeensyStep/applications2/901_stepper/assets/datasheet_XY42STH.pdf
+retrieved: "2026-11-04"
+generator: parts/models/xy42sth40-1204a.py
+frame: origin at the centre of the mounting face (pilot excluded), that face at z = 0, body toward -Z, shaft along +Z, holes at (+-15.5, +-15.5), connector socket on the -X side face near the rear end
+critical_dims:
+  - {name: body square, value_mm: 42.3, tol_mm: 0.2, source: estimate (NEMA 17 standard; series datasheet has no drawing), model_mm: 42.3, checked: true}
+  - {name: hole pitch, value_mm: 31.0, tol_mm: 0.1, source: estimate (NEMA 17 standard), model_mm: 31.0, checked: true}
+  - {name: pilot diameter, value_mm: 22.0, tol_mm: 0.05, source: estimate (NEMA 17 standard), model_mm: 22.0, checked: true}
+  - {name: pilot height, value_mm: 2.0, tol_mm: 0.05, source: estimate (NEMA 17 standard), model_mm: 2.0, checked: true}
+  - {name: shaft diameter, value_mm: 5.0, tol_mm: 0.05, source: estimate (NEMA 17 standard; round shaft per photo), model_mm: 5.0, checked: true}
+  - {name: shaft length, value_mm: 24.0, tol_mm: 0.5, source: estimate (NEMA 17 typical, from mounting face to tip), model_mm: 24.0, checked: true}
+  - {name: body length, value_mm: 40.0, tol_mm: 0.5, source: datasheet table (XY42STH40 series length 40 mm), model_mm: 40.0, checked: true}
+checked: "2026-11-04: 7 of 7 critical dims match the model (inspect: bbox, 4 holes at +-15.5, z -40..+24); 6 of 7 values are NEMA 17 standard estimates, not read from a drawing"
+note: >
+  The series datasheet is one page with a table only (length 40 mm, 0.28 kg, no drawing, and the
+  exact -1204A suffix is not in the table), so face, hole pattern, pilot and shaft are NEMA 17
+  standard values marked as estimates; measure with calipers before printing tight fits. M3
+  tapped holes modelled as 2.5 mm holes 4.5 mm deep (estimate). Pilot and shaft diameters are
+  convex, so inspect does not list them; they come from the generator constants. Corners
+  chamfered 4 mm (cosmetic). The white side connector (likely 6-pin JST PH2.0 socket) is
+  modelled as a 5 mm x 14 mm x 9 mm block on the -X side, z -36 to -27, estimated from the photo
+  (position and size not measured). A mating-plug keep-out (12 mm further out along -X, 16 mm
+  wide, z -38 to -25) is in parts/models/xy42sth40-1204a-keepout.step.

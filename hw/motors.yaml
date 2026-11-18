@@ -1,0 +1,29 @@
+motors:
+  - id: xy42sth40
+    model: XYSLDJ XY42STH40-1204A (NEMA 17, 40 mm, 1.2 A)   # owned x3, model read from label
+    count: 3
+    rated_current_a: 1.2
+    holding_torque_nm: 0.26      # conservative: series datasheet row XY42STH40-1206A (2.6 kg·cm); -1204A row unpublished
+    rotor_inertia_kgm2: 5.4e-6   # datasheet 54 g·cm²
+    max_speed_rps: 10
+    step_angle_deg: 1.8
+    leads: 4
+    torque_curve:                # [rev/s, N*m] pull-out, ESTIMATE scaled from holding (3.2 mH, 12 V)
+      - [0, 0.26]
+      - [2, 0.24]
+      - [5, 0.18]
+      - [10, 0.08]
+  - id: hem17d2008
+    model: High Efficiency Motors HEM-17D2008-10 (NEMA 17, 34 mm, 0.8 A)   # owned x1, label values
+    count: 1
+    rated_current_a: 0.8
+    holding_torque_nm: 0.28      # label
+    rotor_inertia_kgm2: 3.5e-6   # estimate, typical 34 mm NEMA 17
+    max_speed_rps: 8
+    step_angle_deg: 1.8
+    leads: 4
+    torque_curve:                # ESTIMATE
+      - [0, 0.28]
+      - [2, 0.25]
+      - [5, 0.17]
+      - [10, 0.07]

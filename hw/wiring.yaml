@@ -1,0 +1,69 @@
+version: 1
+# v4 arm wiring (firmware/arm_v4/arm_v4.ino is the source of the pins). The CNC Shield V3 plugs onto the Uno:
+# its step/dir/enable/limit pins are the Uno's D2-D13 (the "stacked" lines below are no wire, just the headers).
+parts:
+  - {id: uno, board: uno}
+  - id: shield
+    label: CNC Shield V3 + 4 x A4988 (stacked on the Uno)
+    kind: module
+    pins: [PWR+, PWR-, X_STEP, X_DIR, Y_STEP, Y_DIR, Z_STEP, Z_DIR, A_STEP, A_DIR, EN,
+           X1A, X1B, X2A, X2B, Y1A, Y1B, Y2A, Y2B, Z1A, Z1B, Z2A, Z2B, A1A, A1B, A2A, A2B]
+  - {id: psu, label: 24 V 6 A supply (owned), kind: supply, pins: ["+", "-"]}
+  - {id: buck, label: XL4015 buck converter (set 6.3 V), kind: module, pins: [IN+, IN-, OUT+, OUT-]}
+  - {id: yaw_motor, label: Yaw motor XY42STH40 (base), kind: motor, pins: [A+, A-, B+, B-]}
+  - {id: shoulder_motor, label: Shoulder motor XY42STH40 (turret), kind: motor, pins: [A+, A-, B+, B-]}
+  - {id: elbow_motor, label: Elbow motor XY42STH40 (lower shank), kind: motor, pins: [A+, A-, B+, B-]}
+  - {id: wrist_motor, label: Wrist motor HEM-17D2008-10 (upper shank), kind: motor, pins: [A+, A-, B+, B-]}
+  - {id: servo, label: Gripper servo MG996R, kind: motor, pins: [SIG, V+, GND]}
+  - {id: yaw_switch, label: Yaw homing switch KW12-3 (NC lug left free), kind: switch, pins: [C, "NO"]}
+  - {id: computer, label: Computer (USB), kind: computer, pins: [USB]}
+connections:
+  # power
+  - {from: psu.+, to: shield.PWR+, color: red, cable: 18 AWG, note: "Blue screw terminal; check + to +"}
+  - {from: psu.-, to: shield.PWR-, color: black, cable: 18 AWG}
+  - {from: shield.PWR+, to: buck.IN+, color: red, note: "From the same 24 V terminal; one jumper wire is enough (under 0.8 A at servo stall), stripped end soldered into the buck pad"}
+  - {from: shield.PWR-, to: buck.IN-, color: black, note: "One jumper wire, stripped end soldered"}
+  - {from: buck.OUT+, to: servo.V+, color: red, note: "Set the buck to 6.3 V with a meter BEFORE connecting; two jumpers in parallel"}
+  - {from: buck.OUT-, to: servo.GND, color: brown, note: "Two jumpers in parallel"}
+  # logic: the shield plugs onto the Uno (no wires)
+  - {from: uno.D4, to: shield.Z_STEP, color: grey, cable: stacked headers, note: "Yaw STEP"}
+  - {from: uno.D7, to: shield.Z_DIR, color: grey, cable: stacked headers, note: "Yaw DIR"}
+  - {from: uno.D3, to: shield.Y_STEP, color: grey, cable: stacked headers, note: "Shoulder STEP"}
+  - {from: uno.D6, to: shield.Y_DIR, color: grey, cable: stacked headers, note: "Shoulder DIR"}
+  - {from: uno.D2, to: shield.X_STEP, color: grey, cable: stacked headers, note: "Elbow STEP"}
+  - {from: uno.D5, to: shield.X_DIR, color: grey, cable: stacked headers, note: "Elbow DIR"}
+  - {from: uno.D12, to: shield.A_STEP, color: grey, cable: stacked headers, note: "Wrist STEP: fit the two A-axis jumpers (D12/D13)"}
+  - {from: uno.D13, to: shield.A_DIR, color: grey, cable: stacked headers, note: "Wrist DIR"}
+  - {from: uno.D8, to: shield.EN, color: grey, cable: stacked headers, note: "All drivers enable, LOW = on"}
+  # steppers: find each coil pair with a meter (a few ohms between the two wires of a coil)
+  - {from: shield.Z1A, to: yaw_motor.A+, color: black, cable: motor cable}
+  - {from: shield.Z1B, to: yaw_motor.A-, color: green, cable: motor cable}
+  - {from: shield.Z2A, to: yaw_motor.B+, color: red, cable: motor cable}
+  - {from: shield.Z2B, to: yaw_motor.B-, color: blue, cable: motor cable}
+  - {from: shield.Y1A, to: shoulder_motor.A+, color: black, cable: motor cable}
+  - {from: shield.Y1B, to: shoulder_motor.A-, color: green, cable: motor cable}
+  - {from: shield.Y2A, to: shoulder_motor.B+, color: red, cable: motor cable}
+  - {from: shield.Y2B, to: shoulder_motor.B-, color: blue, cable: motor cable}
+  - {from: shield.X1A, to: elbow_motor.A+, color: black, cable: motor cable}
+  - {from: shield.X1B, to: elbow_motor.A-, color: green, cable: motor cable}
+  - {from: shield.X2A, to: elbow_motor.B+, color: red, cable: motor cable}
+  - {from: shield.X2B, to: elbow_motor.B-, color: blue, cable: motor cable}
+  - {from: shield.A1A, to: wrist_motor.A+, color: black, cable: motor cable}
+  - {from: shield.A1B, to: wrist_motor.A-, color: green, cable: motor cable}
+  - {from: shield.A2A, to: wrist_motor.B+, color: red, cable: motor cable}
+  - {from: shield.A2B, to: wrist_motor.B-, color: blue, cable: motor cable}
+  # servo signal and the yaw switch (on the shield's CoolEn and Z-limit headers)
+  - {from: uno.A3, to: servo.SIG, color: orange, cable: M-F jumpers, note: "Shield CoolEn header"}
+  - {from: uno.GND, to: servo.GND, color: black, cable: M-F jumper, note: "Common ground with the buck"}
+  - {from: uno.D11, to: yaw_switch.NO, color: white, note: "Shield Z-limit header, signal pin; soldered lug"}
+  - {from: uno.GND, to: yaw_switch.C, color: black, note: "Shield Z-limit header, GND pin; soldered lug"}
+  # programming
+  - {from: computer.USB, to: uno.USB, cable: USB-B cable}
+notes:
+  - "Never power the servo from the Uno 5 V pin; it runs only from the buck (6.3 V)."
+  - "Set the buck output to 6.3 V with a meter before the servo is connected: it can output up to 36 V."
+  - "Read the shield's bulk capacitor (35 V or more for 24 V) and the A4988 sense resistors before power."
+  - "Vref on R100: X, Y, Z 0.80 V (1.0 A); A 0.56 V (0.7 A). Jumpers: X, Z, A all three (1/16); Y MS1 + MS2 (1/8)."
+  - "Insert each A4988 the right way round (EN pin to EN); a reversed driver is destroyed."
+  - "Unplug the 24 V barrel jack as the e-stop, after lowering the arm: nothing self-locks."
+  - "Route the motor and servo cables to the zip-tie block on the base's -x edge, then a ~0.5 m loop to the arm."

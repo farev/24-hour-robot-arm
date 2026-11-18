@@ -1,0 +1,11 @@
+id: motor-mount-material
+made_by: chat
+text: Print everything in PLA. Before trusting the arm, hold a pose for 10 minutes
+  and touch-check the motor cases. If a case is too hot to hold (above ~55 °C), reprint
+  the 4 motor-contact parts (turret, both shanks, yaw motor plate) in PETG. At 1.0
+  A the cases may reach ~75 °C (estimate from the datashee
+alternatives:
+- Print the turret, both shanks and the yaw plate in PETG from the start
+- Lower the drive current to 0.8 A (less heat, less torque)
+created: '2026-11-06T03:09:05+00:00'
+override: null

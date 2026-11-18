@@ -1,0 +1,68 @@
+[
+ {
+  "plate": 1,
+  "parts": [
+   "base#1@0",
+   "yaw-motor-plate#1@0",
+   "sh-compound#1@0",
+   "wrist-flange#1@0",
+   "wrist-pulley#1@0",
+   "yaw-race-washer#1@0",
+   "yaw-race-washer#2@0",
+   "yaw-race-washer#3@0",
+   "yaw-race-washer#4@0",
+   "yaw-race-washer#5@0",
+   "yaw-race-washer#6@0",
+   "yaw-race-washer#7@0",
+   "wrist-washer#1@0",
+   "yaw-bolt-spacer#1@0",
+   "spacer-i#1@0",
+   "spacer-i#2@0",
+   "spacer-s#1@0",
+   "spacer-ls#1@0",
+   "spacer-e#1@0",
+   "spacer-w#1@0"
+  ],
+  "bed_fill": 0.737,
+  "xy_min": [
+   10.5,
+   22.0
+  ],
+  "xy_max": [
+   228.5,
+   243.0
+  ]
+ },
+ {
+  "plate": 2,
+  "parts": [
+   "lower-shank#1@0",
+   "upper-shank#1@180",
+   "yaw-pulley#1@45"
+  ],
+  "bed_fill": 0.546,
+  "xy_min": [
+   10.5,
+   22.0
+  ],
+  "xy_max": [
+   244.5,
+   239.5
+  ]
+ },
+ {
+  "plate": 3,
+  "parts": [
+   "turret#1@0"
+  ],
+  "bed_fill": 0.228,
+  "xy_min": [
+   10.5,
+   22.0
+  ],
+  "xy_max": [
+   182.3,
+   112.0
+  ]
+ }
+]

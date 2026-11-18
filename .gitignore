@@ -1,0 +1,38 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# PlatformIO / Arduino build output
+.pio/
+build/
+
+# Slicer output (published as GitHub Release assets instead)
+*.gcode
+*.gcode.3mf
+*.3mf
+*.bbl
+*.zip
+
+# Runtime files
+*.log
+*.pid
+
+# Mechy design-tool session state
+.mechy/*
+!.mechy/reviews/
+.claude/
+.agents/
+inbox/
+
+# Original phone photos (may carry GPS metadata)
+*.HEIC
+*.heic

@@ -1,0 +1,20 @@
+id: design-direction
+asked_by: null
+text: The proven arm (v1) can't quite reach the table at 30 cm. Which way should I
+  go?
+kind: choice
+choices:
+- label: 'v2: Mechy-designed arm that meets the spec (recommended)'
+  detail: Same proven parallel-linkage layout, ~160 mm links and a two-stage belt
+    reduction, so you get ~30 cm at table height with 300 g and more torque headroom.
+    The base sits flat on the table and uses your AXK2035 bearing. I design and check
+    every printed part; it's new geometry, so expect a few hours more CAD and one
+    test print of a joint first.
+  image: design/v1/thumb.png
+- label: 'v1: stock 20sffactory arm, print it now'
+  detail: Print-ready STLs from a design with many builds (21 pieces, ~206 g PLA).
+    Needs a ~45 mm riser because the base motor hangs below the base, so the tool
+    only reaches ~24 cm at ~6 cm above the table. 300 g is at the edge of the torque
+    budget. Buys a 51105 bearing; your AXK2035 goes unused.
+  image: design/v1/thumb.png
+answer: "v2: Mechy-designed arm that meets the spec (recommended)"

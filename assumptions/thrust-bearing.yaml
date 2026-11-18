@@ -1,0 +1,9 @@
+id: thrust-bearing
+made_by: chat
+text: The vendor base is designed for a 51105 thrust bearing (25x42x11), so v1 buys
+  one; your AXK2035 doesn't fit the vendor socket without redesigning the base.
+alternatives:
+- Redesign the socket and turntable for the owned AXK2035 (saves ~$7, adds design
+  time)
+created: '2026-11-05T01:17:48+00:00'
+override: null

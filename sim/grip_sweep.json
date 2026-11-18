@@ -1,0 +1,226 @@
+[
+ {
+  "grip": 0.0,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.279
+   },
+   {
+    "a": "crank-gear-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ },
+ {
+  "grip": 0.16666666666666666,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.242
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ },
+ {
+  "grip": 0.3333333333333333,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.217
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "jaw-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ },
+ {
+  "grip": 0.5,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.205
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "jaw-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ },
+ {
+  "grip": 0.6666666666666666,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.204
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "jaw-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ },
+ {
+  "grip": 0.8333333333333334,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.204
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "jaw-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ },
+ {
+  "grip": 1.0,
+  "interferences": [
+   {
+    "a": "gripper-servo",
+    "b": "gripper-horn",
+    "volume_mm3": 3.613
+   }
+  ],
+  "close": [
+   {
+    "a": "gripper-base",
+    "b": "idler-link-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "crank-gear-b",
+    "distance_mm": 0.205
+   },
+   {
+    "a": "crank-gear-a",
+    "b": "jaw-a",
+    "distance_mm": 0.5
+   },
+   {
+    "a": "idler-link-b",
+    "b": "jaw-b",
+    "distance_mm": 0.5
+   }
+  ]
+ }
+]

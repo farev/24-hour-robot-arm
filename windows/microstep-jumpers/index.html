@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microstep jumpers</title>
+<!--
+  Workshop window: where the M0/M1/M2 (= MS1/MS2/MS3) jumper caps go under each A4988 on the user's Protoneer CNC
+  Shield V3.00 clone, one step at a time. The picture is the instruction: the user's photo with the place to act
+  marked, a close-up of the pins for the capping step, and a dial for the jog check.
+  board.jpg is the user's photo (inspiration/image-1.heic, 2026-11-16), USB on the right, so the board is turned
+  180 deg from Protoneer's layout drawing (research/cnc_shield_ref/Arduino-CNC-Shield-V3-Layout.jpg): X bottom-right,
+  Y bottom-left, Z top-right, A top-left; the M0 M1 M2 block is at the trimpot end of each socket, between the pin rows.
+  Microsteps per socket: hw/drivers.yaml drivers[0].microsteps_by_socket; motor names: hw/wiring.yaml.
+  Ticks: windows/microstep-jumpers/state.yaml ({socket: [done step numbers]}). A4988: full 000, 1/2 100, 1/4 010,
+  1/8 110, 1/16 111.
+-->
+<style>
+  #pic [data-i] { cursor: default; }
+  #pic .pin { fill: var(--ink); }
+  #pic .hole { fill: var(--raised); stroke: var(--frame); }
+  #pic .quiet { fill: var(--muted); }
+  #pic .act { fill: var(--accent); font-weight: 600; }
+  #steps > li { cursor: default; }
+  .side table td, .side table th { font-size: 13px; }
+  details ol, details ul { margin: 0; padding-left: var(--space-l); }
+  details li { margin-bottom: var(--space-xs); }
+</style>
+</head>
+<body class="fill workshop">
+<header class="strip">
+  <h1>Microstep jumpers</h1>
+  <span class="segmented" id="sockets"></span>
+  <span class="grow"></span>
+  <span class="label" id="count"></span>
+</header>
+
+<main class="split">
+  <section class="stage"><svg id="pic" viewBox="0 0 770 630" role="img" aria-label="Where to work on the board"></svg></section>
+
+  <aside class="side">
+    <span class="label" id="where"></span>
+    <h2 id="title"></h2>
+    <p id="line"></p>
+    <div class="callout warning" id="warn" hidden></div>
+    <div class="row">
+      <button id="back">Back</button>
+      <button class="primary large grow" id="done">Done</button>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <p class="note" id="fallback" hidden>No per-socket microstepping in hw/drivers.yaml: showing 1/16 for every socket.</p>
+
+    <details>
+      <summary>No caps? Use bare wire</summary>
+      <ol class="prose">
+        <li>Cut 4-5 cm from a spare jumper wire and strip all the insulation.</li>
+        <li id="wireHow"></li>
+        <li>Press it flat against the pin base. Nothing over 5 mm tall or past the 6 pins.</li>
+        <li>Seat the driver and check it pushes fully down.</li>
+      </ol>
+      <p class="note">A plugged-in jumper wire is 14 mm tall and the driver sits 8 mm above the pins, so it won't fit.</p>
+    </details>
+    <details>
+      <summary>Where to get caps (<span id="need">11</span>)</summary>
+      <ul class="prose">
+        <li><a href="https://www.amazon.com/dp/B0BRK36G33" target="_blank">California JOS 2.54 mm jumper caps, 100 pcs</a>, $4.97 at Amazon,
+          delivery Wed Nov 18 at the fastest (read 2026-11-16).</li>
+        <li>Free today: the Invention Studio desk or an ECE lab, or off old PC parts (motherboards, hard drives, CD drives).</li>
+        <li>Permanent: solder the bare wire to the pins. These settings don't change.</li>
+      </ul>
+    </details>
+    <details>
+      <summary>It turned a different amount</summary>
+      <div id="chk"></div>
+    </details>
+    <details>
+      <summary>All A4988 settings</summary>
+      <table><tr><th>Step size</th><th>M0</th><th>M1</th><th>M2</th></tr>
+        <tr><td>Full (no caps, now)</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>1/2</td><td>cap</td><td>-</td><td>-</td></tr>
+        <tr><td>1/4</td><td>-</td><td>cap</td><td>-</td></tr>
+        <tr><td>1/8 (shoulder)</td><td>cap</td><td>cap</td><td>-</td></tr>
+        <tr><td>1/16 (yaw, elbow, wrist)</td><td>cap</td><td>cap</td><td>cap</td></tr>
+      </table>
+    </details>
+    <div class="callout warning" id="hold"><b>Don't run arm_v4 yet.</b> Without caps every joint moves up to 16× too far.</div>
+  </aside>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const STATE = "windows/microstep-jumpers/state.yaml";
+const IMG = mechy.url("windows/microstep-jumpers/board.jpg");
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const CAPS = { 1: [0, 0, 0], 2: [1, 0, 0], 4: [0, 1, 0], 8: [1, 1, 0], 16: [1, 1, 1] };
+const M = ["M0", "M1", "M2"];
+const NAMES = ["yaw", "shoulder", "elbow", "wrist"];
+const LAST = 6;   // steps 0..5; 6 means this socket is finished
+// socket boxes and jumper areas on board.jpg, in a 770 x 630 frame (checked against the photo)
+const BOX = { A: [128, 45, 310, 288], Z: [380, 38, 572, 285], Y: [128, 340, 318, 585], X: [378, 328, 575, 585] };
+const JMP = { A: [165, 52, 280, 105], Z: [415, 45, 540, 100], Y: [165, 345, 285, 400], X: [415, 335, 545, 390] };
+const PWR = [612, 105, 745, 182];   // blue 24 V screw terminal
+const USB = [735, 380, 770, 505];   // the Uno's USB socket, under the right edge
+let sockets = [], sel = 0, view = 0, state = {};
+
+const caps = (m) => CAPS[m] || CAPS[16];
+const nCaps = (m) => caps(m).reduce((a, b) => a + b, 0);
+const short = (label) => NAMES.find((n) => new RegExp(n, "i").test(label)) || label;
+const capList = (m) => caps(m).map((b, k) => b ? M[k] : "").filter(Boolean).join(" + ") || "no caps";
+const emptyList = (m) => caps(m).map((b, k) => b ? "" : M[k]).filter(Boolean).join(", ");
+const doneOf = (s) => state[s.socket] || [];
+const finished = (s) => doneOf(s).length >= LAST;
+const firstOpen = (s) => { for (let k = 0; k < LAST; k++) if (!doneOf(s).includes(k)) return k; return LAST; };
+const testDeg = (s) => /yaw/i.test(s.motor) ? 5 : 2;
+
+function stepsFor(s) {
+  const e = emptyList(s.micro), t = testDeg(s);
+  return [
+    ["Power off", "Unplug 24 V and USB. Wait for the LED to go out."],
+    [`Lift driver ${s.socket} out`, "Straight up by its edges. Don't twist."],
+    ["Find the 6 pins", "Under the trimpot end, printed M0 M1 M2."],
+    [`Cap ${capList(s.micro)}`, e ? `Leave ${e} empty.` : "All three columns."],
+    ["Driver back, same way", "EN corner bottom-right. Push fully down."],
+    [`Power on, jog ${t}°`, `Should turn ${t}°. ${t * s.micro}° means no caps.`],
+  ];
+}
+
+/* ---------- pictures ---------- */
+const rect = (b, cls, extra = "") => `<rect class="${cls}" x="${b[0]}" y="${b[1]}" width="${b[2] - b[0]}" height="${b[3] - b[1]}" rx="6" ${extra}/>`;
+const badge = (x, y, text, on = false, size = 15) => {
+  const w = Math.max(34, text.length * size * 0.62 + 16), h = size + 14;
+  return `<g class="badge ${on ? "selected" : ""}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/>
+    <text x="${x + w / 2}" y="${y + h - 9}" text-anchor="middle" font-size="${size}">${esc(text)}</text></g>`;
+};
+
+// The user's photo with the place to act marked on it.
+function photo(mark) {
+  const s = sockets[sel];
+  let g = `<image href="${IMG}" width="770" height="630" preserveAspectRatio="none"/>`;
+  sockets.forEach((o, i) => {
+    const b = BOX[o.socket]; if (!b) return;
+    g += rect(b, i === sel && mark === "socket" ? "hot" : "", `data-i="${i}" fill="transparent"`);
+    g += badge(b[0] + 6, b[3] - 42, o.socket, i === sel, 22);
+  });
+  const b = BOX[s.socket], j = JMP[s.socket];
+  if (mark === "power") {
+    g += rect(PWR, "hot") + badge(PWR[0], PWR[1] - 34, "24 V") + rect(USB, "hot") + badge(USB[0] - 62, USB[1] + 48, "USB");
+  } else if (mark === "pins" && j) {
+    g += rect(j, "hot") + badge(j[0], j[3] + 6, "M0 M1 M2");
+  } else if (mark === "en" && b) {
+    g += rect(b, "planned") + `<circle class="hot" cx="${b[2] - 24}" cy="${b[3] - 24}" r="17"/>` + badge(b[2] - 96, b[3] - 40, "EN");
+  }
+  $("pic").setAttribute("viewBox", "0 0 770 630");
+  $("pic").innerHTML = g;
+  $("pic").querySelectorAll("[data-i]").forEach((r) => r.onclick = () => pick(+r.dataset.i));
+}
+
+// Close-up of the pins under the lifted driver, in the user's orientation (USB right, trimpot end up).
+function closeup() {
+  const s = sockets[sel], c = caps(s.micro);
+  let g = `<rect class="planned" x="70" y="20" width="300" height="290" rx="8"/>`;
+  g += `<text class="quiet" x="220" y="300" text-anchor="middle" font-size="11">driver ${esc(s.socket)} lifted out</text>`;
+  for (let i = 0; i < 8; i++) {
+    const y = 42 + i * 32;
+    for (const x of [92, 348]) g += `<rect class="hole" x="${x - 9}" y="${y - 9}" width="18" height="18" rx="2"/>`;
+  }
+  g += `<text class="quiet" x="330" y="${42 + 7 * 32 + 4}" text-anchor="end" font-size="11">EN</text>`;
+  g += `<text class="quiet" x="220" y="50" text-anchor="middle" font-size="11">trimpot end</text>`;
+  g += `<text class="quiet" x="432" y="170" text-anchor="end" font-size="11">USB →</text>`;
+  // columns M2, M1, M0 from left to right (board seen turned 180 deg), two pins per column
+  [2, 1, 0].forEach((k, ci) => {
+    const x = 160 + ci * 60;
+    g += `<rect class="${c[k] ? "hot" : "planned"}" x="${x - 17}" y="78" width="34" height="84" rx="6"/>`;
+    g += `<circle class="pin" cx="${x}" cy="100" r="6"/><circle class="pin" cx="${x}" cy="140" r="6"/>`;
+    g += `<text class="${c[k] ? "act" : "quiet"}" x="${x}" y="186" text-anchor="middle" font-size="17">${M[k]}</text>`;
+    g += `<text class="${c[k] ? "act" : "quiet"}" x="${x}" y="206" text-anchor="middle" font-size="13">${c[k] ? "cap" : "empty"}</text>`;
+  });
+  $("pic").setAttribute("viewBox", "0 0 440 330");
+  $("pic").innerHTML = g;
+}
+
+// The jog check: how far the joint should turn, against how far it turns with no caps.
+function dial() {
+  const s = sockets[sel], t = testDeg(s), bad = t * s.micro, cx = 220, cy = 190, r = 125;
+  const at = (deg, rr = r) => [cx + rr * Math.sin(deg * Math.PI / 180), cy - rr * Math.cos(deg * Math.PI / 180)];
+  const wedge = (deg, cls) => { const [x, y] = at(deg); return `<path class="${cls}" d="M${cx} ${cy} L${cx} ${cy - r} A${r} ${r} 0 ${deg > 180 ? 1 : 0} 1 ${x} ${y} Z"/>`; };
+  const [bx, by] = at(Math.min(bad, 170) / 2 + 8, r + 14), [gx, gy] = at(-6, r + 14);
+  let g = `<circle class="planned" cx="${cx}" cy="${cy}" r="${r}"/>`;
+  g += wedge(bad, "planned") + wedge(t, "hot");
+  g += `<circle class="pin" cx="${cx}" cy="${cy}" r="5"/>`;
+  g += `<text class="act" x="${gx}" y="${gy}" text-anchor="end" font-size="20">${t}°</text>`;
+  g += `<text class="act" x="${gx}" y="${gy + 18}" text-anchor="end" font-size="13">correct</text>`;
+  g += `<text class="quiet" x="${bx}" y="${by}" font-size="20">${bad}°</text>`;
+  g += `<text class="quiet" x="${bx}" y="${by + 18}" font-size="13">no caps</text>`;
+  g += `<text class="quiet" x="${cx}" y="${cy + 30}" text-anchor="middle" font-size="12">${esc(short(s.motor))} joint, jogged ${t}° in Motor test</text>`;
+  $("pic").setAttribute("viewBox", "0 0 440 330");
+  $("pic").innerHTML = g;
+}
+function draw() {
+  if (view === 3) return closeup();
+  if (view === 5) return dial();
+  photo(["power", "socket", "pins", "", "en", "", "socket"][view]);
+}
+
+/* ---------- words and controls ---------- */
+function pick(i) { sel = i; view = firstOpen(sockets[sel]); render(); }
+function renderStrip() {
+  $("sockets").innerHTML = sockets.map((s, i) =>
+    `<button data-i="${i}" class="${i === sel ? "on" : ""}">${finished(s) ? "✓ " : ""}${esc(s.socket)} · ${esc(short(s.motor))}</button>`).join("");
+  $("sockets").querySelectorAll("button").forEach((b) => b.onclick = () => pick(+b.dataset.i));
+  const total = sockets.reduce((a, s) => a + nCaps(s.micro), 0), n = sockets.filter(finished).length;
+  $("need").textContent = total;
+  $("count").textContent = `${n} of ${sockets.length} sockets done · ${total} caps in all`;
+  $("hold").hidden = n === sockets.length;
+}
+function renderSide() {
+  const s = sockets[sel], st = stepsFor(s), done = doneOf(s);
+  const next = sockets.findIndex((o) => !finished(o));
+  $("where").textContent = `Socket ${s.socket} · ${short(s.motor)} · 1/${s.micro}` + (view < LAST ? ` · step ${view + 1} of ${LAST}` : "");
+  if (view < LAST) {
+    $("title").textContent = st[view][0];
+    $("line").textContent = st[view][1];
+    $("done").textContent = done.includes(view) ? "Next" : "Done";
+    $("done").disabled = false;
+  } else {
+    $("title").textContent = `Socket ${s.socket} done`;
+    $("line").textContent = next >= 0 ? `Next: socket ${sockets[next].socket} (${short(sockets[next].motor)}).` : "All sockets have their caps.";
+    $("done").textContent = next >= 0 ? `Go to socket ${sockets[next].socket}` : "All done";
+    $("done").disabled = next < 0;
+  }
+  $("warn").hidden = view !== 4;
+  $("warn").innerHTML = "<b>Check the EN corner.</b> A driver put in backwards burns out when 24 V comes on.";
+  $("back").disabled = view === 0;
+  $("steps").innerHTML = st.map(([h], k) =>
+    `<li data-k="${k}" class="${k === view ? "current" : ""} ${done.includes(k) ? "done" : ""}">${esc(h)}</li>`).join("");
+  $("steps").querySelectorAll("li").forEach((li) => li.onclick = () => { view = +li.dataset.k; render(); });
+  const e = emptyList(s.micro);
+  $("wireHow").innerHTML = e
+    ? `Wrap it around both pins of <b>${capList(s.micro)}</b>. It must not touch ${e}.`
+    : `Wrap it tightly around <b>all 6 pins</b>, so every pin touches it.`;
+  const t = testDeg(s);
+  const rows = [16, 8, 4, 2, 1].filter((m) => m <= s.micro).map((m) => {
+    const what = m === s.micro ? "correct" : m === 1 ? "no caps (full steps)" : `1/${m}: a cap is missing or loose`;
+    return `<tr><td class="num">${+(t * s.micro / m).toFixed(1)}°</td><td>${what}</td></tr>`;
+  });
+  $("chk").innerHTML = `<table><tr><th>A ${t}° jog turns</th><th>Means</th></tr>${rows.join("")}</table>`;
+}
+function render() { if (!sockets.length) return; renderStrip(); renderSide(); draw(); }
+
+$("back").onclick = () => { view = Math.max(0, view - 1); render(); };
+$("done").onclick = async () => {
+  const s = sockets[sel];
+  if (view >= LAST) { const next = sockets.findIndex((o) => !finished(o)); if (next >= 0) pick(next); return; }
+  const arr = (state[s.socket] ||= []);
+  if (!arr.includes(view)) { arr.push(view); arr.sort((a, b) => a - b); await mechy.writeYAML(STATE, state).catch(() => {}); }
+  view = finished(s) ? LAST : view + 1;
+  render();
+};
+
+async function load() {
+  const drv = await mechy.readYAML("hw/drivers.yaml").catch(() => null);
+  const wiring = await mechy.readYAML("hw/wiring.yaml").catch(() => null);
+  state = (await mechy.readYAML(STATE).catch(() => null)) || {};
+  const d0 = (drv && drv.drivers && drv.drivers[0]) || {};
+  const by = d0.microsteps_by_socket || {};
+  const label = {};
+  for (const c of (wiring && wiring.connections) || []) {
+    const m = /^shield\.([XYZA])1A$/.exec(c.from || "");
+    if (m) {
+      const pid = String(c.to).split(".")[0], part = (wiring.parts || []).find((p) => p.id === pid);
+      label[m[1]] = part ? (part.label || pid) : pid;
+    }
+  }
+  const keys = Object.keys(by).length ? Object.keys(by) : ["X", "Y", "Z", "A"];
+  sockets = keys.map((k) => ({ socket: k, motor: label[k] || "motor", micro: +(by[k] || d0.microsteps || 16) }));
+  $("fallback").hidden = !!d0.microsteps_by_socket;
+  if (!load.done) {
+    const open = sockets.findIndex((s) => !finished(s)), z = sockets.findIndex((s) => /yaw/i.test(s.motor) && !finished(s));
+    sel = z >= 0 ? z : Math.max(open, 0);
+    view = firstOpen(sockets[sel]);
+    load.done = true;
+  }
+  if (sel >= sockets.length) { sel = 0; view = firstOpen(sockets[0]); }
+  render();
+}
+mechy.on("change", (paths) => { if (paths.some((p) => /hw\/(drivers|wiring)\.yaml$/.test(p))) load(); });
+load();
+</script>
+</body>
+</html>

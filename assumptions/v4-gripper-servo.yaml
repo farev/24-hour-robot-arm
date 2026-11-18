@@ -1,0 +1,9 @@
+id: v4-gripper-servo
+made_by: chat
+text: The new parallel-jaw gripper (v4) keeps the MG996R servo already in the cart
+  (about 16 N per jaw estimate) rather than the MG90S shown in the picture.
+alternatives:
+- 'MG90S like the picture: 42 g lighter at the wrist (more payload), but only about
+  3-4 N per jaw (estimate)'
+created: '2026-11-05T19:02:26+00:00'
+override: null

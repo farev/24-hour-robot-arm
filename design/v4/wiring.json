@@ -1,0 +1,89 @@
+{
+  "source": "firmware/arm_v4/arm_v4.ino (STEP_PIN {4,3,2,12}, DIR_PIN {7,6,5,13}, EN 8, YAW_SW 11, GRIP A3), docs/bring-up.md, parts/compatibility.yaml; checked 2026-11-10",
+  "controller": {
+    "label": "Arduino Uno R3 + CNC Shield V3",
+    "node": "uno-cnc-shield",
+    "owned": true,
+    "spec": "4 x A4988 (X, Y, Z, A); A axis on D12/D13 via the two A-jumpers; EN D8 (all drivers); USB-B to the computer",
+    "pins": [
+      {"id": "EN", "signal": "D8: all drivers enable (LOW = on)"},
+      {"id": "USB", "signal": "USB-B to the computer (115200 baud, firmware arm_v4)"}
+    ]
+  },
+  "psu": {
+    "label": "24 V 6 A supply (owned)",
+    "owned": true,
+    "spec": "24 V DC, 6 A, barrel plug; unplugging it is the e-stop (lower the arm first)",
+    "pins": [{"id": "+", "signal": "+24 V"}, {"id": "-", "signal": "0 V"}]
+  },
+  "drivers": {
+    "count": 4,
+    "owned": true,
+    "sockets": [
+      {"axis": "Z", "step": "D4", "dir": "D7", "current": "1.0 A (Vref 0.80 V on R100)", "microstep": "1/16 (3 jumpers)"},
+      {"axis": "Y", "step": "D3", "dir": "D6", "current": "1.0 A (Vref 0.80 V on R100)", "microstep": "1/8 (MS1 + MS2)"},
+      {"axis": "X", "step": "D2", "dir": "D5", "current": "1.0 A (Vref 0.80 V on R100)", "microstep": "1/16 (3 jumpers)"},
+      {"axis": "A", "step": "D12", "dir": "D13", "current": "0.7 A (Vref 0.56 V on R100)", "microstep": "1/16 (3 jumpers)"}
+    ]
+  },
+  "components": [
+    {"id": "buck-converter", "label": "XL4015 buck (servo 6.3 V)", "kind": "power", "node": "buck-converter",
+     "spec": "24 V in, set 6.3 V out with a meter BEFORE connecting the servo (it can output up to 36 V)",
+     "pins": [{"id": "IN+", "signal": "+24 V"}, {"id": "IN-", "signal": "0 V"}, {"id": "OUT+", "signal": "+6.3 V"}, {"id": "OUT-", "signal": "0 V"}]},
+    {"id": "yaw-motor", "label": "Yaw motor (XY42STH40, base)", "kind": "motor", "node": "yaw-motor", "depth": 0, "spec": "NEMA 17, 1.2 A rated, run at 1.0 A"},
+    {"id": "shoulder-motor", "label": "Shoulder motor (XY42STH40, turret)", "kind": "motor", "node": "shoulder-motor", "depth": 1, "spec": "NEMA 17, 1.2 A rated, run at 1.0 A"},
+    {"id": "elbow-motor", "label": "Elbow motor (XY42STH40, lower shank)", "kind": "motor", "node": "elbow-motor", "depth": 2, "spec": "NEMA 17, 1.2 A rated, run at 1.0 A"},
+    {"id": "wrist-motor", "label": "Wrist motor (HEM-17D2008-10, upper shank)", "kind": "motor", "node": "wrist-motor", "depth": 3, "spec": "NEMA 17 34 mm, 0.8 A rated, run at 0.7 A"},
+    {"id": "gripper-servo", "label": "Gripper servo (MG996R)", "kind": "servo", "node": "gripper-servo", "depth": 4, "spec": "4.8-7.2 V, stall 2.5 A at 6 V"},
+    {"id": "yaw-switch", "label": "Yaw homing switch (KW12-3)", "kind": "endstop", "node": "yaw-switch", "depth": 0, "spec": "SPDT roller lever, C + NO used, soldered leads"}
+  ],
+  "cables": [
+    {"id": "power-24v", "label": "24 V: supply to shield terminal", "kind": "power",
+     "from": {"comp": "psu", "port": "barrel plug"}, "to": {"comp": "controller", "port": "blue power terminal (+ / -)"},
+     "conductors": [{"signal": "+24 V", "color": "red", "pin": "PWR +"}, {"signal": "0 V", "color": "black", "pin": "PWR -"}],
+     "gauge": "18 AWG", "connector": ["barrel plug pigtail", "screw terminal"]},
+    {"id": "buck-in", "label": "24 V: shield terminal to buck input", "kind": "power",
+     "from": {"comp": "controller", "port": "blue power terminal (shared)"}, "to": {"comp": "buck-converter", "port": "IN+ / IN-"},
+     "conductors": [{"signal": "+24 V", "color": "red", "pin": "PWR +"}, {"signal": "0 V", "color": "black", "pin": "PWR -"}],
+     "gauge": "22 AWG", "connector": ["screw terminal", "screw terminal"]},
+    {"id": "motor-yaw", "label": "Z axis: yaw motor", "kind": "motor", "axis": "Z",
+     "from": {"comp": "controller", "port": "Z motor header"}, "to": {"comp": "yaw-motor", "port": "motor socket"},
+     "conductors": [{"signal": "A+ (coil 1)", "color": "black", "pin": "Z.1A"}, {"signal": "A- (coil 1)", "color": "green", "pin": "Z.1B"},
+                    {"signal": "B+ (coil 2)", "color": "red", "pin": "Z.2A"}, {"signal": "B- (coil 2)", "color": "blue", "pin": "Z.2B"}],
+     "gauge": "22 AWG", "connector": ["4-pin header plug", "motor socket"], "logic": "STEP D4 · DIR D7 · EN D8"},
+    {"id": "motor-shoulder", "label": "Y axis: shoulder motor", "kind": "motor", "axis": "Y",
+     "from": {"comp": "controller", "port": "Y motor header"}, "to": {"comp": "shoulder-motor", "port": "motor socket"},
+     "conductors": [{"signal": "A+ (coil 1)", "color": "black", "pin": "Y.1A"}, {"signal": "A- (coil 1)", "color": "green", "pin": "Y.1B"},
+                    {"signal": "B+ (coil 2)", "color": "red", "pin": "Y.2A"}, {"signal": "B- (coil 2)", "color": "blue", "pin": "Y.2B"}],
+     "gauge": "22 AWG", "connector": ["4-pin header plug", "motor socket"], "logic": "STEP D3 · DIR D6 · EN D8"},
+    {"id": "motor-elbow", "label": "X axis: elbow motor", "kind": "motor", "axis": "X",
+     "from": {"comp": "controller", "port": "X motor header"}, "to": {"comp": "elbow-motor", "port": "motor socket"},
+     "conductors": [{"signal": "A+ (coil 1)", "color": "black", "pin": "X.1A"}, {"signal": "A- (coil 1)", "color": "green", "pin": "X.1B"},
+                    {"signal": "B+ (coil 2)", "color": "red", "pin": "X.2A"}, {"signal": "B- (coil 2)", "color": "blue", "pin": "X.2B"}],
+     "gauge": "22 AWG", "connector": ["4-pin header plug", "motor socket"], "logic": "STEP D2 · DIR D5 · EN D8"},
+    {"id": "motor-wrist", "label": "A axis: wrist motor", "kind": "motor", "axis": "A",
+     "from": {"comp": "controller", "port": "A motor header"}, "to": {"comp": "wrist-motor", "port": "motor socket"},
+     "conductors": [{"signal": "A+ (coil 1)", "color": "black", "pin": "A.1A"}, {"signal": "A- (coil 1)", "color": "green", "pin": "A.1B"},
+                    {"signal": "B+ (coil 2)", "color": "red", "pin": "A.2A"}, {"signal": "B- (coil 2)", "color": "blue", "pin": "A.2B"}],
+     "gauge": "22 AWG", "connector": ["4-pin header plug", "motor socket"], "logic": "STEP D12 · DIR D13 (A-axis jumpers fitted) · EN D8"},
+    {"id": "servo-signal", "label": "Servo signal: A3 + GND", "kind": "servo",
+     "from": {"comp": "controller", "port": "CoolEn header (A3) + GND"}, "to": {"comp": "gripper-servo", "port": "servo plug: orange + brown"},
+     "conductors": [{"signal": "PWM", "color": "orange", "pin": "A3 (CoolEn)"}, {"signal": "GND (common)", "color": "brown", "pin": "GND"}],
+     "gauge": "26 AWG", "connector": ["2 x Dupont F", "servo plug (M-F jumpers)"], "logic": "Servo library on A3, 1250-1920 us"},
+    {"id": "servo-power", "label": "Servo power: buck 6.3 V", "kind": "servo",
+     "from": {"comp": "buck-converter", "port": "OUT+ / OUT-"}, "to": {"comp": "gripper-servo", "port": "servo plug: red + brown"},
+     "conductors": [{"signal": "+6.3 V (two jumpers in parallel)", "color": "red", "pin": "OUT+"}, {"signal": "0 V (two jumpers in parallel)", "color": "brown", "pin": "OUT-"}],
+     "gauge": "2 x 26 AWG", "connector": ["screw terminal", "servo plug (M-F jumpers)"]},
+    {"id": "yaw-switch", "label": "Yaw home switch: Z- (D11)", "kind": "endstop",
+     "from": {"comp": "controller", "port": "Z limit header (D11)"}, "to": {"comp": "yaw-switch", "port": "C + NO lugs"},
+     "conductors": [{"signal": "Signal (NO)", "color": "white", "pin": "Z- (D11)"}, {"signal": "GND (C)", "color": "black", "pin": "GND"}],
+     "gauge": "26 AWG", "connector": ["2-pin Dupont", "soldered lugs"], "logic": "INPUT_PULLUP, LOW = pressed (cam over the switch for yaw < 0)"}
+  ],
+  "notes": [
+    "Never power the servo from the Uno 5 V pin: it is fed only from the XL4015 (set 6.3 V with a meter first); its ground is also tied to an Uno GND through the signal lead.",
+    "Stepper wire colours vary by maker: find each coil pair with a meter (a few ohms between the two wires of a coil) and put one pair on 1A/1B, the other on 2A/2B. If an axis runs backwards, flip its DIR_INVERT in the firmware.",
+    "Fit the A-axis jumpers (D12/D13) on the shield; the spindle pins are then not available, which is why the servo is on A3.",
+    "Route the motor and servo cables to the zip-tie block on the base's -x edge, then as a free ~0.5 m service loop to the arm; turn the yaw by hand through -150..150 with the cables fitted before powering.",
+    "Read the shield's bulk capacitor (must be 35 V or more for 24 V) and the A4988 sense resistors before setting Vref."
+  ]
+}

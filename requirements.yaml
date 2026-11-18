@@ -1,0 +1,17 @@
+pick:
+  payload_kg: 0.3             # user: lift an object of about 300 g
+  reach_m: 0.30               # user: extend roughly 30 cm from the base axis
+  # computed v4 table reach 287 mm with the gripper pointing down (sim/v4_check.py); 375 mm to the tip stretched out
+  pick_xyz_m: [0.25, 0.0, 0.03]   # table pick near full reach; z = fingertip height above the table
+  place_xyz_m: [0.15, 0.15, 0.05]
+  lift_m: 0.06
+  target_payload_kg: 0.3
+  usable_torque_fraction: 0.5
+  # 2026-11-05 user: build v4 as is and test payload on the bench. sim/v4_check.py at 1.0 A: 48 g inside the
+  # 0.5 fraction, 447 g at full holding torque; 300 g uses 81 % of shoulder holding (estimate).
+  payload_decision: bench test, no margin at 300 g accepted
+constraints:
+  structure: every structural part FDM-printable (PLA, Bambu Lab, 256 mm bed)
+  stores: [Amazon US, Georgia Tech Invention Studio store]
+  country: US
+  owned_thrust_bearing: AXK2035, use only if it helps

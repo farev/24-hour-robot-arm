@@ -1,0 +1,21 @@
+version: 1
+title: Assembly guide
+description: Step-by-step 3D build guide - parts fly in for each step, with hardware,
+  actions, cautions and tick-offs.
+tags:
+- assembly
+- guide
+- build
+- steps
+- instructions
+- 3d
+- exploded
+- how to assemble
+reads:
+- design/*/guide/steps.json
+- design/*/assembly.glb
+- docs/assembly-guide/*.png
+- windows/assembly-guide/progress.yaml
+library: assembly-guide
+updated: '2026-11-13T02:56:07+00:00'
+created: '2026-11-13T02:56:07+00:00'

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "kind": "image",
+  "key": "inspiration/IMG_4095.HEIC",
+  "slug": "img-4095",
+  "input": "inspiration/IMG_4095.HEIC",
+  "title": "IMG_4095",
+  "url": null,
+  "duration_s": null,
+  "license": null,
+  "path": "inspiration/IMG_4095.HEIC",
+  "width": 1536,
+  "height": 2048,
+  "original_format": "JPEG",
+  "image": "inspiration/img-4095/image.jpg",
+  "thumb": "inspiration/img-4095/thumb.jpg",
+  "note": "inspiration/notes/img-4095.md",
+  "note_sha256": "47e1823e2482e5c98331d653bc317f0e3fcda5f85ec6d6918721743d404bcc94",
+  "warnings": []
+}

@@ -1,0 +1,732 @@
+note: 'Serial 4-DOF arm (yaw, shoulder, elbow, wrist) + parallel-jaw gripper: crank
+  B, both idler links and both jaws are coupled to crank A (jaws counter-rotate on
+  their crank pins, so they translate). Joints named *-stack / *-pin / mount-* are
+  coupled counter-rotations that keep round bolts, nuts and washers at the fixed orientation
+  the snapshots use.'
+joints:
+- id: yaw
+  label: Base yaw
+  type: revolute
+  parent: null
+  origin:
+  - 0
+  - 0
+  - 0
+  axis:
+  - 0
+  - 0
+  - 1
+  parts:
+  - turret
+  - yaw-pulley
+  - yaw-bolt
+  - yaw-nut
+  - deck-screw-1
+  - deck-screw-2
+  - deck-screw-3
+  - deck-screw-4
+  - deck-nut-1
+  - deck-nut-2
+  - deck-nut-3
+  - deck-nut-4
+  - shoulder-motor
+  - shoulder-motor-plug-keepout
+  - shoulder-motor-pulley
+  - belt-sh1
+  - belt-sh2
+  - shoulder-motor-screw-1
+  - shoulder-motor-screw-2
+  - shoulder-motor-screw-3
+  - shoulder-motor-screw-4
+  - s-axle
+  - s-nut
+  - s-washer-left
+  - s-washer-right
+  - i-axle
+  - i-nut
+  - i-washer-left
+  - i-washer-right
+  - sh-compound
+  - i-bearing-1
+  - i-bearing-2
+  - spacer-i
+  - spacer-i-2
+  - spacer-s
+  - spacer-ls
+  - lower-bearing-1
+  - lower-bearing-2
+  home: 0
+  limits:
+  - -150
+  - 150
+- id: shoulder
+  label: Shoulder (lower shank pitch)
+  type: revolute
+  parent: yaw
+  origin:
+  - 10
+  - 0
+  - 116
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - lower-shank
+  - elbow-motor
+  - elbow-motor-plug-keepout
+  - elbow-motor-pulley
+  - belt-elbow
+  - elbow-motor-screw-1
+  - elbow-motor-screw-2
+  - elbow-motor-screw-3
+  - elbow-motor-screw-4
+  home: 90
+  limits:
+  - 20
+  - 140
+- id: e-stack
+  type: revolute
+  parent: shoulder
+  origin:
+  - 10
+  - 0
+  - 266
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - e-bolt
+  - e-washer-1
+  - e-washer-2
+  - e-nut
+  - elbow-bearing-1
+  - elbow-bearing-2
+  - spacer-e
+  home: 0
+  limits:
+  - -360
+  - 360
+  coupled:
+  - joint: shoulder
+    ratio: -1
+- id: elbow
+  label: Elbow (relative)
+  type: revolute
+  parent: shoulder
+  origin:
+  - 10
+  - 0
+  - 266
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - upper-shank
+  - wrist-motor
+  - wrist-motor-pulley
+  - belt-wrist
+  - wrist-motor-screw-1
+  - wrist-motor-screw-2
+  - wrist-motor-screw-3
+  - wrist-motor-screw-4
+  home: -90
+  limits:
+  - -135
+  - 100
+- id: w-stack
+  type: revolute
+  parent: elbow
+  origin:
+  - 160
+  - 0
+  - 266
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - wrist-axle
+  - wrist-washer
+  - wrist-bearing-1
+  - wrist-bearing-2
+  - spacer-w
+  - wrist-nut
+  home: 0
+  limits:
+  - -720
+  - 720
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+- id: wrist
+  label: Wrist (relative)
+  type: revolute
+  parent: elbow
+  origin:
+  - 160
+  - 0
+  - 266
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - wrist-pulley
+  - wrist-flange
+  - gripper-base
+  - gripper-servo
+  - gripper-horn
+  home: -90
+  limits:
+  - -95
+  - 95
+- id: pivot-b-stack
+  type: revolute
+  parent: wrist
+  origin:
+  - 172
+  - 0
+  - 228
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - grip-pivot
+  - grip-pivot-nut
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: idler-pivot-a-stack
+  type: revolute
+  parent: wrist
+  origin:
+  - 128.076
+  - 0
+  - 229.743
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - idler-pivot-a
+  - idler-pivot-nut-a
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: idler-pivot-b-stack
+  type: revolute
+  parent: wrist
+  origin:
+  - 191.924
+  - 0
+  - 229.743
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - idler-pivot-b
+  - idler-pivot-nut-b
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: mount-1
+  type: revolute
+  parent: wrist
+  origin:
+  - 150.101
+  - 0
+  - 256.101
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - grip-mount-screw-1
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: mount-2
+  type: revolute
+  parent: wrist
+  origin:
+  - 150.101
+  - 0
+  - 275.899
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - grip-mount-screw-2
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: mount-3
+  type: revolute
+  parent: wrist
+  origin:
+  - 169.899
+  - 0
+  - 275.899
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - grip-mount-screw-3
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: mount-4
+  type: revolute
+  parent: wrist
+  origin:
+  - 169.899
+  - 0
+  - 256.101
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - grip-mount-screw-4
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: crank-a
+  label: Gripper (crank angle, -10 closed .. 50 open)
+  type: revolute
+  parent: wrist
+  origin:
+  - 148
+  - 0
+  - 228
+  axis:
+  - 0
+  - 1
+  - 0
+  parts:
+  - crank-gear-a
+  home: 20
+  limits:
+  - -10
+  - 50
+- id: crank-b
+  type: revolute
+  parent: wrist
+  origin:
+  - 172
+  - 0
+  - 228
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - crank-gear-b
+  home: 20
+  limits:
+  - -10
+  - 50
+  coupled:
+  - joint: crank-a
+    ratio: 1
+- id: idler-a
+  type: revolute
+  parent: wrist
+  origin:
+  - 128.076
+  - 0
+  - 229.743
+  axis:
+  - 0
+  - 1
+  - 0
+  parts:
+  - idler-link-a
+  home: 20
+  limits:
+  - -10
+  - 50
+  coupled:
+  - joint: crank-a
+    ratio: 1
+- id: idler-b
+  type: revolute
+  parent: wrist
+  origin:
+  - 191.924
+  - 0
+  - 229.743
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - idler-link-b
+  home: 20
+  limits:
+  - -10
+  - 50
+  coupled:
+  - joint: crank-a
+    ratio: 1
+- id: jaw-a
+  type: revolute
+  parent: crank-a
+  origin:
+  - 139.107
+  - 0
+  - 203.568
+  axis:
+  - 0
+  - 1
+  - 0
+  parts:
+  - jaw-a
+  home: 0
+  limits:
+  - -60
+  - 60
+  coupled:
+  - joint: crank-a
+    ratio: -1
+- id: jaw-b
+  type: revolute
+  parent: crank-b
+  origin:
+  - 180.893
+  - 0
+  - 203.568
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - jaw-b
+  home: 0
+  limits:
+  - -60
+  - 60
+  coupled:
+  - joint: crank-a
+    ratio: -1
+- id: j1-pin-a-stack
+  type: revolute
+  parent: jaw-a
+  origin:
+  - 139.107
+  - 0
+  - 203.568
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - j1-pin-a
+  - j1-nut-a
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: j2-pin-a-stack
+  type: revolute
+  parent: jaw-a
+  origin:
+  - 119.184
+  - 0
+  - 205.311
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - j2-pin-a
+  - j2-nut-a
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: j1-pin-b-stack
+  type: revolute
+  parent: jaw-b
+  origin:
+  - 180.893
+  - 0
+  - 203.568
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - j1-pin-b
+  - j1-nut-b
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+- id: j2-pin-b-stack
+  type: revolute
+  parent: jaw-b
+  origin:
+  - 200.816
+  - 0
+  - 205.311
+  axis:
+  - 0
+  - -1
+  - 0
+  parts:
+  - j2-pin-b
+  - j2-nut-b
+  home: 0
+  limits:
+  - -1080
+  - 1080
+  coupled:
+  - joint: shoulder
+    ratio: -1
+  - joint: elbow
+    ratio: -1
+  - joint: wrist
+    ratio: -1
+poses:
+- name: gripper-closed
+  values:
+    yaw: 0
+    shoulder: 90
+    elbow: -90
+    wrist: -90
+    crank-a: -10
+- name: gripper-open
+  values:
+    yaw: 0
+    shoulder: 90
+    elbow: -90
+    wrist: -90
+    crank-a: 50
+- name: reach-table
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: -45
+    wrist: -65
+    crank-a: 50
+- name: elbow-up
+  values:
+    yaw: 0
+    shoulder: 70
+    elbow: 80
+    wrist: -90
+    crank-a: 20
+- name: elbow-folded
+  values:
+    yaw: 0
+    shoulder: 110
+    elbow: -135
+    wrist: 45
+    crank-a: -10
+- name: stretched
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: 0
+    wrist: 0
+    crank-a: 20
+- name: yaw-limit
+  values:
+    yaw: 150
+    shoulder: 60
+    elbow: -80
+    wrist: -70
+    crank-a: 20
+- name: wrist-limit-pos
+  values:
+    yaw: 0
+    shoulder: 90
+    elbow: -90
+    wrist: 95
+    crank-a: 20
+- name: wrist-limit-neg
+  values:
+    yaw: 0
+    shoulder: 90
+    elbow: -90
+    wrist: -95
+    crank-a: 20
+- name: reach-wrist-pos
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: -45
+    wrist: 95
+    crank-a: 20
+- name: reach-wrist-neg
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: -45
+    wrist: -95
+    crank-a: 20
+- name: elbow-back-q2max
+  values:
+    yaw: 0
+    shoulder: 130
+    elbow: 100
+    wrist: 0
+    crank-a: 20
+- name: elbow-up-q2max
+  values:
+    yaw: 0
+    shoulder: 90
+    elbow: 100
+    wrist: 0
+    crank-a: 20
+- name: fold-low
+  values:
+    yaw: 0
+    shoulder: 30
+    elbow: -96.4
+    wrist: 46.4
+    crank-a: 20
+- name: reach-low
+  values:
+    yaw: 0
+    shoulder: 20
+    elbow: -74.6
+    wrist: 29.6
+    crank-a: 20
+assembly_sha256: fcbc02a29caed26599cfbadce77c649117e43891e9cd5d9b3a0a8f809f8fbb1a
+glb_sha256: aa44280cb5bd7ebc1101d28cc575689614562ec4e33f8bed4ef6ac87c68d64e5
+checked:
+  ok: true
+  poses:
+  - name: gripper-closed
+    max_pos_err_mm: 0.0002
+    max_rot_err_deg: 0.0
+  - name: gripper-open
+    max_pos_err_mm: 0.0003
+    max_rot_err_deg: 0.0
+  - name: reach-table
+    max_pos_err_mm: 0.0003
+    max_rot_err_deg: 0.0
+  - name: elbow-up
+    max_pos_err_mm: 0.0014
+    max_rot_err_deg: 0.0
+  - name: elbow-folded
+    max_pos_err_mm: 0.0012
+    max_rot_err_deg: 0.0
+  - name: stretched
+    max_pos_err_mm: 0.0012
+    max_rot_err_deg: 0.0
+  - name: yaw-limit
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 0.0
+  - name: wrist-limit-pos
+    max_pos_err_mm: 0.0014
+    max_rot_err_deg: 0.0
+  - name: wrist-limit-neg
+    max_pos_err_mm: 0.0001
+    max_rot_err_deg: 0.0
+  - name: reach-wrist-pos
+    max_pos_err_mm: 0.0014
+    max_rot_err_deg: 0.0
+  - name: reach-wrist-neg
+    max_pos_err_mm: 0.0004
+    max_rot_err_deg: 0.0
+  - name: elbow-back-q2max
+    max_pos_err_mm: 0.0005
+    max_rot_err_deg: 0.0
+  - name: elbow-up-q2max
+    max_pos_err_mm: 0.0009
+    max_rot_err_deg: 0.0
+  - name: fold-low
+    max_pos_err_mm: 0.0008
+    max_rot_err_deg: 0.0
+  - name: reach-low
+    max_pos_err_mm: 0.0008
+    max_rot_err_deg: 0.0

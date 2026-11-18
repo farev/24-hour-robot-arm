@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assembly guide</title>
+<!--
+  Assembly guide window. Reads design/<variant>/guide/steps.json (written by design/<variant>/guide/build_guide.py)
+  and design/<variant>/assembly.glb (part nodes named by assembly part id). Each step shows the arm as built so far:
+  earlier parts grey, this step's parts fly in highlighted, later parts hidden. Tick-offs are saved to
+  windows/assembly-guide/progress.yaml.
+-->
+<style>
+  html, body { height: 100%; margin: 0; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  .top { display: flex; align-items: center; gap: var(--space-m); padding: var(--space-s) var(--space-l);
+         border-bottom: 1px solid var(--hairline); background: var(--chrome); flex-wrap: wrap; }
+  .top h1 { font-size: 15px; margin: 0; }
+  .bar { flex: 1; min-width: 140px; height: 6px; border-radius: 3px; background: var(--wash); overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width var(--motion-move); }
+  .main { flex: 1; display: grid; grid-template-columns: 220px 1fr 340px; min-height: 0; }
+  @media (max-width: 1050px) { .main { grid-template-columns: 1fr 320px; } nav { display: none; } }
+  @media (max-width: 720px) { .main { grid-template-columns: 1fr; grid-template-rows: 46vh 1fr; } }
+  nav { border-right: 1px solid var(--hairline); overflow-y: auto; padding: var(--space-s); }
+  nav button { display: flex; gap: var(--space-s); align-items: flex-start; width: 100%; text-align: left;
+               background: none; border: 1px solid transparent; border-radius: var(--radius-control);
+               padding: var(--space-s); margin-bottom: var(--space-xxs); color: var(--ink); cursor: pointer;
+               font: inherit; transition: background var(--motion-hover); }
+  nav button:hover { background: var(--wash); }
+  nav button.cur { border-color: var(--accent); background: var(--accent-wash); }
+  .num { flex: none; width: 22px; height: 22px; border-radius: 11px; display: grid; place-items: center;
+         font-size: 11px; font-weight: 600; border: 1px dashed var(--frame); color: var(--muted); }
+  .done .num { border: 1px solid var(--good); background: var(--good); color: var(--surface); }
+  .cur .num { border: 1px solid var(--accent); color: var(--accent); }
+  .done.cur .num { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .hold .num { border-color: var(--warning); color: var(--warning); }
+  nav .t { font-size: 12.5px; line-height: 1.3; }
+  .stage { position: relative; min-height: 0; background: var(--paper); }
+  .stage canvas { display: block; width: 100%; height: 100%; }
+  .overlay { position: absolute; left: var(--space-m); top: var(--space-m); right: var(--space-m);
+             display: flex; gap: var(--space-s); flex-wrap: wrap; pointer-events: none; }
+  .chip { pointer-events: auto; font-size: 11px; padding: 3px 8px; border-radius: var(--radius-bar);
+          background: var(--raised); border: 1px solid var(--hairline); color: var(--muted); }
+  .chip.k { color: var(--ink); }
+  .chip .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .tools { position: absolute; right: var(--space-m); bottom: var(--space-m); display: flex; gap: var(--space-xs); flex-wrap: wrap; justify-content: flex-end; }
+  .tools button { font-size: 11.5px; padding: 5px 9px; }
+  .tools button.on { border-color: var(--accent); color: var(--accent); }
+  .tip { position: absolute; pointer-events: none; font-size: 11px; padding: 3px 7px; border-radius: var(--radius-small);
+         background: var(--raised); border: 1px solid var(--frame); box-shadow: var(--shadow); display: none; white-space: nowrap; }
+  .card { overflow-y: auto; border-left: 1px solid var(--hairline); padding: var(--space-l); }
+  @media (max-width: 720px) { .card { border-left: none; border-top: 1px solid var(--hairline); } }
+  .card h2 { font-size: 17px; margin: 2px 0 var(--space-m); line-height: 1.25; }
+  .card h3 { margin: var(--space-l) 0 var(--space-s); }
+  .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .tag { font-size: 11.5px; padding: 3px 8px; border-radius: var(--radius-small); background: var(--wash); }
+  .tag.p { background: var(--accent-wash); }
+  ol.acts { padding-left: 0; list-style: none; margin: 0; counter-reset: a; }
+  ol.acts li { counter-increment: a; position: relative; padding: var(--space-s) 0 var(--space-s) 30px;
+               border-bottom: 1px solid var(--hairline); font-size: 13px; line-height: 1.45; }
+  ol.acts li::before { content: counter(a); position: absolute; left: 0; top: 9px; width: 20px; height: 20px;
+                       border-radius: 10px; background: var(--accent-wash); color: var(--accent); font-size: 11px;
+                       font-weight: 600; display: grid; place-items: center; }
+  .caution { margin-top: var(--space-m); padding: var(--space-s) var(--space-m); border-radius: var(--radius-card);
+             background: var(--warning-wash); border: 1px solid var(--warning); font-size: 12.5px; line-height: 1.4; }
+  .caution b { color: var(--warning); }
+  .nav2 { display: flex; gap: var(--space-s); margin-top: var(--space-l); align-items: center; }
+  .nav2 .grow { flex: 1; }
+  .check { display: flex; align-items: center; gap: var(--space-s); font-size: 13px; cursor: pointer; user-select: none; }
+  .check input { width: 16px; height: 16px; accent-color: var(--accent); }
+  img.detail { width: 100%; border-radius: var(--radius-card); border: 1px solid var(--hairline); margin-top: var(--space-s); background: var(--surface); }
+  .kbd { font-size: 11px; color: var(--muted); }
+</style>
+<script type="importmap">
+{"imports": {
+  "three": "mechy-window://local/vendor/three/build/three.module.min.js",
+  "three/addons/": "mechy-window://local/vendor/three/examples/jsm/"
+}}
+</script>
+</head>
+<body>
+<div class="top">
+  <h1>Assembly guide</h1>
+  <span class="label" id="sub"></span>
+  <div class="bar" title="Steps ticked off"><i id="prog"></i></div>
+  <span class="kbd" id="count"></span>
+</div>
+<div class="main" id="main">
+  <nav id="nav"></nav>
+  <div class="stage" id="stage">
+    <div class="overlay" id="legend"></div>
+    <div class="tools">
+      <button id="replay" title="Play this step's parts flying in again">Replay</button>
+      <button id="explode" title="Spread this step's parts apart">Explode</button>
+      <button id="ghost" title="Show the finished arm as a faint outline">Finished arm</button>
+      <button id="frame" title="Frame this step's parts">Focus</button>
+    </div>
+    <div class="tip" id="tip"></div>
+  </div>
+  <div class="card" id="card"></div>
+</div>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const variant = (mechy.project && mechy.project.variant) || "v4";
+const STEPS = `design/${variant}/guide/steps.json`;
+const PROGRESS = "windows/assembly-guide/progress.yaml";
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const nice = (id) => id.replace(/-/g, " ");
+
+let data = null, cur = 0, done = new Set(), model = null, parts = new Map(), stepOf = new Map();
+let ghostOn = false, explodeOn = false, anim = null;
+
+// ---------------- 3D ----------------
+const stage = $("stage");
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+stage.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, 1, 0.001, 50);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8a8a, 2.2));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(1, 2, 1.5); scene.add(sun);
+const fill = new THREE.DirectionalLight(0xffffff, 0.6); fill.position.set(-1.5, 0.5, -1); scene.add(fill);
+
+const MAT = {};
+function makeMaterials() {
+  const dark = mechy.theme === "dark";
+  scene.background = new THREE.Color(css("--paper") || (dark ? "#1a1a1a" : "#ececea"));
+  const accent = new THREE.Color(css("--accent") || "#2f7fd8");
+  MAT.done = new THREE.MeshStandardMaterial({ color: dark ? 0x6c6c68 : 0xcfcfcb, roughness: 0.75, metalness: 0.05 });
+  MAT.new = new THREE.MeshStandardMaterial({ color: accent, roughness: 0.45, metalness: 0.1, emissive: accent, emissiveIntensity: 0.18 });
+  MAT.belt = new THREE.MeshStandardMaterial({ color: 0x1e1e1e, roughness: 0.8 });
+  MAT.beltNew = new THREE.MeshStandardMaterial({ color: 0x1e1e1e, roughness: 0.8, emissive: accent, emissiveIntensity: 0.35 });
+  MAT.ghost = new THREE.MeshBasicMaterial({ color: dark ? 0xffffff : 0x000000, transparent: true, opacity: 0.06, depthWrite: false });
+}
+makeMaterials();
+
+function resize() {
+  const r = stage.getBoundingClientRect();
+  renderer.setSize(r.width, r.height, false);
+  camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage);
+
+async function loadModel() {
+  const gltf = await new GLTFLoader().loadAsync(mechy.url(data.model || `design/${variant}/assembly.glb`)).catch(() => null);
+  if (!gltf) return false;
+  if (model) scene.remove(model);
+  model = gltf.scene; scene.add(model);
+  model.updateMatrixWorld(true);
+  parts = new Map();
+  model.traverse((o) => {
+    if (!o.name || parts.has(o.name) || o === model) return;
+    let hasMesh = false; o.traverse((m) => { if (m.isMesh) hasMesh = true; });
+    if (!hasMesh || o.name === "assembly") return;
+    if (/keep-?out/i.test(o.name)) { o.visible = false; return; }
+    const meshes = []; o.traverse((m) => { if (m.isMesh) meshes.push(m); });
+    const ghost = meshes.map((m) => { const g = new THREE.Mesh(m.geometry, MAT.ghost); g.renderOrder = -1; m.parent.add(g); g.position.copy(m.position); g.quaternion.copy(m.quaternion); g.scale.copy(m.scale); return g; });
+    parts.set(o.name, { obj: o, meshes, ghost, home: o.position.clone(), belt: /^belt-/.test(o.name) });
+  });
+  return true;
+}
+
+function partsBox(ids) {
+  const b = new THREE.Box3(), t = new THREE.Box3();
+  for (const id of ids) { const p = parts.get(id); if (p && p.obj.visible) { t.setFromObject(p.obj); b.union(t); } }
+  return b;
+}
+function frame(ids, instant = false) {
+  if (!model) return;
+  let box = partsBox(ids);
+  const all = new THREE.Box3().setFromObject(model);
+  if (box.isEmpty()) box = all;
+  const size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+  const allSize = all.getSize(new THREE.Vector3());
+  const r = Math.max(size.length() * 0.75, allSize.length() * 0.28);
+  const dir = new THREE.Vector3(1, 0.75, 1.15).normalize();
+  const to = c.clone().addScaledVector(dir, r / Math.tan((camera.fov * Math.PI) / 360));
+  if (instant) { camera.position.copy(to); controls.target.copy(c); controls.update(); return; }
+  tween(camera.position.clone(), to, controls.target.clone(), c);
+}
+let camTween = null;
+function tween(p0, p1, t0, t1) { camTween = { p0, p1, t0, t1, s: performance.now(), d: 700 }; }
+
+// world "up" offset in each part's parent frame (the model root is rotated Z-up -> Y-up)
+function liftVector(p, amount) {
+  const parentInv = new THREE.Matrix4().copy(p.obj.parent.matrixWorld).invert();
+  const w0 = new THREE.Vector3().setFromMatrixPosition(p.obj.parent.matrixWorld);
+  const up = new THREE.Vector3(0, amount, 0).add(w0).applyMatrix4(parentInv);
+  return up;
+}
+function explodeVector(p, center, amount) {
+  const wc = new THREE.Box3().setFromObject(p.obj).getCenter(new THREE.Vector3());
+  const d = wc.clone().sub(center); if (d.lengthSq() < 1e-10) d.set(0, 1, 0);
+  d.normalize().multiplyScalar(amount); d.y += amount * 0.4;
+  const parentInv = new THREE.Matrix4().copy(p.obj.parent.matrixWorld).invert();
+  const w0 = new THREE.Vector3().setFromMatrixPosition(p.obj.parent.matrixWorld);
+  return d.add(w0).applyMatrix4(parentInv);
+}
+
+function applyStep(play = true) {
+  if (!model || !data) return;
+  const s = data.steps[cur];
+  const newIds = new Set(s.parts);
+  const size = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3()).length();
+  const center = partsBox(s.parts).getCenter(new THREE.Vector3());
+  anim = { s: performance.now(), items: [] };
+  let k = 0;
+  for (const [id, p] of parts) {
+    const si = stepOf.has(id) ? stepOf.get(id) : 0;
+    const isNew = newIds.has(id), isDone = si < cur;
+    p.obj.visible = isNew || isDone;
+    p.obj.position.copy(p.home);
+    for (const g of p.ghost) g.visible = ghostOn && !p.obj.visible;
+    for (const m of p.meshes) m.material = isNew ? (p.belt ? MAT.beltNew : MAT.new) : (p.belt ? MAT.belt : MAT.done);
+    if (isNew) {
+      const rest = explodeOn ? p.home.clone().add(explodeVector(p, center, size * 0.06)) : p.home.clone();
+      const from = rest.clone().add(liftVector(p, size * 0.18));
+      const fastener = /screw|nut|bolt|pin|pivot|washer/.test(id);
+      anim.items.push({ p, from, to: rest, delay: (fastener ? 350 : 0) + k++ * 25 });
+      if (!play) p.obj.position.copy(rest); else p.obj.position.copy(from);
+    }
+  }
+  if (!play) anim = null;
+}
+
+const clock = () => performance.now();
+function loop() {
+  requestAnimationFrame(loop);
+  if (camTween) {
+    const t = Math.min(1, (clock() - camTween.s) / camTween.d), e = 1 - Math.pow(1 - t, 3);
+    camera.position.lerpVectors(camTween.p0, camTween.p1, e); controls.target.lerpVectors(camTween.t0, camTween.t1, e);
+    if (t >= 1) camTween = null;
+  }
+  if (anim) {
+    let live = false;
+    for (const it of anim.items) {
+      const t = Math.min(1, Math.max(0, (clock() - anim.s - it.delay) / 800));
+      const e = 1 - Math.pow(1 - t, 3);
+      it.p.obj.position.lerpVectors(it.from, it.to, e);
+      if (t < 1) live = true;
+    }
+    if (!live) anim = null;
+  }
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+// hover: part name
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(), tip = $("tip");
+renderer.domElement.addEventListener("pointermove", (ev) => {
+  if (!model) return;
+  const r = renderer.domElement.getBoundingClientRect();
+  mouse.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(mouse, camera);
+  const vis = []; for (const p of parts.values()) if (p.obj.visible) vis.push(...p.meshes);
+  const hit = ray.intersectObjects(vis, false)[0];
+  let name = null;
+  if (hit) for (const [id, p] of parts) if (p.meshes.includes(hit.object)) { name = id; break; }
+  if (!name) { tip.style.display = "none"; return; }
+  const si = stepOf.get(name);
+  tip.textContent = `${nice(name)}${si != null ? ` - step ${data.steps[si].n}` : ""}`;
+  tip.style.display = "block";
+  tip.style.left = `${ev.clientX - stage.getBoundingClientRect().left + 12}px`;
+  tip.style.top = `${ev.clientY - stage.getBoundingClientRect().top + 12}px`;
+});
+renderer.domElement.addEventListener("pointerleave", () => { tip.style.display = "none"; });
+
+// ---------------- UI ----------------
+function legend() {
+  $("legend").innerHTML = `<span class="chip k"><span class="sw" style="background:var(--accent)"></span>this step</span>
+    <span class="chip"><span class="sw" style="background:var(--muted);opacity:.5"></span>already fitted</span>
+    <span class="chip">drag to orbit · scroll to zoom</span>`;
+}
+function renderNav() {
+  $("nav").innerHTML = data.steps.map((s, i) => `<button data-i="${i}" class="${i === cur ? "cur" : ""} ${done.has(s.n) ? "done" : ""} ${/after the servo/i.test(s.title) ? "hold" : ""}">
+      <span class="num">${done.has(s.n) ? "&#10003;" : s.n}</span><span class="t">${esc(s.title)}</span></button>`).join("");
+  $("nav").querySelectorAll("button").forEach((b) => b.onclick = () => go(+b.dataset.i));
+  const n = data.steps.length;
+  $("prog").style.width = `${(100 * done.size) / n}%`;
+  $("count").textContent = `${done.size} of ${n} done`;
+}
+function renderCard() {
+  const s = data.steps[cur], n = data.steps.length;
+  const hw = s.hardware.length ? `<h3 class="label">Hardware</h3><div class="tags">${s.hardware.map((h) => `<span class="tag">${esc(h)}</span>`).join("")}</div>` : "";
+  const pr = s.printed.length ? `<h3 class="label">Printed parts</h3><div class="tags">${s.printed.map((p) => `<span class="tag p">${esc(nice(p))}</span>`).join("")}</div>` : "";
+  const det = s.detail ? `<h3 class="label">Close-up</h3><img class="detail" src="${mechy.url(s.detail)}" alt="Exploded close-up" onerror="this.remove()">` : "";
+  const warn = s.cautions.map((c) => `<div class="caution"><b>Caution</b> ${esc(c)}</div>`).join("");
+  $("card").innerHTML = `<div class="label">Step ${s.n} of ${n}${s.parts.length ? ` · ${s.parts.length} parts` : ""}</div>
+    <h2>${esc(s.title)}</h2>${pr}${hw}
+    <h3 class="label">Do this</h3><ol class="acts">${s.actions.map((a) => `<li>${esc(a)}</li>`).join("")}</ol>${warn}${det}
+    <div class="nav2"><button id="prev" ${cur === 0 ? "disabled" : ""}>&larr; Back</button>
+      <label class="check grow"><input type="checkbox" id="tick" ${done.has(s.n) ? "checked" : ""}> Done</label>
+      <button id="next" ${cur === n - 1 ? "disabled" : ""}>Next &rarr;</button></div>
+    <p class="kbd">Keys: &larr; &rarr; step · space tick off · R replay</p>`;
+  $("prev").onclick = () => go(cur - 1);
+  $("next").onclick = () => go(cur + 1);
+  $("tick").onchange = (e) => setDone(s.n, e.target.checked);
+  $("card").scrollTop = 0;
+}
+function go(i, play = true) {
+  if (!data) return;
+  cur = Math.max(0, Math.min(data.steps.length - 1, i));
+  renderNav(); renderCard();
+  applyStep(false);                                   // parts at rest, so the camera frames where they land
+  const s = data.steps[cur];
+  frame(s.parts.length ? s.parts : [...parts.keys()], !play);
+  if (play) applyStep(true);
+}
+async function setDone(n, on) {
+  on ? done.add(n) : done.delete(n);
+  renderNav();
+  await mechy.writeYAML(PROGRESS, { done: [...done].sort((a, b) => a - b), step: data.steps[cur].n }).catch(() => {});
+}
+document.addEventListener("keydown", (e) => {
+  if (!data || e.target.tagName === "INPUT") return;
+  if (e.key === "ArrowRight") go(cur + 1);
+  else if (e.key === "ArrowLeft") go(cur - 1);
+  else if (e.key === " ") { e.preventDefault(); const s = data.steps[cur]; setDone(s.n, !done.has(s.n)); renderCard(); }
+  else if (e.key.toLowerCase() === "r") applyStep(true);
+});
+$("replay").onclick = () => applyStep(true);
+$("frame").onclick = () => { const s = data.steps[cur]; frame(s.parts.length ? s.parts : [...parts.keys()]); };
+$("ghost").onclick = (e) => { ghostOn = !ghostOn; e.target.classList.toggle("on", ghostOn); applyStep(false); };
+$("explode").onclick = (e) => { explodeOn = !explodeOn; e.target.classList.toggle("on", explodeOn); applyStep(true); };
+
+function empty(msg) {
+  $("main").innerHTML = `<div style="padding:var(--space-xl)"><p class="empty">${msg}</p></div>`;
+}
+
+async function load(keepStep = true) {
+  data = await mechy.readJSON(STEPS).catch(() => null);
+  if (!data || !Array.isArray(data.steps) || !data.steps.length) {
+    empty(`No assembly steps yet for ${esc(variant)}. Ask Mechy to run design/${esc(variant)}/guide/build_guide.py.`);
+    return;
+  }
+  stepOf = new Map();
+  data.steps.forEach((s, i) => s.parts.forEach((id) => stepOf.set(id, i)));
+  const prog = await mechy.readYAML(PROGRESS).catch(() => null);
+  done = new Set((prog && prog.done) || []);
+  if (!keepStep && prog && prog.step) cur = Math.max(0, data.steps.findIndex((s) => s.n === prog.step));
+  $("sub").textContent = `${mechy.project ? mechy.project.name : ""} · ${data.variant || variant}`;
+  const ok = await loadModel();
+  if (!ok) $("legend").innerHTML = `<span class="chip">No 3D model (design/${esc(variant)}/assembly.glb) - steps only</span>`;
+  else legend();
+  resize();
+  go(cur, false);
+}
+
+mechy.on("theme", () => { makeMaterials(); applyStep(false); });
+mechy.on("change", (paths) => {
+  if (paths.some((p) => p.endsWith("steps.json") || p.endsWith("assembly.glb"))) load(true);
+});
+await load(false);
+loop();
+</script>
+</body>
+</html>

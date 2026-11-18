@@ -1,0 +1,18 @@
+part: GT2 20T 5 mm bore aluminium pulley (5 pcs, with wrench)
+model_source: datasheet
+source_url: https://www.gates.com/us/en/power-transmission/synchronous-belts.html (built; GT2-20T row of standard_parts/timing_pulleys.csv, Gates PowerGrip GT design manual)
+datasheet: https://www.amazon.com/Aluminum-Timing-Pulley-Wrench-Printer/dp/B078Z6YZCY
+retrieved: "2026-11-04"
+generator: parts/models/gt2-20t-pulley.py
+frame: bore axis Z, origin at hub end face centre (z=0), hub z 0..7, lower flange z 7..8, toothed section z 8..15, upper flange z 15..16, teeth toward +Z; two M3 set-screw holes through the hub at z=3.5 along +X and +Y
+critical_dims:
+  - {name: bore, value_mm: 5.0, tol_mm: 0.05, source: product title (5 mm bore), model_mm: 5.0}
+  - {name: pitch diameter, value_mm: 12.732, tol_mm: 0.05, source: standard_parts/timing_pulleys.csv GT2-20T (2 mm x 20 / pi), model_mm: 12.732}
+  - {name: outside diameter over teeth, value_mm: 12.224, tol_mm: 0.1, source: standard_parts/timing_pulleys.csv GT2-20T, model_mm: 12.224}
+  - {name: flange diameter, value_mm: 16.0, tol_mm: 0.5, source: estimate, model_mm: 16.0}
+  - {name: overall length, value_mm: 16.0, tol_mm: 0.5, source: estimate, model_mm: 16.0}
+  - {name: hub length, value_mm: 7.0, tol_mm: 0.5, source: estimate, model_mm: 7.0}
+  - {name: hub diameter, value_mm: 13.0, tol_mm: 0.5, source: estimate, model_mm: 13.0}
+  - {name: belt section center from hub end, value_mm: 11.5, tol_mm: 0.5, source: estimate (hub 7 + flange 1 + half of 7 mm tooth section), model_mm: 11.5}
+checked: "2026-11-04: 8 of 8 critical dims within tolerance (inspect: bbox 16 x 16 x 16, bore 5.0, M3 holes at z=3.5; teeth cylinder, flanges and hub from generator values)"
+note: Pitch diameter and OD over teeth are from the standard table (value_type standard). Flange, hub, lengths and set-screw position are estimates for the common 16 mm long 6 mm-belt GT2 20T pulley; the Amazon page blocks bots so the listing was not read. Teeth are 20 semicircular grooves (R 0.75) cut at the OD, a simplified GT2 profile. Set-screw holes modelled as 3.0 mm plain holes. Measure with calipers: hub length, hub diameter, flange diameter and overall length if the belt lane position matters (give 0.5 mm extra clearance).

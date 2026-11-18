@@ -1,0 +1,24 @@
+part: High Efficiency Motors HEM-17D2008-10 NEMA 17 stepper (34 mm)
+model_source: datasheet
+source_url: parts/images/hem-17d2008-10.jpg
+datasheet: "none found (label: 0.28 N.m holding torque, 0.8 A/phase, 1.8 deg/step; www.hemotors.com)"
+retrieved: "2026-11-04"
+generator: parts/models/hem-17d2008-10.py
+frame: origin at the centre of the mounting face (pilot excluded), that face at z = 0, body toward -Z, shaft along +Z, holes at (+-15.5, +-15.5), rear PCB tab on the -X side
+critical_dims:
+  - {name: body square, value_mm: 42.3, tol_mm: 0.2, source: estimate (NEMA 17 standard), model_mm: 42.3, checked: true}
+  - {name: hole pitch, value_mm: 31.0, tol_mm: 0.1, source: estimate (NEMA 17 standard), model_mm: 31.0, checked: true}
+  - {name: pilot diameter, value_mm: 22.0, tol_mm: 0.05, source: estimate (NEMA 17 standard), model_mm: 22.0, checked: true}
+  - {name: pilot height, value_mm: 2.0, tol_mm: 0.05, source: estimate (NEMA 17 standard), model_mm: 2.0, checked: true}
+  - {name: shaft diameter, value_mm: 5.0, tol_mm: 0.05, source: estimate (NEMA 17 standard), model_mm: 5.0, checked: true}
+  - {name: shaft length, value_mm: 24.0, tol_mm: 0.5, source: estimate (NEMA 17 typical, from mounting face to tip), model_mm: 24.0, checked: true}
+  - {name: body length, value_mm: 34.0, tol_mm: 0.5, source: user measured, model_mm: 34.0, checked: true}
+checked: "2026-11-04: 7 of 7 critical dims match the model (inspect: bbox, 4 holes at +-15.5, z -34..+24); only body length is measured, the other six are NEMA 17 standard estimates"
+note: >
+  No datasheet exists online. Only body length (34 mm, user measured) is measured; everything else
+  is NEMA 17 standard and must be confirmed with calipers (face square, hole pitch, pilot, shaft
+  diameter and length, and whether the shaft has a flat). M3 tapped holes modelled as 2.5 mm holes
+  4.5 mm deep (estimate). Pilot and shaft diameters are convex, so inspect does not list them; they
+  come from the generator constants. Corners chamfered 4 mm (cosmetic). The rear green PCB with
+  its metal tab is modelled as a 3 mm x 16 mm x 12 mm block on the -X side at the rear (z -34 to
+  -22), estimated from the rear photo (size and position not measured); no keep-out modelled.

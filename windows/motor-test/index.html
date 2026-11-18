@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motor test</title>
+<!--
+  Workshop window: drive one motor at a time. Talks to tools/motor_bridge.py on http://127.0.0.1:8765, which talks to
+  an Arduino running firmware/motor_test over USB serial. Pick a motor (on the arm drawing or its card), turn the
+  drivers on, jog. The dial shows where the picked joint is, counted from where it was last zeroed. STOP (or Esc)
+  ends any move; the bridge turns the drivers off if this window stops polling for 3 s.
+  The arm drawing is a schematic to show which joint moves, not the arm's real pose.
+-->
+<style>
+  #setup { flex: 1; min-height: 0; overflow-y: auto; display: grid; place-items: center; padding: var(--space-xl); }
+  #setup .empty { width: min(100%, 760px); padding: var(--space-xxl); color: var(--ink); }
+  #setup ol.steps { display: flex; max-width: none; margin: var(--space-l) 0; font-size: 16px; }
+  #setup .steps > li { padding-top: var(--space-s); padding-bottom: var(--space-s); }
+  #setup .steps > li::before { top: 9px; }
+  #setup .callout { text-align: left; }
+  #setup code { padding: 1px 5px; border-radius: var(--radius-small); background: var(--wash); font-size: 14px; white-space: nowrap; user-select: all; -webkit-user-select: all; }
+  #arm .link { fill: none; stroke: var(--frame); stroke-width: 16; }
+  #arm .base { fill: var(--wash); stroke: var(--frame); }
+  #arm .joint { fill: var(--raised); stroke: var(--muted); stroke-width: 2; }
+  #arm .joint.sel { fill: var(--accent); stroke: none; }
+  #arm .name { font-size: 20px; font-weight: 600; }
+  #arm .quiet { fill: var(--muted); font-size: 14px; }
+  #arm .tick { stroke: var(--frame); stroke-width: 2; }
+  #arm .needle { stroke: var(--accent); stroke-width: 5; }
+  #arm .value { font-size: 58px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  #arm [data-i] { cursor: default; }
+  .jog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xs); }
+  .jog button { min-height: 44px; padding: 0; font-variant-numeric: tabular-nums; }
+  #amount { width: 84px; }
+  input[type=range] { width: 100%; }
+  pre.log { height: 190px; overflow-y: auto; margin: 0 0 var(--space-xs); padding: var(--space-s); font-size: 11.5px; line-height: 1.45;
+            background: var(--paper); border-radius: var(--radius-control); white-space: pre-wrap; }
+  .err { color: var(--danger); } .ok { color: var(--good); } .dim { color: var(--muted); }
+</style>
+</head>
+<body class="fill workshop">
+<header class="strip">
+  <h1>Motor test</h1>
+  <span class="dot" id="dBridge"></span><span class="label" id="tBridge">bridge</span>
+  <span class="dot" id="dBoard"></span><span class="label" id="tBoard">board</span>
+  <span class="grow"></span>
+  <select id="port"></select>
+  <button id="connect">Connect</button>
+  <button class="stop" id="stop" title="Stop the move now (Esc)">STOP</button>
+</header>
+
+<section id="setup">
+  <div class="empty">
+    <h2>Start the motor bridge</h2>
+    <ol class="steps">
+      <li id="s1">Flash <code>firmware/motor_test</code> to the Uno (Electronics panel).</li>
+      <li id="s2">In Terminal, in the project folder: <code>python3 tools/mpy.py tools/motor_bridge.py</code></li>
+      <li id="s3">Pick the port above (<code>/dev/cu.usbmodem…</code>) and press Connect.</li>
+    </ol>
+    <div class="callout warning"><b>First run:</b> Vref set, jumpers fitted, 24 V on, belt off.</div>
+  </div>
+</section>
+
+<main class="split" id="ui" hidden>
+  <section class="stage"><svg id="arm" viewBox="0 0 900 560" role="img" aria-label="Which joint is picked and where it is"></svg></section>
+
+  <aside class="side">
+    <div class="cards" id="motors"></div>
+    <button class="large" id="enable">Drivers OFF</button>
+    <div class="row"><span class="label">Jog</span><span class="grow"></span>
+      <span class="segmented" id="unitSeg"><button data-u="joint" class="on">Joint °</button><button data-u="motor">Motor °</button><button data-u="steps">Steps</button></span></div>
+    <div class="jog" id="jog"></div>
+    <div class="row">
+      <input type="number" id="amount" value="15"><button id="go">Move by</button>
+      <span class="grow"></span>
+      <button id="zero" title="Call this position 0">Zero</button>
+      <button id="invert" title="Flip this motor's direction">Flip</button>
+    </div>
+    <div>
+      <div class="row"><span class="label">Speed</span><span class="grow"></span><span class="label" id="spdLbl"></span></div>
+      <input type="range" id="speed" min="1" max="60" value="15">
+    </div>
+
+    <details>
+      <summary>Gripper servo · <span id="srvLbl">off</span></summary>
+      <input type="range" id="servo" min="900" max="2100" value="1585" step="5">
+      <div class="row"><button id="srvSend">Set</button><button id="srvOff">Release</button></div>
+      <p class="note">900 to 2100 µs; closed ≈1250, open ≈1920 (estimates, calibrate). Power comes from the buck (6.3 V), not the Uno.</p>
+    </details>
+    <details>
+      <summary>Console</summary>
+      <pre class="log" id="log"></pre>
+      <div class="row"><input type="text" id="cmd" class="grow" placeholder="Command, e.g. STATUS"><button id="cmdGo">Send</button></div>
+      <label class="note"><input type="checkbox" id="showData"> show telemetry</label>
+    </details>
+    <details>
+      <summary>About this motor</summary>
+      <p class="note" id="axisNote"></p>
+    </details>
+  </aside>
+</main>
+
+<script>
+const API = "http://127.0.0.1:8765";
+const $ = (id) => document.getElementById(id);
+let axes = [], sel = 0, unit = "joint", next = 0, enabled = false, connected = false, bridgeUp = false, lastData = null;
+const JOG = { joint: [-1, -10, -90, 1, 10, 90], motor: [-10, -90, -360, 10, 90, 360], steps: [-16, -400, -3200, 16, 400, 3200] };
+// Where each joint sits on the schematic (base at the bottom, gripper at the end). Unknown names take the next free spot.
+const SPOT = { yaw: [150, 452], shoulder: [150, 360], elbow: [290, 190], wrist: [400, 290] };
+const ORDER = Object.values(SPOT);
+const cap = (s) => s ? s[0].toUpperCase() + s.slice(1) : "";
+
+async function api(path, body) {
+  const r = await fetch(API + path, body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+function log(line, cls) {
+  const el = $("log");
+  if (line.startsWith("DATA") && !$("showData").checked) return;
+  const c = cls || (line.startsWith("ERR") ? "err" : line.startsWith("OK") || line.startsWith("DONE") || line.startsWith("READY") ? "ok" : "dim");
+  const s = document.createElement("span"); s.className = c; s.textContent = line + "\n"; el.appendChild(s);
+  while (el.childNodes.length > 300) el.removeChild(el.firstChild);
+  el.scrollTop = el.scrollHeight;
+}
+async function send(line) {
+  log("> " + line, "dim");
+  try { const { reply } = await api("/send", { line }); log(reply); parse(reply); return reply; }
+  catch (e) { log("ERR " + e.message, "err"); return "ERR"; }
+}
+function kv(line) { const o = {}; for (const t of line.split(" ").slice(1)) { const i = t.indexOf("="); if (i > 0) o[t.slice(0, i)] = t.slice(i + 1); } return o; }
+function parse(line) {
+  if (line.startsWith("OK AXES")) {
+    axes = line.split(" ").slice(2).map((t) => { const [name, socket, ratio, micro, vcap] = t.split(":"); return { name, socket, ratio: +ratio, micro: +micro, vcap: +vcap }; });
+    renderMotors();
+  } else if (line.startsWith("OK ENABLE")) { enabled = line.trim().endsWith("1"); renderEnable(); }
+  else if (line.startsWith("DATA") || line.startsWith("OK STATUS")) {
+    const d = kv(line); lastData = d;
+    const i = axes.findIndex((a) => a.name === d.axis); if (i >= 0 && i !== sel) { sel = i; renderMotors(); }
+    enabled = d.en === "1"; renderEnable();
+    $("srvLbl").textContent = d.servo && d.servo !== "0" ? `${d.servo} µs` : "off";
+    drawArm();
+  }
+}
+
+/* ---------- the picture: which joint is picked, and where it is ---------- */
+function drawArm() {
+  const spots = axes.map((a, i) => SPOT[a.name] || ORDER[i % ORDER.length]);
+  const a = axes[sel], d = lastData;
+  let g = `<rect class="base" x="70" y="478" width="160" height="26" rx="8"/><text class="quiet" x="150" y="530" text-anchor="middle">schematic</text>`;
+  const chain = [...spots, [440, 336]];
+  g += `<polyline class="link" points="${chain.map((p) => p.join(",")).join(" ")}"/>`;
+  g += `<path class="link" style="stroke-width:6" d="M440 336 l34 6 M440 336 l12 32"/>`;
+  axes.forEach((ax, i) => {
+    const [x, y] = spots[i], on = i === sel, left = x < 200;
+    g += `<g data-i="${i}">${on ? `<circle class="hot" cx="${x}" cy="${y}" r="34"/>` : ""}
+      <circle class="joint ${on ? "sel" : ""}" cx="${x}" cy="${y}" r="15"/><circle cx="${x}" cy="${y}" r="34" fill="transparent"/>
+      <text class="name" x="${left ? x - 46 : x + 46}" y="${y + 7}" text-anchor="${left ? "end" : "start"}">${cap(ax.name)}</text></g>`;
+  });
+  // dial: the picked joint's position, clockwise from where it was zeroed
+  const cx = 680, cy = 240, r = 165;
+  const at = (deg, rr) => [cx + rr * Math.sin(deg * Math.PI / 180), cy - rr * Math.cos(deg * Math.PI / 180)];
+  g += `<circle class="planned" cx="${cx}" cy="${cy}" r="${r}"/>`;
+  for (let t = 0; t < 360; t += 30) { const [x0, y0] = at(t, r - (t % 90 ? 10 : 20)), [x1, y1] = at(t, r); g += `<line class="tick" x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}"/>`; }
+  g += `<text class="quiet" x="${cx}" y="${cy - r - 14}" text-anchor="middle">0</text>`;
+  let value = "-", sub = a ? `${cap(a.name)} · socket ${a.socket}` : "";
+  if (d && a) {
+    const deg = parseFloat(d.deg) || 0, [nx, ny] = at(deg, r - 26), [wx, wy] = at(deg, r);
+    const sweep = Math.abs(deg) % 360;
+    if (sweep > 0.05) g += `<path class="hot" d="M${cx} ${cy} L${cx} ${cy - r} A${r} ${r} 0 ${sweep > 180 ? 1 : 0} ${deg > 0 ? 1 : 0} ${wx} ${wy} Z"/>`;
+    g += `<line class="needle" x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}"/>`;
+    value = unit === "steps" ? d.steps : `${(unit === "motor" ? deg * a.ratio : deg).toFixed(1)}°`;
+    sub += ` · ${unit === "joint" ? "joint" : unit === "motor" ? "motor shaft" : "steps"}` + (d.moving === "1" ? " · moving…" : unit === "steps" ? "" : ` · ${d.steps} steps`);
+  }
+  g += `<circle cx="${cx}" cy="${cy}" r="7" fill="var(--ink)"/>`;
+  g += `<text class="value" x="${cx}" y="${cy + r + 78}" text-anchor="middle">${value}</text>`;
+  g += `<text class="quiet" x="${cx}" y="${cy + r + 106}" text-anchor="middle">${sub}</text>`;
+  $("arm").innerHTML = g;
+  $("arm").querySelectorAll("[data-i]").forEach((el) => el.onclick = () => selectAxis(+el.dataset.i));
+}
+
+function renderEnable() {
+  const b = $("enable"); b.classList.toggle("on", enabled); b.textContent = enabled ? "Drivers ON" : "Drivers OFF";
+}
+function renderMotors() {
+  $("motors").innerHTML = axes.map((a, i) => `<button class="${i === sel ? "selected" : ""}" data-i="${i}">
+      <b>${cap(a.name)}</b><small>socket ${a.socket} · ${a.ratio}:1 · 1/${a.micro}</small></button>`).join("");
+  $("motors").querySelectorAll("button").forEach((b) => b.onclick = () => selectAxis(+b.dataset.i));
+  const a = axes[sel];
+  if (a) {
+    $("speed").max = Math.max(1, Math.floor(a.vcap));
+    $("axisNote").textContent = `${cap(a.name)}: socket ${a.socket}. Joint degrees go through the ${a.ratio}:1 belt; speed is capped at ${Math.floor(a.vcap)}°/s by the Uno's step rate. Other drivers stay powered while enabled (shared EN pin) but don't move.`;
+    spdLabel();
+  }
+  drawArm();
+}
+async function selectAxis(i) { const r = await send(`AXIS ${axes[i].name}`); if (r.startsWith("OK")) { sel = i; lastData = null; renderMotors(); send("STATUS"); } }
+function spdLabel() { $("spdLbl").textContent = `${$("speed").value} °/s at the joint`; }
+function renderJog() {
+  $("jog").innerHTML = JOG[unit].map((v) => `<button data-v="${v}">${v > 0 ? "+" : "−"}${Math.abs(v)}${unit === "steps" ? "" : "°"}</button>`).join("");
+  $("jog").querySelectorAll("button").forEach((b) => b.onclick = () => move(+b.dataset.v));
+  $("unitSeg").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.u === unit));
+  drawArm();
+}
+function move(v) {
+  if (!enabled) { log("ERR turn the drivers ON first", "err"); $("enable").focus(); return; }
+  send(`${unit === "joint" ? "JOG" : unit === "motor" ? "MJOG" : "STEPS"} ${v}`);
+}
+
+// ---- wiring the controls
+$("unitSeg").querySelectorAll("button").forEach((b) => b.onclick = () => { unit = b.dataset.u; renderJog(); });
+$("go").onclick = () => move(parseFloat($("amount").value) || 0);
+$("zero").onclick = () => send("ZERO");
+$("invert").onclick = async () => { const r = await send("STATUS"); const inv = kv(r).inv === "1"; send(`INVERT ${inv ? 0 : 1}`); };
+$("enable").onclick = () => send(`ENABLE ${enabled ? 0 : 1}`);
+$("stop").onclick = () => send("STOP");
+$("speed").oninput = spdLabel;
+$("speed").onchange = () => send(`SPEED ${$("speed").value}`);
+$("srvSend").onclick = () => send(`SERVO ${$("servo").value}`);
+$("servo").oninput = () => { $("srvLbl").textContent = `${$("servo").value} µs (press Set)`; };
+$("srvOff").onclick = () => send("SERVO 0");
+$("cmdGo").onclick = () => { const c = $("cmd").value.trim(); if (c) { send(c); $("cmd").value = ""; } };
+$("cmd").onkeydown = (e) => { if (e.key === "Enter") $("cmdGo").click(); };
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); send("STOP"); } });
+
+$("connect").onclick = async () => {
+  if (connected) { await api("/disconnect", {}).catch(() => {}); connected = false; status(); return; }
+  $("connect").disabled = true; $("connect").textContent = "Connecting…";
+  try {
+    const r = await api("/connect", { port: $("port").value || null });
+    log(`connected ${r.port} ${r.banner || "(no banner)"}`, "ok");
+    connected = true;
+    if (r.banner && !r.banner.includes("motor_test")) log("ERR this board is not running motor_test: flash firmware/motor_test first", "err");
+    await send("AXES"); await send("STREAM 1"); await send(`SPEED ${$("speed").value}`); await send("STATUS");
+  } catch (e) { log("ERR " + e.message, "err"); }
+  $("connect").disabled = false; status();
+};
+
+function status() {
+  $("dBridge").className = "dot " + (bridgeUp ? "good" : "danger"); $("tBridge").textContent = bridgeUp ? "bridge" : "bridge not running";
+  $("dBoard").className = "dot " + (connected ? (enabled ? "warning" : "good") : ""); $("tBoard").textContent = connected ? (enabled ? "board · drivers ON" : "board") : "no board";
+  $("connect").textContent = connected ? "Disconnect" : "Connect";
+  const ready = bridgeUp && connected;
+  $("setup").hidden = ready; $("ui").hidden = !ready;
+  $("s2").className = bridgeUp ? "done" : "current";
+  $("s3").className = bridgeUp ? "current" : "";
+  for (const id of ["connect", "port", "stop"]) $(id).disabled = !bridgeUp && id !== "stop";
+}
+async function loadPorts() {
+  try {
+    const { ports } = await api("/ports");
+    const cur = $("port").value;
+    $("port").innerHTML = ports.map((p) => `<option value="${p.device}">${p.device}${p.likely ? " (Arduino?)" : ""}</option>`).join("");
+    if (cur) $("port").value = cur;
+  } catch (e) { /* bridge down */ }
+}
+// poll: telemetry + the bridge's dead-man heartbeat
+async function poll() {
+  try {
+    const j = await api(`/lines?since=${next}`);
+    if (!bridgeUp) { bridgeUp = true; loadPorts(); }
+    if (j.next < next) next = 0;
+    next = j.next;
+    for (const l of j.lines) { log(l); parse(l); }
+    if (connected !== j.connected) connected = j.connected;
+    enabled = j.enabled; renderEnable();
+  } catch (e) { bridgeUp = false; connected = false; }
+  status();
+  setTimeout(poll, bridgeUp ? 250 : 2000);
+}
+api("/status").then((s) => { if (s.connected) { connected = true; send("AXES").then(() => send("STREAM 1")); } }).catch(() => {});
+renderJog(); status(); poll();
+</script>
+</body>
+</html>

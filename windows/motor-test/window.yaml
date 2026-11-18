@@ -1,0 +1,22 @@
+version: 1
+title: Motor test
+description: Drive one motor at a time (steppers on the CNC shield, gripper servo)
+  through the motor_test sketch and a local serial bridge.
+tags:
+- motor
+- stepper
+- servo
+- test
+- jog
+- bring-up
+- arduino
+- cnc shield
+- serial
+- control
+reads:
+- firmware/motor_test/motor_test.ino
+- tools/motor_bridge.py
+- docs/bring-up.md
+library: motor-test
+updated: '2026-11-13T19:45:28+00:00'
+created: '2026-11-13T19:45:28+00:00'

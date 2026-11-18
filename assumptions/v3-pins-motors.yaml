@@ -1,0 +1,10 @@
+id: v3-pins-motors
+made_by: chat
+text: 'v3 uses all four steppers: XY42 on yaw, shoulder and elbow, the 34 mm HEM on
+  the wrist (4th driver socket A). Socket A takes pins D12/D13, so the gripper servo
+  moves to the CoolEn pin (A3) and the wrist servo is dropped.'
+alternatives:
+- Keep the HEM on yaw and put a 40 mm XY42 on the wrist (more wrist torque, +60 g
+  at the wrist)
+created: '2026-11-05T18:06:30+00:00'
+override: null

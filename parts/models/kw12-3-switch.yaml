@@ -1,0 +1,15 @@
+part: KW12-3 roller-lever microswitch (10-pack)
+model_source: datasheet
+source_url: https://www.mouser.com/catalog/specsheets/Soldered_101411%20microswitch%20kw12%203.pdf
+datasheet: https://www.mouser.com/catalog/specsheets/Soldered_101411%20microswitch%20kw12%203.pdf
+retrieved: "2026-11-04"
+generator: parts/models/kw12-3-switch.py
+frame: body bottom (terminal edge) at z = 0, body to z = 10.2, length along X centred, M2 holes through Y at x = +-4.75, z = 2.9; lever hinged at -X, roller at x = +8 with its top at z = 16.2 (free)
+critical_dims:
+  - {name: body length, value_mm: 20.0, tol_mm: 0.3, source: datasheet typ (seller ~20 x 10.5 x 6.5), model_mm: 20.0}
+  - {name: body width, value_mm: 6.4, tol_mm: 0.2, source: datasheet typ, model_mm: 6.4}
+  - {name: body height, value_mm: 10.2, tol_mm: 0.3, source: datasheet typ, model_mm: 10.2}
+  - {name: hole spacing, value_mm: 9.5, tol_mm: 0.1, source: datasheet typ, model_mm: 9.5}
+  - {name: roller top above body, value_mm: 6.0, tol_mm: 1.5, source: estimate (free position), model_mm: 6.0}
+checked: "2026-11-04: built from the generic KW12-3 numbers; roller height is an estimate"
+note: Built by the main agent. The roller lever height varies by maker; the base pocket leaves room to shim the switch up or down so the cam presses the roller about 1 mm.

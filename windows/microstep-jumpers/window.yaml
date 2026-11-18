@@ -1,0 +1,25 @@
+version: 1
+title: Microstep jumpers
+description: Where the MS1/MS2/MS3 jumpers go under each A4988 on a CNC Shield V3,
+  which ones each socket needs, how to fit them and how to check the result with a
+  short jog.
+tags:
+- microstep
+- jumpers
+- ms1
+- ms2
+- ms3
+- a4988
+- cnc shield
+- stepper driver
+- noise
+- rough stepping
+- bring-up
+reads:
+- hw/drivers.yaml
+- hw/wiring.yaml
+- windows/microstep-jumpers/state.yaml
+- windows/microstep-jumpers/board.jpg
+library: microstep-jumpers
+updated: '2026-11-17T01:55:10+00:00'
+created: '2026-11-17T01:46:15+00:00'

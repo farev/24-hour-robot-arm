@@ -1,0 +1,107 @@
+min_clearance_mm: 0.5
+parts:
+- id: yaw-bolt
+  model: parts/models/m4x70-shcs.step
+  kind: bought
+  component: m4x70-shcs
+  color: '#E8A33D'
+  position:
+  - 0.0
+  - 0.0
+  - 132.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bolt-spacer
+  model: design/v4/printed/yaw_bolt_spacer.step
+  kind: printed
+  component: pla-filament
+  color: '#2F7FD8'
+  position:
+  - 0.0
+  - 0.0
+  - 102.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-pulley
+  model: design/v4/printed/yaw_pulley.step
+  kind: printed
+  component: pla-filament
+  color: '#F26B21'
+  position:
+  - 0.0
+  - 0.0
+  - 80.5
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: axk2035
+  model: parts/models/axk2035-thrust-bearing.step
+  kind: bought
+  component: axk2035-thrust-bearing
+  color: '#8C9096'
+  position:
+  - 0.0
+  - 0.0
+  - 52.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bearing-top
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#8C9096'
+  position:
+  - 0.0
+  - 0.0
+  - 40.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bearing-bottom
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#8C9096'
+  position:
+  - 0.0
+  - 0.0
+  - -16.0
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: yaw-race-washer
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#E8E4DA'
+  position:
+  - 0.0
+  - 0.0
+  - -27.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-nut
+  model: parts/models/m4-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#B8BCC2'
+  position:
+  - 0.0
+  - 0.0
+  - -42.2
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+allow_contact: []

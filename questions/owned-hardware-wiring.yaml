@@ -1,0 +1,10 @@
+id: owned-hardware-wiring
+asked_by: null
+text: 'The cart still has no screws, nuts or wiring. Which of these do you already
+  have? (1) M3 and M4 socket-head screws (6–30 mm) plus nuts, (2) cables for the 4
+  stepper motors, about 0.6 m or longer, (3) a servo extension lead, (4) jumper wires
+  or hookup wire, (5) a multimeter, (6) 2.5 and 3 mm hex keys. If you don''t have
+  them, I''ll add these: the M3/M4 kit $14.69, servo extensions $9.99, jumpers $6.98,
+  stepper cables $12.99.'
+kind: text
+answer: "I have 1, 2, I have jumpers that I can use for 3 and 4, 5, and 6. I basically have all of that already."

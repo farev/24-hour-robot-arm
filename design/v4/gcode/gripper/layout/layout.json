@@ -1,0 +1,23 @@
+[
+ {
+  "plate": 1,
+  "parts": [
+   "gripper-base#1@165",
+   "jaw-b#1@330",
+   "jaw-a#1@165",
+   "crank-gear-a#1@165",
+   "crank-gear-b#1@210",
+   "idler-link-a#1@120",
+   "idler-link-a#2@135"
+  ],
+  "bed_fill": 0.251,
+  "xy_min": [
+   10.5,
+   22.0
+  ],
+  "xy_max": [
+   210.4,
+   97.7
+  ]
+ }
+]

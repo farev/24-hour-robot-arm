@@ -1,0 +1,28 @@
+part: MG996R metal-gear servo
+model_source: datasheet
+source_url: https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf
+datasheet: https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf
+retrieved: "2026-11-04"
+generator: parts/models/mg996r-servo.py
+frame: origin on the spline axis at the case top face (z = 0), spline +Z, body -Z, long axis +X (spline near the -X end); mg996r-horn.step is the round horn on the spline
+critical_dims:
+  - {name: body length, value_mm: 40.7, tol_mm: 0.3, source: TowerPro drawing, model_mm: 40.7}
+  - {name: body width, value_mm: 19.7, tol_mm: 0.3, source: TowerPro drawing, model_mm: 19.7}
+  - {name: body height, value_mm: 36.6, tol_mm: 0.5, source: TowerPro drawing (callout read at page resolution), model_mm: 36.6}
+  - {name: tab span, value_mm: 53.6, tol_mm: 0.3, source: TowerPro drawing, model_mm: 53.6}
+  - {name: tab hole spacing x, value_mm: 49.5, tol_mm: 0.5, source: estimate, model_mm: 49.5}
+  - {name: tab hole spacing y, value_mm: 10.0, tol_mm: 0.5, source: estimate (reseller 9.5-10), model_mm: 10.0}
+  - {name: tab hole diameter, value_mm: 4.2, tol_mm: 0.2, source: estimate (reseller 4.1), model_mm: 4.2}
+  - {name: tab top below top face, value_mm: 7.5, tol_mm: 0.5, source: estimate from drawing 26.6 + 2.5 tab, model_mm: 7.5}
+  - {name: shaft offset from body end, value_mm: 10.0, tol_mm: 0.5, source: estimate, model_mm: 10.0}
+  - {name: spline height above top face, value_mm: 6.3, tol_mm: 0.5, source: drawing 42.9 - 36.6, model_mm: 6.3}
+checked: "2026-11-04: bbox 53.6 x 19.7 x 42.9 (inspect) matches; hole spacing, tab height and shaft offset are estimates"
+search_2026_11_07: >-
+  Re-checked the TowerPro datasheet and the Components101 MG996R drawing (research/servo_dl/). Both show the same
+  outline-only drawing: body 36.6 tall, tab underside 26.6 above the base (so 10.0 below the case top), 47.6 overall
+  with a CROSS horn fitted (horn top 11.0 above the case top), body 40.3 / 53.6 over the tabs, 20 wide. Neither gives
+  tab-hole spacing, hole size, shaft position from the body end, or round-horn height / screw circle. A KPower
+  standard-servo table gives 49.5 +-0.3 hole spacing as a class value (not MG996R-specific). The selected listing is a
+  Miuzei MG996R (clone, no published drawing); round-horn listings for 25T MG996R horns range 20-24.5 mm with 14-16.5
+  mm hole spacing, so the horn depends on what is in the box.
+note: Built by the main agent (the model-finder lost shell access). Measure one servo with calipers before printing the upper shank and gripper base (tab hole spacing x/y, shaft offset from body end, tab top below the top face); window clearance is 0.4 per side. Horn (Ø21 x 5.5) is an estimate of the round horn in the box.

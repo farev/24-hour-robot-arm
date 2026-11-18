@@ -1,0 +1,1451 @@
+{
+ "base": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     205.0,
+     155.0,
+     49.1
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     205.0,
+     49.1,
+     155.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     155.0,
+     205.0,
+     49.1
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     155.0,
+     49.1,
+     205.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     49.1,
+     205.0,
+     155.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     49.1,
+     155.0,
+     205.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.6,
+  "thin_walls": false,
+  "overhang_area_mm2": 670.28,
+  "small_holes": [],
+  "bed_contact_mm2": 28967.2,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "crank_gear_a": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     43.84,
+     26.69,
+     10.7
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     43.84,
+     10.7,
+     26.69
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     26.69,
+     43.84,
+     10.7
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     26.69,
+     10.7,
+     43.84
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     10.7,
+     43.84,
+     26.69
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     10.7,
+     26.69,
+     43.84
+    ]
+   }
+  ],
+  "min_wall_mm": 1.22,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 550.33,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "crank_gear_b": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     44.0,
+     27.0,
+     10.1
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     44.0,
+     10.1,
+     27.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     27.0,
+     44.0,
+     10.1
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     27.0,
+     10.1,
+     44.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     10.1,
+     44.0,
+     27.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     10.1,
+     27.0,
+     44.0
+    ]
+   }
+  ],
+  "min_wall_mm": 2.0,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 598.94,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "fit_coupon": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     92.0,
+     64.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     92.0,
+     7.0,
+     64.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     64.0,
+     92.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     64.0,
+     7.0,
+     92.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     7.0,
+     92.0,
+     64.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     7.0,
+     64.0,
+     92.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.5,
+  "thin_walls": false,
+  "overhang_area_mm2": 646.47,
+  "small_holes": [],
+  "bed_contact_mm2": 5059.7,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "gripper_base": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     101.1,
+     77.85,
+     22.9
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     101.1,
+     22.9,
+     77.85
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     77.85,
+     101.1,
+     22.9
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     77.85,
+     22.9,
+     101.1
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     22.9,
+     101.1,
+     77.85
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     22.9,
+     77.85,
+     101.1
+    ]
+   }
+  ],
+  "min_wall_mm": 2.7,
+  "thin_walls": false,
+  "overhang_area_mm2": 75.41,
+  "small_holes": [],
+  "bed_contact_mm2": 4656.97,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "idler_link": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     35.0,
+     9.0,
+     10.1
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     35.0,
+     10.1,
+     9.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     9.0,
+     35.0,
+     10.1
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     9.0,
+     10.1,
+     35.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     10.1,
+     35.0,
+     9.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     10.1,
+     9.0,
+     35.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.9,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 236.39,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "jaw_a": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     43.74,
+     31.41,
+     6.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     43.74,
+     6.0,
+     31.41
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     31.41,
+     43.74,
+     6.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     31.41,
+     6.0,
+     43.74
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     6.0,
+     43.74,
+     31.41
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     6.0,
+     31.41,
+     43.74
+    ]
+   }
+  ],
+  "min_wall_mm": 1.45,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 761.94,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "jaw_b": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     43.74,
+     31.41,
+     6.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     43.74,
+     6.0,
+     31.41
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     31.41,
+     43.74,
+     6.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     31.41,
+     6.0,
+     43.74
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     6.0,
+     43.74,
+     31.41
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     6.0,
+     31.41,
+     43.74
+    ]
+   }
+  ],
+  "min_wall_mm": 1.45,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 761.94,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "lower_shank": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     209.0,
+     92.0,
+     18.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     209.0,
+     18.0,
+     92.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     92.0,
+     209.0,
+     18.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     92.0,
+     18.0,
+     209.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     18.0,
+     209.0,
+     92.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     18.0,
+     92.0,
+     209.0
+    ]
+   }
+  ],
+  "min_wall_mm": 3.43,
+  "thin_walls": false,
+  "overhang_area_mm2": 536.26,
+  "small_holes": [],
+  "bed_contact_mm2": 9327.77,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "race_washer": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     9.0,
+     9.0,
+     1.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     9.0,
+     1.0,
+     9.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     9.0,
+     9.0,
+     1.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     9.0,
+     1.0,
+     9.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     1.0,
+     9.0,
+     9.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     1.0,
+     9.0,
+     9.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.0,
+  "thin_walls": true,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 49.1,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "race_washer_w": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     9.0,
+     9.0,
+     1.7
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     9.0,
+     1.7,
+     9.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     9.0,
+     9.0,
+     1.7
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     9.0,
+     1.7,
+     9.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     1.7,
+     9.0,
+     9.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     1.7,
+     9.0,
+     9.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.7,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 49.1,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "shoulder_compound": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     45.31,
+     45.31,
+     50.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     45.31,
+     50.0,
+     45.31
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     45.31,
+     45.31,
+     50.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     45.31,
+     50.0,
+     45.31
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     50.0,
+     45.31,
+     45.31
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     50.0,
+     45.31,
+     45.31
+    ]
+   }
+  ],
+  "min_wall_mm": 2.76,
+  "thin_walls": false,
+  "overhang_area_mm2": 170.36,
+  "small_holes": [],
+  "bed_contact_mm2": 1372.72,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "spacer_e": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     7.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     7.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     7.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     7.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     7.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     7.0,
+     7.0,
+     7.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.35,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 23.96,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "spacer_i": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     7.0,
+     7.0,
+     20.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     7.0,
+     20.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     7.0,
+     7.0,
+     20.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     7.0,
+     20.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     20.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     20.0,
+     7.0,
+     7.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.35,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 23.96,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "spacer_ls": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     7.0,
+     7.0,
+     8.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     7.0,
+     8.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     7.0,
+     7.0,
+     8.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     7.0,
+     8.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     8.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     8.0,
+     7.0,
+     7.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.35,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 23.96,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "spacer_s": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     7.0,
+     7.0,
+     32.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     7.0,
+     32.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     7.0,
+     7.0,
+     32.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     7.0,
+     32.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     32.0,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     32.0,
+     7.0,
+     7.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.35,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 23.96,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "spacer_w": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     7.0,
+     7.0,
+     5.3
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     7.0,
+     5.3,
+     7.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     7.0,
+     7.0,
+     5.3
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     7.0,
+     5.3,
+     7.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     5.3,
+     7.0,
+     7.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     5.3,
+     7.0,
+     7.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.35,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 23.96,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "turret": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     171.77,
+     90.0,
+     76.39
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     171.77,
+     76.39,
+     90.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     90.0,
+     171.77,
+     76.39
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     90.0,
+     76.39,
+     171.77
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     76.39,
+     171.77,
+     90.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     76.39,
+     90.0,
+     171.77
+    ]
+   }
+  ],
+  "min_wall_mm": 1.2,
+  "thin_walls": false,
+  "overhang_area_mm2": 162.17,
+  "small_holes": [],
+  "bed_contact_mm2": 8104.15,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "upper_shank": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     209.0,
+     92.0,
+     17.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     209.0,
+     17.0,
+     92.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     92.0,
+     209.0,
+     17.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     92.0,
+     17.0,
+     209.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     17.0,
+     209.0,
+     92.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     17.0,
+     92.0,
+     209.0
+    ]
+   }
+  ],
+  "min_wall_mm": 3.43,
+  "thin_walls": false,
+  "overhang_area_mm2": 239.26,
+  "small_holes": [],
+  "bed_contact_mm2": 9601.9,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "wrist_flange": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     44.0,
+     44.0,
+     1.2
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     44.0,
+     1.2,
+     44.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     44.0,
+     44.0,
+     1.2
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     44.0,
+     1.2,
+     44.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     1.2,
+     44.0,
+     44.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     1.2,
+     44.0,
+     44.0
+    ]
+   }
+  ],
+  "min_wall_mm": 1.2,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 1319.47,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "wrist_pulley": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     42.0,
+     42.0,
+     15.3
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     42.0,
+     15.3,
+     42.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     42.0,
+     42.0,
+     15.3
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     42.0,
+     15.3,
+     42.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     15.3,
+     42.0,
+     42.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     15.3,
+     42.0,
+     42.0
+    ]
+   }
+  ],
+  "min_wall_mm": 2.87,
+  "thin_walls": false,
+  "overhang_area_mm2": 162.12,
+  "small_holes": [],
+  "bed_contact_mm2": 1177.94,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ },
+ "yaw_motor_plate": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     61.0,
+     61.0,
+     3.0
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     61.0,
+     3.0,
+     61.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     61.0,
+     61.0,
+     3.0
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     61.0,
+     3.0,
+     61.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     3.0,
+     61.0,
+     61.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     3.0,
+     61.0,
+     61.0
+    ]
+   }
+  ],
+  "min_wall_mm": 2.0,
+  "thin_walls": false,
+  "overhang_area_mm2": 0.0,
+  "small_holes": [],
+  "bed_contact_mm2": 2968.79,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": true
+ },
+ "yaw_pulley": {
+  "fits_bed": true,
+  "fitting_orientations": [
+   {
+    "axes": "xyz",
+    "size_mm": [
+     79.0,
+     79.0,
+     13.2
+    ]
+   },
+   {
+    "axes": "xzy",
+    "size_mm": [
+     79.0,
+     13.2,
+     79.0
+    ]
+   },
+   {
+    "axes": "yxz",
+    "size_mm": [
+     79.0,
+     79.0,
+     13.2
+    ]
+   },
+   {
+    "axes": "yzx",
+    "size_mm": [
+     79.0,
+     13.2,
+     79.0
+    ]
+   },
+   {
+    "axes": "zxy",
+    "size_mm": [
+     13.2,
+     79.0,
+     79.0
+    ]
+   },
+   {
+    "axes": "zyx",
+    "size_mm": [
+     13.2,
+     79.0,
+     79.0
+    ]
+   }
+  ],
+  "min_wall_mm": 2.14,
+  "thin_walls": false,
+  "overhang_area_mm2": 153.56,
+  "small_holes": [],
+  "bed_contact_mm2": 4842.86,
+  "floating_bodies": 0,
+  "non_solid_bodies": 0,
+  "warnings": [],
+  "slicer": "sliced ok (Bambu Lab X1E 0.4 nozzle)",
+  "ok": false
+ }
+}

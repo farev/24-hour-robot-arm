@@ -1,0 +1,18 @@
+drivers:
+  - id: a4988
+    count: 4                    # X, Y, Z, A sockets on the CNC Shield V3 (+1 spare module owned)
+    max_current_a: 2.0          # A4988 peak; ~1 A/phase continuous without a fan
+    heatsinks: true
+    microsteps: 16              # X (elbow), Z (yaw), A (wrist); Y (shoulder) runs 1/8 (firmware MICRO {16, 8, 16, 16})
+    microsteps_by_socket: {X: 16, Y: 8, Z: 16, A: 16}   # jumpers: 1/16 = MS1+MS2+MS3, 1/8 = MS1+MS2 (windows/microstep-jumpers)
+    max_step_rate_hz: 8000      # Uno stepping 4 drivers in loop() (assumed)
+    currents_a: {X: 1.0, Y: 1.0, Z: 1.0, A: 0.7}   # Vref 0.80 / 0.56 V on R100 sense resistors (docs/bring-up.md)
+controller: arduino-uno         # Arduino Uno R3 + CNC Shield V3 (owned)
+power_supply:                   # owned (user, 2026-11-04); was 12 V 5 A from the v1 template
+  voltage_v: 24
+  current_a: 6
+  connector: DC barrel plug (size not confirmed)
+servo_supply:                   # XL4015 buck from the 24 V terminal, set 6.3 V before connecting the MG996R
+  voltage_v: 6.3
+  current_a: 4.5
+wiring: design/v4/wiring.json   # full harness: sockets, pins, servo and switch leads

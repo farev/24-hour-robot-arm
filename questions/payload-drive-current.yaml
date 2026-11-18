@@ -1,0 +1,17 @@
+id: payload-drive-current
+asked_by: null
+text: v4 can't lift 300 g with the 50 % safety margin. At 1.0 A drive current it stays
+  inside that margin only up to about 50 g, and 300 g needs 81 % of the shoulder's
+  holding torque. How do you want to handle payload?
+kind: choice
+choices:
+- label: Build as is, test on the bench
+  detail: No extra cost. Up to about 450 g at full holding torque, but with no margin,
+    so expect skipped steps on fast moves near 300 g.
+- label: Run 1.2 A with a fan on the drivers
+  detail: About $8 for a small 24 V fan. Up to about 129 g inside the margin, and
+    300 g uses 67 %.
+- label: Add shoulder spring counterbalance (design change)
+  detail: A printed spring arm offsets the arm's own weight, so 300 g could fit the
+    margin. Needs a new version and about $5 of springs.
+answer: "Build as is, test on the bench"

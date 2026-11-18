@@ -1,0 +1,16 @@
+part,qty,material,orientation,infill,est_grams,stl
+base,1,PLA,as modelled,20%,140.1,printed/base.stl
+yaw-motor-plate,1,PLA,as modelled,20%,9.1,printed/yaw-motor-plate.stl
+yaw-race-washer,8,PLA,as modelled,20%,0.0,printed/yaw-race-washer.stl
+turret,1,PLA,as modelled,20%,88.1,printed/turret.stl
+yaw-pulley,1,PLA,as modelled,20%,33.9,printed/yaw-pulley.stl
+spacer-s,1,PLA,as modelled,20%,0.3,printed/spacer-s.stl
+spacer-ls,1,PLA,as modelled,20%,0.1,printed/spacer-ls.stl
+lower-shank,1,PLA,as modelled,20%,81.1,printed/lower-shank.stl
+lever-pulley,1,PLA,as modelled,20%,32.8,printed/lever-pulley.stl
+pleuel,1,PLA,as modelled,20%,10.8,printed/pleuel.stl
+upper-shank,1,PLA,as modelled,20%,23.1,printed/upper-shank.stl
+spacer-pu,1,PLA,as modelled,20%,0.1,printed/spacer-pu.stl
+gripper-base,1,PLA,as modelled,20%,8.9,printed/gripper-base.stl
+finger-a,1,PLA,as modelled,20%,2.6,printed/finger-a.stl
+finger-b,1,PLA,as modelled,20%,2.5,printed/finger-b.stl

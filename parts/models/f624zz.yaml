@@ -1,0 +1,15 @@
+part: F624ZZ flanged bearing 4x13x5
+model_source: datasheet
+source_url: standard_parts/bearings_deep_groove.csv row F624ZZ (NMB miniature catalogue, https://www.nmbtc.com/bearings/)
+datasheet: https://www.nmbtc.com/bearings/
+retrieved: "2026-11-04"
+generator: parts/models/f624zz.py
+frame: axis Z, flange outer face at z=0 (flange z 0..-1), body Ø13 extends to z=-5; origin on the axis
+critical_dims:
+  - {name: bore, value_mm: 4.0, tol_mm: 0.05, source: standard_parts F624ZZ (d), model_mm: 4.0}
+  - {name: outer diameter, value_mm: 13.0, tol_mm: 0.05, source: standard_parts F624ZZ (D), model_mm: 13.0}
+  - {name: width, value_mm: 5.0, tol_mm: 0.1, source: standard_parts F624ZZ (B, flange included), model_mm: 5.0}
+  - {name: flange diameter, value_mm: 15.0, tol_mm: 0.1, source: standard_parts F624ZZ, model_mm: 15.0}
+  - {name: flange thickness, value_mm: 1.0, tol_mm: 0.1, source: standard_parts F624ZZ, model_mm: 1.0}
+checked: "2026-11-04: 5 of 5 critical dims within tolerance (inspect: bbox 15 x 15 x 5, bore 4.0)"
+note: Single solid, no internal rings, balls or shields; bore left open through. Table row value_type is handbook_typical.

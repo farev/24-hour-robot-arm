@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "kind": "image",
+  "key": "inspiration/IMG_4093.HEIC",
+  "slug": "img-4093",
+  "input": "inspiration/IMG_4093.HEIC",
+  "title": "IMG_4093",
+  "url": null,
+  "duration_s": null,
+  "license": null,
+  "path": "inspiration/IMG_4093.HEIC",
+  "width": 1536,
+  "height": 2048,
+  "original_format": "JPEG",
+  "image": "inspiration/img-4093/image.jpg",
+  "thumb": "inspiration/img-4093/thumb.jpg",
+  "note": "inspiration/notes/img-4093.md",
+  "note_sha256": "2d9b09f397aedf1941df77221d9a062152ede3229676fcba061b19916d02619a",
+  "warnings": []
+}

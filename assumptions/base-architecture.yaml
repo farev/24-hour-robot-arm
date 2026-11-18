@@ -1,0 +1,11 @@
+id: base-architecture
+made_by: chat
+text: Starting from the proven 20sffactory Community Robot Arm (140 mm shanks, parallel
+  linkage, MG90S servo gripper, 4.5:1 belts). Table-level reach is ~26.5 cm (31 cm
+  at 8 cm height).
+alternatives:
+- 'Custom stretched design (~165 mm shanks, ~6:1 printed gears) for a full 30 cm at
+  table height: more design and print time'
+- BCN3D Moveo-style serial arm (larger, more parts)
+created: '2026-11-05T01:17:45+00:00'
+override: null

@@ -1,0 +1,10 @@
+id: experience
+asked_by: null
+text: How much have you built before?
+kind: choice
+choices:
+- First build
+- Built kits
+- Design my own parts
+- Professional
+answer: "Design my own parts"

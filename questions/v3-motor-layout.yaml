@@ -1,0 +1,18 @@
+id: v3-motor-layout
+asked_by: null
+text: For v3, where should the elbow and wrist steppers sit? Without the linkage the
+  shoulder carries everything, so motor placement decides whether 300 g still works.
+kind: choice
+choices:
+- label: Motors behind the joints, belts along the links (recommended)
+  detail: Elbow stepper on the lower shank just behind the shoulder, small wrist stepper
+    on the upper shank just behind the elbow; each drives its joint with a belt along
+    the link and doubles as a counterweight. Elbow range about ±135°. The shoulder
+    needs ~1.5 N·m (est), so it gets a two-stage belt reduction (~14:1, ~42% of capacity).
+    All four steppers used; needs two longer belts (~$8 more).
+- label: Motors right at the elbow and wrist
+  detail: 'Each stepper sits on its joint with a short belt: simpler belts, closest
+    to your sketch. But it puts ~0.5 kg out on the arm: shoulder ~2.5 N·m (est), 70%
+    of capacity even at 14:1, so the payload would drop to about 150 g or the reach
+    to ~22 cm.'
+answer: "Motors right at the elbow and wrist"

@@ -1,0 +1,16 @@
+id: servo-dims-approach
+asked_by: null
+text: The published drawings don't give the 4 servo dimensions the gripper depends
+  on, and Miuzei publishes none. How do you want to handle the gripper?
+kind: choice
+choices:
+- label: Measure when the servo arrives
+  detail: About 5 minutes with calipers (the Invention Studio has them). Send me 4
+    numbers and I'll regenerate the gripper, re-check and re-slice. The gripper plate
+    waits until about Nov 10.
+- label: Make the gripper tolerant so it can print now
+  detail: Slotted servo tab holes (±1 mm), crank gear horn holes slotted for a 14-17
+    mm screw circle (the round horns sold for this servo), and a printed shim set
+    (0-4 mm) that sets crank A to the right height on whichever horn you use. Prints
+    now; you fit it on assembly.
+answer: "Measure when the servo arrives"

@@ -1,0 +1,455 @@
+components:
+# ---------------------------------------------------------------- owned
+- id: xy42sth40-1204a
+  name: XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm)
+  function: Joint motors (yaw, shoulder, elbow)
+  status: owned
+  price_note: owned
+  qty: 3
+  image: parts/images/xy42sth40-1204a.jpg
+  specs: [3 owned, 42 x 42 x 40 mm body, 1.2 A/phase, 5 mm round shaft, "holding ~0.26-0.36 N·m (est)"]
+  datasheet: https://luni64.github.io/TeensyStep/applications2/901_stepper/assets/datasheet_XY42STH.pdf
+  model: parts/models/xy42sth40-1204a.step
+  model_source: datasheet
+  compat: unverified
+  compat_note: holding torque is an estimate (41 % of capacity at 0.26 N·m); A4988 Vref depends on the unread sense resistor
+  in_cad: true
+  note: >-
+    Model read from the label photo. The XY42STH series datasheet lists the 40 mm 1.2 A 6-lead -1206A at
+    2.6 kg·cm (0.26 N·m) and the 4-lead 1.68 A -1684A at 3.6 kg·cm; the -1204A row is not published, so
+    sizing uses 0.26 N·m (conservative). One motor in the photo carries a GT2 20T pulley (owned).
+- id: hem-17d2008-10
+  name: High Efficiency Motors HEM-17D2008-10 NEMA 17 stepper (34 mm)
+  function: Wrist motor (socket A)
+  status: owned
+  price_note: owned
+  qty: 1
+  image: parts/images/hem-17d2008-10.jpg
+  specs: [42 x 42 x 34 mm body (user measured), 0.28 N·m holding (label), 0.8 A/phase (label), 5 mm shaft (assumed)]
+  datasheet: unverified
+  model: parts/models/hem-17d2008-10.step
+  model_source: datasheet
+  compat: unverified
+  compat_note: shaft diameter and length not measured (5 x 24 mm assumed)
+  in_cad: true
+  note: Values read from the rear label photo; no datasheet online. Face, pilot and shaft are NEMA 17 standard values (estimate).
+- id: arduino-uno-r3
+  name: Arduino Uno R3
+  function: Controller
+  status: owned
+  price_note: owned
+  qty: 1
+  image: parts/images/arduino-uno-r3.jpg
+  specs: [ATmega328P 16 MHz, 5 V logic, USB-B, 68.6 x 53.4 mm]
+  datasheet: https://docs.arduino.cc/hardware/uno-rev3
+  model: parts/models/arduino-uno-r3.step
+  model_source: datasheet
+  compat: unverified
+  in_cad: true
+  note: Stated by the user; visible under the CNC shield in the photo. Modelled together with the shield stack (shield height estimated).
+- id: cnc-shield-v3-a4988
+  name: Arduino CNC Shield V3 with A4988 drivers
+  function: Stepper drivers (4 axes X/Y/Z/A)
+  status: owned
+  price_note: owned
+  qty: 1
+  image: parts/images/cnc-shield-v3-a4988.jpg
+  specs: [X/Y/Z/A driver sockets, 12-36 V motor input, "4 A4988 fitted + 1 spare", ~1 A/phase without a fan, endstop headers X/Y/Z]
+  datasheet: https://www.allegromicro.com/en/products/motor-drivers/brush-dc-motor-drivers/a4988
+  model: parts/models/arduino-uno-r3.step
+  model_source: datasheet
+  compat: unverified
+  compat_note: read the bulk capacitor voltage (must be >= 35 V for 24 V) and the A4988 sense resistor marking
+  in_cad: true
+  note: Read from the photo (CNC SHIELD silkscreen, red A4988 carriers with heatsinks). Shield electrolytic capacitor voltage not yet read; it must be 35 V or more for the 24 V supply.
+- id: axk2035-thrust-bearing
+  name: AXK2035 needle thrust bearing with 2x AS2035 washers
+  function: Base turret thrust bearing
+  status: owned
+  price_note: owned
+  qty: 1
+  image: parts/images/axk2035-thrust-bearing.jpg
+  specs: [20 mm ID, 35 mm OD, 4 mm stack (user measured), axial load]
+  datasheet: https://www.skf.com/group/products/rolling-bearings/roller-bearings/needle-roller-bearings/needle-roller-thrust-bearings/productid-AXK%202035
+  model: parts/models/axk2035-thrust-bearing.step
+  model_source: datasheet
+  compat: unverified
+  in_cad: true
+  note: Designation inferred from the user's 20 x 35 x 4 mm measurement and the photo. Used under the turret.
+- id: psu-24v-6a
+  name: 24 V 6 A DC power supply (owned)
+  function: Motor power supply
+  status: owned
+  price_note: owned
+  qty: 1
+  specs: [24 V DC, 6 A, barrel plug to the shield pigtail]
+  datasheet: unverified
+  compat: unverified
+  in_cad: false
+  note: Stated by the user. Plug size and polarity not yet confirmed (the shield's pigtail looks like 5.5 x 2.1 mm).
+- id: pla-filament
+  name: PLA filament (printer stock)
+  function: Printed parts
+  status: owned
+  price_note: owned (assumed; about 500 g needed for v4)
+  qty: 1
+  specs: [PLA, 1.75 mm, ~500 g for the v4 parts (estimate)]
+  datasheet: unverified
+  compat: unverified
+  in_cad: true
+  note: Assumed from your Bambu Lab printer / makerspace access; buy a 1 kg spool if you have none.
+# ---------------------------------------------------------------- to buy (prices and stock read 2026-11-05)
+- id: f624zz
+  name: M METERXITY F624ZZ flanged bearing 4x13x5 (10-pack)
+  function: Joint bearings
+  status: selected
+  price_usd: 6.49
+  qty: 1
+  image: parts/images/f624zz.jpg
+  specs: [4 x 13 x 5 mm, "flange 15 x 1 mm", GCr15 chrome steel, "10 pcs, v4 needs 10"]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B0F4QXCS6R
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B0F4QXCS6R
+  stock_checked: "2026-11-05 US: 10 left, delivery Tue Nov 10 (fastest Sat Nov 7)"
+  model: parts/models/f624zz.step
+  model_source: datasheet
+  compat: ok
+  compat_note: listing states 4 x 13 x 5 and flange 15 x 1, same as the CAD model; print the fit coupon first
+  in_cad: true
+  note: >-
+    Replaces the youguxianji listing (B09NTQMKSJ, $9.78, delivery Nov 13-30). Exactly 10 in the pack, no spare.
+    Plain 624ZZ (no flange) also fits the 8 joint-hub pockets as they are; the base would need its Ø4.8 hole
+    between the two bearings opened to Ø7.6 first (see f624zz-alt-uxcell).
+- id: f624zz-alt-uxcell
+  name: uxcell F624ZZ flanged bearing 4x13x5 (10 pcs)
+  function: Joint bearings
+  status: candidate
+  price_usd: 8.99
+  qty: 1
+  specs: [4 x 13 x 5 mm, "flange Ø15 mm", chrome steel, 10 pcs]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B07Z3DB93B
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B07Z3DB93B
+  stock_checked: "2026-11-05 US: 20 left, delivery Tue Nov 10 (fastest Sat Nov 7)"
+  compat: ok
+  compat_note: same size as the CAD model
+  in_cad: false
+  note: >-
+    Backup if the METERXITY pack sells out (10 left). Non-flanged option with spares: uxcell 624ZZ 25 pcs,
+    B0CJFS7VPL, $7.99, sold by Amazon, Tue Nov 10. Fits the arm, shoulder and wrist hubs as they are; the base
+    would need its centre hole opened to Ø7.6 so the inner ring does not rub (not changed yet).
+- id: gt2-belt-320
+  name: GT2 6 mm closed-loop belt 320 mm (2-pack)
+  function: Joint belts (yaw, shoulder stage 2, elbow)
+  status: selected
+  price_usd: 7.99
+  qty: 2
+  image: parts/images/gt2-belt-320.jpg
+  specs: [320 mm, 160 teeth, 6 mm wide, "2 per pack, need 3"]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B0DR35HQX1
+  order: Amazon US
+  datasheet: https://www.gates.com/us/en/power-transmission/synchronous-belts.html
+  stock_checked: "2026-11-05 US"
+  compat: unverified
+  in_cad: true
+  note: Ships from and sold by Amazon; "Only 9 left in stock". The Invention Studio store only has 300 mm closed belts ($2), which do not fit these centre distances.
+- id: gt2-belt-200
+  name: Zeelo GT2 closed belt 200 mm x 6 mm (10 pcs)
+  function: Joint belts (shoulder stage 1, wrist)
+  status: selected
+  price_usd: 8.99
+  qty: 1
+  image: parts/images/gt2-belt-200.jpg
+  specs: [200 mm, GT2 2 mm pitch (100 teeth), 6 mm wide, "10 pcs, v4 needs 2"]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B0BZNTT5T4
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B0BZNTT5T4
+  stock_checked: "2026-11-08 US: 7 left, delivery Fri Nov 13 (fastest Wed Nov 11)"
+  compat: ok
+  in_cad: true
+  note: >-
+    Replaces the BEMONOC pack (B014R38TC6, third-party, delivery Nov 24) on 2026-11-08: same 200 mm length, so no
+    design change. Backup with the same specs, also sold by Amazon: B0CZDDJQGN (5 pcs, 200 mm, 6 mm, 2 mm pitch,
+    100 teeth, $9.99, Nov 13). Lengths 196-204 mm would also fit the +-3 mm motor slots (each 2 mm of belt moves the
+    motor ~1 mm); 198 or 202 leave the most slot.
+- id: gt2-20t-pulley
+  name: GT2 20T 5 mm bore pulley (5-pack)
+  function: Motor pulleys
+  status: selected
+  price_usd: 4.49
+  qty: 1
+  image: parts/images/gt2-20t-pulley.jpg
+  specs: [20 teeth, 5 mm bore, 6 mm belt, 5 pcs, v4 needs 4]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B0DJQBZ6R1
+  order: Amazon US
+  datasheet: https://www.gates.com/us/en/power-transmission/synchronous-belts.html
+  stock_checked: "2026-11-05 US"
+  model: parts/models/gt2-20t-pulley.step
+  model_source: datasheet
+  compat: unverified
+  in_cad: true
+  note: Ships from and sold by Amazon, In Stock. Cheaper than the earlier pick ($10.99, B078Z6YZCY).
+- id: mg996r-servo
+  name: MG996R metal-gear servo (2-pack)
+  function: Gripper servo (1 used, 1 spare)
+  status: selected
+  price_usd: 14.99
+  qty: 1
+  image: parts/images/mg996r-servo.jpg
+  specs: [metal gears, 9.4 kg·cm @ 4.8 V (TowerPro), 2 pcs]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B0BZ4LVH4J
+  order: Amazon US
+  datasheet: https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf
+  stock_checked: "2026-11-05 US"
+  model: parts/models/mg996r-servo.step
+  model_source: datasheet
+  compat: unverified
+  compat_note: tab hole spacing and shaft offset are estimates (measure before printing the gripper base)
+  in_cad: true
+  note: Shipped by Amazon, sold by Miuzeipro (seller per the 2026-11-05 review), "Only 16 left in stock". Check the listing says 180 deg (not 360 continuous). The earlier 2-pack (B0DCK462XZ) is out of stock.
+- id: xl4015-buck
+  name: XL4015 5 A buck converter (3-pack)
+  function: Servo 6 V supply
+  status: selected
+  price_usd: 7.98
+  qty: 1
+  image: parts/images/xl4015-buck.jpg
+  specs: [4-38 V in, 1.25-36 V out, 5 A max]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B0D1G4C28P
+  order: Amazon US
+  datasheet: unverified
+  stock_checked: "2026-11-05 US"
+  model: parts/models/xl4015-buck.step
+  model_source: datasheet
+  compat: unverified
+  in_cad: true
+  note: Shipped by Amazon, sold by Ferwooh-US (seller per the 2026-11-05 review), "Only 14 left in stock". Set to 6.3 V with a meter before connecting the servo.
+- id: kw12-3-switch
+  name: HiLetgo KW12-3 roller-lever microswitch (10-pack)
+  function: Yaw homing switch
+  status: selected
+  price_usd: 5.99
+  qty: 1
+  image: parts/images/kw12-3-switch.jpg
+  specs: [SPDT, roller lever, 10 pcs, need 1]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B07X142VGC
+  order: Amazon US
+  datasheet: https://www.mouser.com/catalog/specsheets/Soldered_101411%20microswitch%20kw12%203.pdf
+  stock_checked: "2026-11-05 US"
+  model: parts/models/kw12-3-switch.step
+  model_source: datasheet
+  compat: unverified
+  in_cad: true
+  note: Ships from and sold by Amazon, In Stock. Optional to save $6 - the base can be homed by hand like the other joints.
+- id: m3-m4-kit
+  name: M3 socket head screw kit 6-30 mm + nuts (630 pcs)
+  function: Fasteners (all M3 screws and nuts)
+  status: preferred
+  price_usd: 6.99
+  qty: 1
+  image: parts/images/m3-m4-kit.jpg
+  specs: [M3 socket head, "6 x40, 8 x40, 10 x25, 12 x25, 16 x25, 20 x25, 25 x20, 30 x10", 210 M3 nuts, 210 washers, 12.9 alloy black zinc]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B0F8HMFNZK
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B0F8HMFNZK
+  stock_checked: "2026-11-11 US: In Stock, delivery Mon Nov 16 (fastest Thu Nov 12)"
+  model: parts/models/m3x10-shcs.step
+  model_source: datasheet
+  compat: ok
+  in_cad: true
+  note: >-
+    Replaces "your stock" on 2026-11-11 (no screws at the Invention Studio). Covers every M3 in docs/screw-list.md:
+    needs x6 4, x8 14, x10 12, x16 8, x20 4, x30 3 and 11 nuts. No single kit on Amazon also has M4 x 30 and M4
+    x 60/70, so M4 comes from m4-kit and the two long packs.
+- id: m4-kit
+  name: M4 socket head screw kit 6-30 mm + nuts (330 pcs)
+  function: Fasteners (M4 x 30 elbow and wrist axles, all M4 nuts)
+  status: preferred
+  price_usd: 7.99
+  qty: 1
+  image: parts/images/m3-m4-kit.jpg
+  specs: [M4 socket head, "6 x20, 8 x20, 10 x15, 12 x15, 16 x10, 20 x10, 25 x10, 30 x10", 110 M4 nuts, 110 washers]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B0F8HTM313
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B0F8HTM313
+  stock_checked: "2026-11-11 US: In Stock, delivery Mon Nov 16 (fastest Thu Nov 12)"
+  compat: ok
+  in_cad: false
+  note: Needs M4 x 30 x2 and 5 M4 nuts. Same maker as the M3 kit.
+- id: jumper-caps
+  name: California JOS 2.54 mm jumper caps (100 pcs)
+  function: Microstep jumpers under the A4988s (M0/M1/M2 on the CNC shield)
+  status: preferred
+  price_usd: 4.97
+  qty: 1
+  image: parts/images/jumper-caps.jpg
+  specs: [2.54 mm pitch, 2-pin open-top shunt, black, 6 x 5 x 2.5 mm, v4 needs 11 (X 3, Y 2, Z 3, A 3)]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B0BRK36G33
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B0BRK36G33
+  stock_checked: "2026-11-16 US: In Stock, free delivery Sat Nov 21 (fastest Wed Nov 18)"
+  compat: ok
+  in_cad: false
+  note: >-
+    Optional. The shield came without caps, so every driver ran full steps (loud yaw, 16x moves). The user is bridging
+    the pins with bare wire stripped from their own jumper wires (Dupont housings are too tall to fit under a driver).
+    Caps are the tidy fix if that wire ever fails. Guide: windows/microstep-jumpers.
+- id: m4x70-shcs
+  name: M4 x 70 socket head cap screw, full thread (30 pcs)
+  function: Fasteners (shoulder, intermediate and yaw axles)
+  status: selected
+  price_usd: 8.49
+  qty: 1
+  image: parts/images/m4x70-shcs.jpg
+  specs: [M4 x 70, full thread, 304 stainless, head 7 x 4, 30 pcs, v4 needs 3]
+  vendor: Amazon US (ships from and sold by Amazon)
+  url: https://www.amazon.com/dp/B0DYN1VDJ7
+  order: Amazon US
+  datasheet: https://www.amazon.com/dp/B0DYN1VDJ7
+  stock_checked: "2026-11-11 US: In Stock, delivery Mon Nov 16 (fastest Thu Nov 12)"
+  model: parts/models/m4x70-shcs.step
+  model_source: datasheet
+  compat: ok
+  in_cad: true
+  note: >-
+    Replaces the H&H Trade 10-pack (B01H25KBRM, third-party, now showing Nov 30) on 2026-11-11: same size, full
+    thread, head 7 x 4 like ISO 4762 (fits the 8.0 x 4.4 counterbore).
+- id: m4x60-shcs
+  name: M4 x 60 socket head cap screw (10-pack)
+  function: Fasteners (yaw axle)
+  status: rejected
+  rejected_reason: >-
+    2026-11-12 (user: a whole pack for one screw): the yaw axle now uses an M4 x 70 from the 30-pc pack on a printed
+    10 mm spacer (yaw_bolt_spacer), same tip height; checked in all poses and the yaw sweep.
+  price_usd: 6.99
+  qty: 1
+  image: parts/images/m4x60-shcs.jpg
+  specs: [M4 x 60, 304 stainless, 10 pcs, need 1]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B0FLYHLMR5
+  order: Amazon US
+  datasheet: unverified
+  stock_checked: "2026-11-05 US"
+  model: parts/models/m4x60-shcs.step
+  model_source: datasheet
+  compat: unverified
+  in_cad: true
+  note: Ships from and sold by Amazon, "Only 16 left in stock". The earlier pick (B00C1GJD2C) is out of stock.
+- id: servo-extension
+  name: 50 cm 3-pin servo extension leads (10-pack)
+  function: Servo wiring
+  status: rejected
+  rejected_reason: You will extend the servo lead with your own jumper wires (2026-11-05).
+  price_usd: 9.99
+  qty: 1
+  image: parts/images/servo-extension.jpg
+  specs: [50 cm, 3-pin JR/Futaba male-female, 10 pcs, need 1-2]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B07PP732XF
+  order: Amazon US
+  datasheet: unverified
+  stock_checked: "2026-11-05 US"
+  compat: unverified
+  in_cad: false
+  note: Ships from and sold by Amazon, "Only 10 left in stock". The gripper servo is about 73 cm of cable path from the shield; its own lead is about 30 cm.
+- id: super-glue-is
+  name: Super glue 3 g (Invention Studio store)
+  function: Glue (wrist belt flange ring on the wrist pulley; yaw switch in its pocket)
+  status: preferred
+  price_usd: 0.30
+  qty: 1
+  image: parts/images/super-glue-is.jpg
+  specs: [3 g tube, cyanoacrylate]
+  vendor: Georgia Tech Invention Studio store
+  url: https://epay.gatech.edu/C20793_ustores/web/store_cat.jsp?STOREID=324&CATID=683&SINGLESTORE=true
+  order: Invention Studio
+  datasheet: unverified
+  stock_checked: "2026-11-05 US"
+  compat: unverified
+  in_cad: false
+  note: Listed with a price and no out-of-stock notice; free pickup at the Studio Store.
+- id: stepper-cable
+  name: Stepper motor cables, 0.6 m or longer (your stock)
+  function: Motor cables
+  status: owned
+  qty: 4
+  image: parts/images/stepper-cable.jpg
+  specs: [4 cables, motor socket to 4-pin 2.54 shield header, ">= 0.6 m"]
+  compat: ok
+  in_cad: false
+  note: You have these (answer of 2026-11-05). The wrist cable runs about 0.6 m along both shanks; leave slack at each joint.
+- id: dc-inline-switch
+  name: Inline DC push-button switch 5.5 x 2.1 mm male-female (3-pack)
+  function: Motor power cut (e-stop)
+  status: candidate
+  price_usd: 7.99
+  qty: 1
+  image: parts/images/dc-inline-switch.jpg
+  specs: [5.5 x 2.1 mm male/female, push button, current rating not listed]
+  vendor: Amazon US
+  url: https://www.amazon.com/dp/B07J2FC2X7
+  order: Amazon US
+  datasheet: unverified
+  stock_checked: "2026-11-05 US"
+  compat: unverified
+  in_cad: false
+  note: Optional. Ships from and sold by Amazon, In Stock. Current rating not on the listing (the arm draws ~3 A at 24 V). Unplugging the barrel jack does the same job. The 6 A switch picked before is out of stock.
+- id: dupont-jumpers
+  name: Jumper wires (your stock)
+  function: Signal and power wiring, servo lead extension
+  status: owned
+  qty: 1
+  image: parts/images/dupont-jumpers.jpg
+  specs: [M-M / M-F / F-F jumpers]
+  compat: unverified
+  in_cad: false
+  note: >-
+    You have these (answer of 2026-11-05). Uses: yaw switch to D11; servo signal to A3 (chain M-F jumpers to
+    cover the ~73 cm path); 24 V to the buck input (short run in the base, ~0.7 A at servo stall, est).
+    Servo 6 V power over ~73 cm: chained single jumpers (~26-28 AWG) drop ~0.8 V at the 2.5 A stall (est), so
+    run two jumpers in parallel for + and for - (about 0.4 V) and set the buck to 6.3 V. 22 AWG wire is better if
+    you have some.
+- id: digital-caliper-is
+  name: WEN 10761 digital caliper (Invention Studio store)
+  function: Tool (measure servo, horn and motor shafts)
+  status: candidate
+  price_usd: 11.00
+  qty: 1
+  image: parts/images/digital-caliper-is.jpg
+  specs: [6.1 in / 150 mm, electronic]
+  vendor: Georgia Tech Invention Studio store
+  url: https://epay.gatech.edu/C20793_ustores/web/store_cat.jsp?STOREID=324&CATID=663&SINGLESTORE=true
+  order: Invention Studio
+  datasheet: unverified
+  stock_checked: "2026-11-05 US"
+  compat: unverified
+  in_cad: false
+  note: Optional, only if you have no caliper. The MG996R mounting holes, the horn screw circle and the HEM shaft still need measuring before printing.
+orders:
+- vendor: Amazon US
+  url: https://www.amazon.com
+  items: [F624ZZ 10-pack, GT2 320 mm 2-pack x2, GT2 200 mm 10-pack, GT2 20T 5-pack, MG996R 2-pack, XL4015 3-pack, KW12-3 10-pack, M4x70 30 pcs, M3 screw kit, M4 screw kit]
+  subtotal_usd: 88.38
+  shipping_usd: 0
+  note: >-
+    Prices read from each listing on 2026-11-05 (200 mm belts 2026-11-08, screws 2026-11-11). Everything is
+    shipped and sold by Amazon (free shipping over $35). About $88.38 before tax, ~$96.2 with Georgia ~8.9 % tax
+    (est), inside the $100 budget (M4 x 60 pack dropped 2026-11-12). Motor cables and jumpers are your own stock; screws and nuts
+    are now bought (none at the Invention Studio).
+- vendor: Georgia Tech Invention Studio
+  url: https://epay.gatech.edu/C20793_ustores/web/store_main.jsp?STOREID=324&SINGLESTORE=true
+  items: [Super glue 3 g (not in your pick)]
+  subtotal_usd: 0.30
+  shipping_usd: 0
+  note: Needed since 2026-11-06 to glue the wrist belt flange ring on the wrist pulley (any super glue you have works). Free pickup at the Studio Store. Optional digital caliper $11. The store's belts (300 mm), bearings (606, V-groove) and M3-only screw kit don't match this design.

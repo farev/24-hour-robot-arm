@@ -1,0 +1,12 @@
+id: x1e-slice-settings
+made_by: chat
+text: 'The X1E files are sliced with: Textured PEI plate, Generic PLA, 0.20 mm layers,
+  4 walls, 20 % gyroid infill, 5 top and bottom layers, no supports, parts oriented
+  as modelled. If your printer has a different plate fitted, the printer asks before
+  starting.'
+alternatives:
+- Smooth PEI / Cool Plate
+- Bambu PLA Basic filament profile
+- PETG for the turret, shanks and yaw plate
+created: '2026-11-06T17:00:43+00:00'
+override: null

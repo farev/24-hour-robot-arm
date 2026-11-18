@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "kind": "image",
+  "key": "inspiration/IMG_4094.HEIC",
+  "slug": "img-4094",
+  "input": "inspiration/IMG_4094.HEIC",
+  "title": "IMG_4094",
+  "url": null,
+  "duration_s": null,
+  "license": null,
+  "path": "inspiration/IMG_4094.HEIC",
+  "width": 1536,
+  "height": 2048,
+  "original_format": "JPEG",
+  "image": "inspiration/img-4094/image.jpg",
+  "thumb": "inspiration/img-4094/thumb.jpg",
+  "note": "inspiration/notes/img-4094.md",
+  "note_sha256": "ff09350e812dcd79a137d41164ca9b79c1de9b5ef750d1f7c88d3c9429ec056e",
+  "warnings": []
+}

@@ -1,0 +1,205 @@
+checked: "2026-11-05"
+checks:
+  # ---------------- power
+  - between: [24 V 6 A DC power supply (owned), Arduino CNC Shield V3 with A4988 drivers]
+    interface: motor supply voltage
+    claim: "Supply 24 V (user); A4988 VBB 8-35 V (Allegro datasheet) -> passes with 11 V margin. The shield's bulk electrolytic must be rated >= 35 V; its marking has not been read (some clones fit 25 V caps)."
+    evidence: [user stated 24 V 6 A, https://www.allegromicro.com/-/media/files/datasheets/a4988-datasheet.pdf]
+    status: unverified
+  - between: [24 V 6 A DC power supply (owned), system]
+    interface: supply current budget
+    claim: "v4: 4 steppers (3 x XY42 at 1.0 A, HEM at 0.7 A) draw about 2-2.5 A from 24 V (chopper drive, estimate) + 1 gripper MG996R at 6 V, 2.5 A stall / 0.9 eff = ~0.7 A at 24 V -> ~3.2 A of the 6 A available (estimate)."
+    evidence: [user stated 6 A, https://www.allegromicro.com/en/products/motor-drivers/brush-dc-motor-drivers/a4988]
+    status: unverified
+  - between: [XL4015 5 A buck converter (3-pack), 24 V 6 A DC power supply (owned)]
+    interface: buck input range
+    claim: "Listing: 4-38 V in, needs input >= output + 1.5 V; 24 V in, 6 V out passes. Listing spec table not readable (Amazon blocked)."
+    evidence: https://www.amazon.com/dp/B0D1G4C28P
+    status: unverified
+  - between: [MG996R metal-gear servo (2-pack), XL4015 5 A buck converter (3-pack)]
+    interface: servo supply
+    claim: "MG996R 4.8-6.6 V, stall 2.5 A at 6 V (TowerPro datasheet); buck set to 6.3 V (covers the jumper drop), 4.5 A recommended. v4 has one servo (gripper): stall 2.5 A x 1.25 = 3.1 A, under 4.5 A. The XL4015 can output up to 36 V: set 6.3 V with a meter before connecting the servo."
+    evidence: [https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf, https://www.amazon.com/dp/B0D1G4C28P]
+    status: unverified
+  - between: [Inline DC push-button switch 5.5 x 2.1 mm male-female (3-pack), 24 V 6 A DC power supply (owned)]
+    interface: barrel connector and current
+    claim: "Switch is 5.5 x 2.1 mm push-button; its current rating is not on the listing; the supply's plug size is not confirmed (the shield pigtail looks 5.5 x 2.1 in the photo). Motor-side current ~2-3 A est."
+    evidence: [https://www.amazon.com/dp/B07J2FC2X7, user photo of shield pigtail]
+    status: unverified
+  # ---------------- motor drive
+  - between: [XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm), Arduino CNC Shield V3 with A4988 drivers]
+    interface: phase current
+    claim: "v4: three XY42 on Z (yaw), Y (shoulder), X (elbow). Motor 1.2 A/phase (label); A4988 2 A max, about 1 A without a fan -> set 1.0 A. Vref = I x 8 x Rs: 0.80 V if the module's sense resistors read R100, 0.40 V if R050 (not read yet). 1.2 A (Vref 0.96 V) only with a fan on the drivers."
+    evidence: [user photo of label, https://www.allegromicro.com/en/products/motor-drivers/brush-dc-motor-drivers/a4988, firmware/arm_v4/arm_v4.ino]
+    status: unverified
+  - between: [High Efficiency Motors HEM-17D2008-10 NEMA 17 stepper (34 mm), Arduino CNC Shield V3 with A4988 drivers]
+    interface: phase current
+    claim: "v4: HEM drives the wrist from socket A. Motor 0.8 A/phase (label); set 0.7 A (Vref 0.56 V with R100, 0.28 V with R050)."
+    evidence: [user photo of label, https://www.allegromicro.com/en/products/motor-drivers/brush-dc-motor-drivers/a4988, firmware/arm_v4/arm_v4.ino]
+    status: unverified
+  - between: [Arduino Uno R3, Arduino CNC Shield V3 with A4988 drivers]
+    interface: logic level and pinout
+    claim: "Uno 5 V logic; A4988 logic 3-5.5 V (Allegro) -> passes. Firmware assumes the common V3 pinout (X step 2/dir 5, Y 3/6, Z 4/7, EN 8, Z limit D11, A axis on D12/D13 via the A jumpers, CoolEn A3). No pinout document for this exact clone has been read; check the silkscreen and the A-axis jumper positions on arrival."
+    evidence: [https://docs.arduino.cc/hardware/uno-rev3, https://www.allegromicro.com/en/products/motor-drivers/brush-dc-motor-drivers/a4988, firmware/arm_v4/arm_v4.ino]
+    status: unverified
+  - between: [XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm), system]
+    interface: v4 joint torque (shoulder 14:1, elbow 7:1)
+    claim: "sim/v4_check.py, CAD masses, arm straight out at the table. At 1.0 A (holding ~0.217 N·m = 0.26 x 1.0/1.2): 300 g uses 81 % shoulder / 77 % elbow; max payload inside the 50 % budget 48 g, inside 100 % of holding 447 g. At 1.2 A (0.26 N·m, fan needed): 300 g uses 67 % / 65 %, 129 g inside 50 %. Does not meet requirements.yaml (300 g at 50 %); user chose on 2026-11-05 to build as is and test on the bench (requirements.yaml payload_decision). Holding torque of the -1204A row is unpublished."
+    evidence: [https://luni64.github.io/TeensyStep/applications2/901_stepper/assets/datasheet_XY42STH.pdf, sim/v4_check.py]
+    status: unverified
+  - between: [XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm), system]
+    interface: v4 yaw torque
+    claim: "Yaw has no gravity load; 0.217 N·m x 6 = 1.3 N·m vs ~0.2 N·m to accelerate the arm at 2 rad/s² plus AXK and F624 friction (estimate)."
+    evidence: [sim/v4_check.py, design/v4/geometry.py]
+    status: unverified
+  - between: [Arduino Uno R3, system]
+    interface: step rate
+    claim: "v4 steps per joint degree: yaw 53 (1/16 x 6), shoulder 62 (1/8 x 14), elbow 62 (1/16 x 7), wrist 27 (1/16 x 3). 30 deg/s on all four = ~6.1 k steps/s stepped in loop(), near the 5-10 k AVR software limit (estimate). Lower SPEED if moves stutter."
+    evidence: firmware/arm_v4/arm_v4.ino
+    status: unverified
+  # ---------------- mechanical
+  - between: [GT2 20T 5 mm bore pulley (5-pack), XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm)]
+    interface: shaft and bore
+    claim: "Pulley bore 5 mm (listing title); motor shaft 5 mm round: the user's photo shows a GT2 20T pulley already on this motor."
+    evidence: [user photo of motor with pulley, https://www.amazon.com/dp/B0DJQBZ6R1]
+    status: verified
+  - between: [GT2 20T 5 mm bore pulley (5-pack), High Efficiency Motors HEM-17D2008-10 NEMA 17 stepper (34 mm)]
+    interface: shaft and bore
+    claim: "v4 wrist: pulley bore 5 mm; HEM shaft 5 x 24 mm assumed (no datasheet). The pulley slides on the shaft, so its belt lane is set at assembly. Measure the shaft before printing upper_shank."
+    evidence: [https://www.amazon.com/dp/B0DJQBZ6R1, parts/models/hem-17d2008-10.yaml]
+    status: unverified
+  - between: [GT2 20T 5 mm bore pulley (5-pack), system]
+    interface: pulley height vs belt lane
+    claim: "Listing says 15 mm wide x 15 mm high; the model is 16 x 16 with an estimated lane offset of 11.5 mm. Hub gaps in the design are 0.6 mm (wrist) and 1.4 mm (elbow). Set screws allow sliding the pulley; measure one on arrival and update the model."
+    evidence: [https://www.amazon.com/dp/B0DJQBZ6R1, parts/models/gt2-20t-pulley.yaml, design/v4/geometry.py]
+    status: unverified
+  - between: [GT2 6 mm closed-loop belt 320 mm (2-pack), system]
+    interface: belt length, wrap and tension travel
+    claim: "v4 CAD pitch loops: shoulder stage 2 (36T-140T, C 63.4) 320.4, yaw (20T-120T, C 84.0) 320.2, elbow (20T-140T, C 69.5) 320.6 mm for a 320 mm belt; motor or idler slots give +-2.5..3 mm. Teeth in mesh on the small pulley: 11.7 / 7.5 / 6.3 (elbow is at the usual 6-tooth minimum; ~26 N belt pull at full elbow load, estimate). 3 belts needed, 2 packs = 4."
+    evidence: [design/v4/belts.py, design/v4/geometry.py, https://www.amazon.com/dp/B0DR35HQX1]
+    status: unverified
+  - between: [Zeelo GT2 closed belt 200 mm x 6 mm (10 pcs), system]
+    interface: belt length and wrap
+    claim: "v4 CAD pitch loops: shoulder stage 1 (20T-72T, C 51.3) 200.0 mm, wrist (20T-60T, C 58.6) 200.0 mm; listing GT2, 200 mm, 6 mm wide, 10 pcs. Teeth in mesh 7.9 / 8.6. 2 belts needed of 10. Motor slots +-3 mm accept 196-204 mm loops (geometry.centre_distance)."
+    evidence: [design/v4/belts.py, design/v4/geometry.py, https://www.amazon.com/dp/B0BZNTT5T4]
+    status: verified
+  - between: [M METERXITY F624ZZ flanged bearing 4x13x5 (10-pack), system]
+    interface: bore, OD, flange vs printed pockets and M4 axles
+    claim: "Listing: F624ZZ 4 x 13 x 5, flange 15 x 1 mm, same as parts/models/f624zz. v4 pockets: Ø13.1 x 5 deep + Ø15.4 x 1.1 flange counterbore, Ø7.6 relief behind the hub pockets, M4 bolts as axles. Press fit still to be confirmed on the fit coupon."
+    evidence: [https://www.amazon.com/dp/B0F4QXCS6R, design/v4/printed/lib.py, design/v4/printed/fit_coupon.py]
+    status: ok
+  - between: [uxcell F624ZZ flanged bearing 4x13x5 (10 pcs), system]
+    interface: bore, OD, flange vs printed pockets
+    claim: "Listing: F624ZZ 4 x 13 x 5, flange Ø15; same pockets as above. Backup pick."
+    evidence: [https://www.amazon.com/dp/B07Z3DB93B]
+    status: ok
+  - between: [uxcell F624ZZ flanged bearing 4x13x5 (10 pcs), system]
+    interface: "if swapped for a plain 624ZZ (no flange): axial seat"
+    claim: "Hub pockets in lower_shank, upper_shank, shoulder_compound and wrist_pulley are 5 deep onto a Ø7.6 step, so a 5 mm wide 624 seats on its outer ring at the same height as the F624 and the pair captures the part both ways. In base.py the step below each bearing has only a Ø4.8 hole, so the inner ring would rest on the fixed base, and the bottom nut would clamp it there. Open that hole to Ø7.6 before using plain 624s."
+    evidence: [design/v4/printed/lower_shank.py, design/v4/printed/wrist_pulley.py, design/v4/printed/base.py]
+    status: unverified
+  - between: [AXK2035 needle thrust bearing with 2x AS2035 washers, system]
+    interface: base thrust seat
+    claim: "20 ID x 35 OD x 4 mm stack (user measured) in a Ø36 x 1.0 pocket with a Ø19.6 centring ring; turret spigot Ø19.7 in the upper washer bore."
+    evidence: user measured 20 x 35 x 4 mm
+    status: verified
+  - between: [MG996R metal-gear servo (2-pack), system]
+    interface: servo mounting frames
+    claim: "Body 40.7 x 19.7, tab span 53.6 (TowerPro drawing); tab hole spacing 49.5 x 10, shaft offset 10, tab height 7.5 and horn screw circle are estimates, and the listing is a Miuzei MG996R, not TowerPro -> measure one servo before printing gripper_base and crank_gear A."
+    evidence: [https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf, https://www.amazon.com/dp/B0BZ4LVH4J]
+    status: unverified
+  - between: [MG996R metal-gear servo (2-pack), system]
+    interface: v4 grip force and travel
+    claim: "Parallel-jaw gripper, 26 mm cranks, 1:1 gears: ~17 N per jaw (estimate, half the 9.4 kg·cm servo torque at 26 mm) vs 2.9 N to hold 300 g with friction 0.5. Crank travel 60 deg (-10..+50); listing says 180 deg rotation, TowerPro says ~120 -> both cover it."
+    evidence: [https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf, design/v4/geometry.py]
+    status: unverified
+  - between: [MG996R metal-gear servo (2-pack), Arduino Uno R3]
+    interface: v4 servo signal
+    claim: "Signal on A3 (CoolEn header) as a digital output with the Servo library; servo ground tied to an Uno GND. The lead is 30 cm (datasheet) and the path to the shield is about 73 cm -> extend with your jumpers (signal) and hookup wire (6 V power, ~2.5 A stall)."
+    evidence: [firmware/arm_v4/arm_v4.ino, https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf]
+    status: unverified
+  - between: [Jumper wires (your stock), MG996R metal-gear servo (2-pack)]
+    interface: lead extension and power wiring
+    claim: "MG996R plug is a 3-pin 2.54 mm female (JR/Futaba), so M-F Dupont jumpers plug straight in. Thin Dupont wire (~26-28 AWG) is fine for the signal; chained single jumpers drop ~0.8 V at the 2.5 A stall over the ~1.5 m loop (estimate), so the 6 V power runs on two jumpers in parallel per conductor (~0.4 V) with the buck set to 6.3 V (servo range 4.8-7.2 V)."
+    evidence: [https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf]
+    status: unverified
+  - between: [HiLetgo KW12-3 roller-lever microswitch (10-pack), Arduino Uno R3]
+    interface: switch input
+    claim: "SPDT; wire C to GND and NO to D11 (Z limit header) with INPUT_PULLUP: 5 V / ~0.1 mA, far below the 5 A rating."
+    evidence: https://www.mouser.com/catalog/specsheets/Soldered_101411%20microswitch%20kw12%203.pdf
+    status: verified
+  - between: [HiLetgo KW12-3 roller-lever microswitch (10-pack), system]
+    interface: switch height under the yaw cam
+    claim: "Roller free height 6 mm above the body is an estimate; the pocket sets the body top so the cam presses the roller 1 mm. Shim the switch if it does not click."
+    evidence: parts/models/kw12-3-switch.yaml
+    status: unverified
+  - between: ["Stepper motor cables, 0.6 m or longer (your stock)", XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm)]
+    interface: motor connector and length
+    claim: "User has 4 stepper cables of 0.6 m or more that fit the motors. Wrist path ~0.6 m (estimate) along both shanks; the shield side is a 4-pin 2.54 header. Coil pairs must line up with the A4988 1A/1B/2A/2B pins (check with the meter: ~2-3 ohm between the two wires of a coil)."
+    evidence: [user answer 2026-11-05]
+    status: verified
+  - between: [PLA filament (printer stock), system]
+    interface: print volume and material
+    claim: "v4 print list is ~497 g of PLA; the largest parts fit a 256 mm bed in the modelled orientation (printcheck). Motor mounts touch the stepper faces: at 1.0 A the cases stay warm; PLA is OK below ~55 C - check case temperature after 10 minutes, or print the turret and shanks in PETG if they run hot. PLA stock is assumed, not confirmed."
+    evidence: [design/v4/print_list.csv, .claude/skills/printable-part-design/references/fdm_pla_rules.md]
+    status: unverified
+  - between: [High Efficiency Motors HEM-17D2008-10 NEMA 17 stepper (34 mm), system]
+    interface: v4 wrist torque
+    claim: "Wrist 0.28 N·m (label) x 3 = 0.84 N·m; at 0.7 A of 0.8 A rated: 0.28 x 0.7/0.8 x 3 = 0.735 N·m; worst load with 300 g 0.309 N·m = 42 % (sim/v4_check.py; estimate)."
+    evidence: [user photo of label, sim/v4_check.py]
+    status: unverified
+  - between: [Arduino CNC Shield V3 with A4988 drivers, HiLetgo KW12-3 roller-lever microswitch (10-pack)]
+    interface: v4 pins
+    claim: "Socket A uses D12/D13 (A-axis jumpers), so the gripper servo is on A3 and the yaw switch on the Z-limit header (D11). Socket A needs 3 microstep jumper caps (1/16) plus the 2 A-axis routing jumpers; socket Y needs 2 caps (1/8). Whether the shield came with enough caps is not known."
+    evidence: firmware/arm_v4/arm_v4.ino
+    status: unverified
+  - between: [M3 socket head screw kit 6-30 mm + nuts (630 pcs), system]
+    interface: screws and nuts vs printed holes
+    claim: "v4 needs M3x6 x4, M3x8 x8, M3x10 x8, M3x16 x8, M3x20 x4, M3x30 x3, M4x30 x2, 11 M3 nuts, 5 M4 nuts (design/v4/assembly.yaml) + 6 M3 for the Uno/buck posts. Holes: M3 clearance 3.6, self-tap pilot 2.6, M3 head counterbore 6.5 x 3.3, M3 nut trap 5.75 x 2.7, M4 snug 4.2, M4 nut trap 7.25 x 3.5 (lib.py, ISO 4762 / 4032 sizes). Kit counts (listing): M3 x6 40, x8 40, x10 25, x16 25, x20 25, x30 10, 210 nuts against 4/14/12/8/4/3 and 11 needed (docs/screw-list.md); M4 kit x30 10 and 110 nuts against 2 and 5. Head and nut sizes are not on the listings: assumed ISO (M3 head 5.5, nut AF 5.5; M4 nut AF 7)."
+    evidence: [design/v4/assembly.yaml, design/v4/printed/lib.py, docs/screw-list.md, https://www.amazon.com/dp/B0F8HMFNZK, https://www.amazon.com/dp/B0F8HTM313]
+    status: unverified
+  - between: ["M4 x 70 socket head cap screw, full thread (30 pcs)", system]
+    interface: axle length
+    claim: "M4x70 full thread as shoulder S and intermediate I axles through towers, spacers and F624 stack (assembly.yaml), and as the yaw axle on a printed 10 mm spacer under its head (replaces the M4 x 60, 2026-11-12) through turret, AXK and base bearings into the M4 nut under the base, tip 2.5 above the table. 3 used of 30. Thread past the nut (assembly transforms, pre-order review 2): yaw 1.3 mm, S and I 4.7 mm, elbow and wrist M4x30 2.2 / 4.2 mm."
+    evidence: [design/v4/assembly.yaml, https://www.amazon.com/dp/B0DYN1VDJ7, design/v4/printed/spacers.py]
+    status: verified
+  - between: [system]
+    interface: tipping at full reach
+    claim: "Overturning about the front edge with 300 g at 29 cm is about equal to the restoring moment of base + motors (estimate) -> clamp the base to the table or screw it to a board through the corner holes. Clamps are not in the parts list (assumption: you clamp it with Invention Studio clamps or screw it to a scrap board)."
+    evidence: design/v4/geometry.py
+    status: unverified
+  - between: [system]
+    interface: arm power-off
+    claim: "Nothing self-locks: with the drivers off (unplugged or ENABLE 0) the shoulder sees up to 2.46 N·m at 300 g (sim/v4_check.py) against ~0.21 N·m of detent torque at the joint (150 g·cm datasheet x 14), so the arm falls. Send REST / lower the arm before cutting power; unplugging the barrel jack is the e-stop and the arm drops onto the table."
+    evidence: [sim/v4_check.py, https://luni64.github.io/TeensyStep/applications2/901_stepper/assets/datasheet_XY42STH.pdf]
+    status: unverified
+  - between: [XYSLDJ XY42STH40-1204A NEMA 17 stepper (40 mm), GT2 6 mm closed-loop belt 320 mm (2-pack)]
+    interface: motor shaft radial load from belt tension
+    claim: "XY42 datasheet: max radial force 28 N at 20 mm from the flange. Belt working pull at 300 g: elbow 1.175 N·m / 7 / 6.37 mm = 26 N, shoulder stage 1 2.46 / 14 / 6.37 = 28 N; with ~13 N pretension the shaft load is ~22-26 N (estimate). Passes but only just: tension belts just enough that they do not skip, and the pulley sits close to the motor face."
+    evidence: [https://luni64.github.io/TeensyStep/applications2/901_stepper/assets/datasheet_XY42STH.pdf, sim/v4_check.py]
+    status: unverified
+  - between: ["Stepper motor cables, 0.6 m or longer (your stock)", High Efficiency Motors HEM-17D2008-10 NEMA 17 stepper (34 mm)]
+    interface: motor connector and coil pairs
+    claim: "User has cables for all 4 steppers. HEM socket type and coil pinout not recorded: find the two coil pairs with the meter (each pair a few ohms) and match them to 1A/1B and 2A/2B on socket A."
+    evidence: [user answer 2026-11-05]
+    status: unverified
+  - between: [XL4015 5 A buck converter (3-pack), system]
+    interface: board mounting in the base
+    claim: "base.py has 2 M3 posts at the estimated XL4015 hole positions (+-22.5, +-10, boards vary). No listing dimensions read. If the holes do not line up, fix the board with double-sided foam tape or a zip tie through the posts."
+    evidence: [design/v4/printed/base.py, parts/models/xl4015-buck.py]
+    status: unverified
+  - between: [MG996R metal-gear servo (2-pack), system]
+    interface: servo and horn fasteners
+    claim: "Crank gear A has 4 Ø2.2 holes on a 7.0 mm circle (estimated) for the horn's own small self-tapping screws, and the gripper base has 4 Ø2.6 pilots for the tab screws (M3 x 10 from your stock self-tap there). MG996R packs normally include horns and horn, centre and tab screws (TowerPro: 'comes with a selection of arms and hardware'), but the Miuzei box contents could not be read on 2026-11-05. If the horn screws are missing: M2 x 6-8 self-tapping screws."
+    evidence: [design/v4/printed/crank_gear.py, design/v4/printed/gripper_base.py, https://courses.ece.cornell.edu/ece5990/ECE5725_Spring2020_Projects/May_15_Demo/Smart%20Lock/W_pp445_yl656/datasheet/MG996R_Tower-Pro.pdf]
+    status: unverified
+  - between: [California JOS 2.54 mm jumper caps (100 pcs), Arduino CNC Shield V3 with A4988 drivers]
+    interface: microstep jumper header under each driver
+    claim: "The shield's M0/M1/M2 header is 2.54 mm pitch (Protoneer V3.00 layout; user photo 2026-11-16 shows the V3.00 clone). The caps are 2.54 mm pitch and 2.5 mm tall, so they fit under a driver sitting about 8 mm up. 1/16 = all three (X, Z, A), 1/8 = M0 + M1 (Y), as the firmware MICRO {16, 8, 16, 16} expects."
+    evidence: [https://www.amazon.com/dp/B0BRK36G33, research/cnc_shield_ref/Arduino-CNC-Shield-V3-Layout.jpg, inspiration/image-1.heic, https://www.allegromicro.com/-/media/files/datasheets/a4988-datasheet.pdf]
+    status: ok
+  - between: [HiLetgo KW12-3 roller-lever microswitch (10-pack), Jumper wires (your stock)]
+    interface: switch terminals
+    claim: "KW12-3 has solder lugs: solder two jumper leads (cut the far ends' housings off if needed) to C and NO. Assumption: you can solder at the Invention Studio."
+    evidence: https://www.mouser.com/catalog/specsheets/Soldered_101411%20microswitch%20kw12%203.pdf
+    status: unverified

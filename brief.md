@@ -1,0 +1,5 @@
+# 24-HourRobotArm
+
+## Goal
+
+I want to build a robot arm. I have a few components already. I have attached them in the images. I have three large stepper motors. I think they're 40 mm in height and you can extract the part number from the image. Then I have a smaller one as well that is 34 mm in heigth. I have an Arduino Uno R3. With the motor driver for the stepper motors, it can drive up to four motors. It's a CNC shield. The thrust bearing has an inner diameter of 20 mm and an outer diameter of 35 mm and the entire bearing stack top measures about 4 mm. Although, only use this bearing if it's necessary or if it helps. Now, for the specs that we want for the robot arm, we want it to be able to lift an object that weighs about 300 g, extend roughly 30 cm from its base, and pick up things from a table. Also, for the main body of the arm, make every part 3D printable. For the components that we need to buy, make sure that we can either order them from Amazon or buy them from the Invention Studio store: https://epay.gatech.edu/C20793_ustores/web/store_main.jsp?STOREID=324&SINGLESTORE=true

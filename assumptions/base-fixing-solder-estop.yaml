@@ -1,0 +1,12 @@
+id: base-fixing-solder-estop
+made_by: chat
+text: 'No extra purchases for the bench setup: clamp the base with Invention Studio
+  clamps (or screw it to a scrap board), solder the yaw switch leads at the Invention
+  Studio, and unplug the 24 V barrel jack as the e-stop after lowering the arm (nothing
+  self-locks).'
+alternatives:
+- Buy 2 small C-clamps (~$8)
+- Buy the inline DC switch as an e-stop ($7.99, current rating not listed)
+- Crimp Dupont housings on the switch instead of soldering
+created: '2026-11-06T02:24:03+00:00'
+override: null

@@ -1,0 +1,25 @@
+part,qty,material,orientation,infill,est_grams,stl
+fit-coupon (print first),1,PLA,as modelled,20%,30,printed/fit-coupon.stl
+base,1,PLA,as modelled,20%,133.7,printed/base.stl
+yaw-motor-plate,1,PLA,as modelled,20%,5.4,printed/yaw-motor-plate.stl
+yaw-race-washer,7,PLA,as modelled,20%,0.0,printed/yaw-race-washer.stl
+turret,1,PLA,as modelled,20%,101.4,printed/turret.stl
+yaw-pulley,1,PLA,as modelled,20%,33.9,printed/yaw-pulley.stl
+yaw-bolt-spacer,1,PLA,as modelled,20%,0.2,printed/yaw-bolt-spacer.stl
+sh-compound,1,PLA,as modelled,20%,17.8,printed/sh-compound.stl
+spacer-i,2,PLA,as modelled,20%,0.3,printed/spacer-i.stl
+spacer-s,1,PLA,as modelled,20%,0.5,printed/spacer-s.stl
+spacer-ls,1,PLA,as modelled,20%,0.1,printed/spacer-ls.stl
+lower-shank,1,PLA,as modelled,20%,82.4,printed/lower-shank.stl
+upper-shank,1,PLA,as modelled,20%,80.2,printed/upper-shank.stl
+spacer-e,1,PLA,as modelled,20%,0.1,printed/spacer-e.stl
+wrist-washer,1,PLA,as modelled,20%,0.1,printed/wrist-washer.stl
+wrist-pulley,1,PLA,as modelled,20%,10.7,printed/wrist-pulley.stl
+wrist-flange,1,PLA,as modelled,20%,1.0,printed/wrist-flange.stl
+spacer-w,1,PLA,as modelled,20%,0.1,printed/spacer-w.stl
+gripper-base,1,PLA,as modelled,20%,16.4,printed/gripper-base.stl
+crank-gear-a,1,PLA,as modelled,20%,2.1,printed/crank-gear-a.stl
+crank-gear-b,1,PLA,as modelled,20%,2.1,printed/crank-gear-b.stl
+idler-link-a,2,PLA,as modelled,20%,0.9,printed/idler-link-a.stl
+jaw-a,1,PLA,as modelled,20%,2.7,printed/jaw-a.stl
+jaw-b,1,PLA,as modelled,20%,2.7,printed/jaw-b.stl

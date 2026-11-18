@@ -1,0 +1,1334 @@
+min_clearance_mm: 0.5
+parts:
+- id: base
+  model: design/v4/printed/base.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-plate
+  model: design/v4/printed/yaw_motor_plate.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - -83.9666
+  - 0.0
+  - 40.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor
+  model: parts/models/xy42sth40-1204a.step
+  kind: bought
+  component: xy42sth40-1204a
+  color: '#D4D4D0'
+  position:
+  - -83.9666
+  - 0.0
+  - 40.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-pulley
+  model: parts/models/gt2-20t-pulley.step
+  kind: bought
+  component: gt2-20t-pulley
+  color: '#D4D4D0'
+  position:
+  - -83.9666
+  - 0.0
+  - 43.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: belt-yaw
+  model: design/v4/bought/belt_yaw.step
+  kind: bought
+  component: gt2-belt-320
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: axk2035
+  model: parts/models/axk2035-thrust-bearing.step
+  kind: bought
+  component: axk2035-thrust-bearing
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 46.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bearing-top
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 46.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bearing-bottom
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 8.0
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: yaw-race-washer
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 7.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-switch
+  model: parts/models/kw12-3-switch.step
+  kind: bought
+  component: kw12-3-switch
+  color: '#D4D4D0'
+  position:
+  - 26.0
+  - 0.0
+  - 34.1
+  rotation:
+  - 0.0
+  - -0.0
+  - 90.0
+- id: yaw-motor-screw-1
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -99.4666
+  - -15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-1
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -109.9666
+  - -26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-screw-2
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -99.4666
+  - 15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-2
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -109.9666
+  - 26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-screw-3
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -68.4666
+  - -15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-3
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -57.9666
+  - -26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-screw-4
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -68.4666
+  - 15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-4
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -57.9666
+  - 26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: turret
+  model: design/v4/printed/turret.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 62.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-pulley
+  model: design/v4/printed/yaw_pulley.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 62.5
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: yaw-bolt-spacer
+  model: design/v4/printed/yaw_bolt_spacer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 62.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bolt
+  model: parts/models/m4x70-shcs.step
+  kind: bought
+  component: m4x70-shcs
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 72.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-nut
+  model: parts/models/m4-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 3.8
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: deck-screw-1
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 27.5396
+  - 15.9
+  - 56.8
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: deck-nut-1
+  model: parts/models/m3-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 27.5396
+  - 15.9
+  - 63.7
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: deck-screw-2
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -27.5396
+  - 15.9
+  - 56.8
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: deck-nut-2
+  model: parts/models/m3-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -27.5396
+  - 15.9
+  - 63.7
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: deck-screw-3
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -27.5396
+  - -15.9
+  - 56.8
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: deck-nut-3
+  model: parts/models/m3-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -27.5396
+  - -15.9
+  - 63.7
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: deck-screw-4
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 27.5396
+  - -15.9
+  - 56.8
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: deck-nut-4
+  model: parts/models/m3-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 27.5396
+  - -15.9
+  - 63.7
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: shoulder-motor
+  model: parts/models/xy42sth40-1204a.step
+  kind: bought
+  component: xy42sth40-1204a
+  color: '#D4D4D0'
+  position:
+  - -97.7658
+  - 34.0
+  - 111.8892
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: shoulder-motor-pulley
+  model: parts/models/gt2-20t-pulley.step
+  kind: bought
+  component: gt2-20t-pulley
+  color: '#D4D4D0'
+  position:
+  - -97.7658
+  - 31.5
+  - 111.8892
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: belt-sh1
+  model: design/v4/bought/belt_sh1.step
+  kind: bought
+  component: gt2-belt-200
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: belt-sh2
+  model: design/v4/bought/belt_sh2.step
+  kind: bought
+  component: gt2-belt-320
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: shoulder-motor-screw-1
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -113.2658
+  - 28.5
+  - 96.3892
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: shoulder-motor-screw-2
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -113.2658
+  - 28.5
+  - 127.3892
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: shoulder-motor-screw-3
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -82.2658
+  - 28.5
+  - 96.3892
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: shoulder-motor-screw-4
+  model: parts/models/m3x10-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -82.2658
+  - 28.5
+  - 127.3892
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: s-axle
+  model: parts/models/m4x70-shcs.step
+  kind: bought
+  component: m4x70-shcs
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -31.6
+  - 116.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: s-nut
+  model: parts/models/m4-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 30.5
+  - 116.0
+  rotation:
+  - -90.0
+  - 30.0
+  - 0.0
+- id: s-washer-left
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -27.0
+  - 116.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: s-washer-right
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 24.0
+  - 116.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: i-axle
+  model: parts/models/m4x70-shcs.step
+  kind: bought
+  component: m4x70-shcs
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - -31.6
+  - 94.3328
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: i-nut
+  model: parts/models/m4-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - 30.5
+  - 94.3328
+  rotation:
+  - -90.0
+  - 30.0
+  - 0.0
+- id: i-washer-left
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - -27.0
+  - 94.3328
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: i-washer-right
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - 24.0
+  - 94.3328
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: sh-compound
+  model: design/v4/printed/shoulder_compound.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - 24.0
+  - 94.3328
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: i-bearing-1
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - 24.0
+  - 94.3328
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: i-bearing-2
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - -26.0
+  - 94.3328
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: spacer-i
+  model: design/v4/printed/spacer_i.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - -21.0
+  - 94.3328
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: spacer-i-2
+  model: design/v4/printed/spacer_i.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - -49.5301
+  - -1.0
+  - 94.3328
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: spacer-s
+  model: design/v4/printed/spacer_s.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -8.0
+  - 116.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: spacer-ls
+  model: design/v4/printed/spacer_ls.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -21.0
+  - 116.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: lower-shank
+  model: design/v4/printed/lower_shank.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -8.0
+  - 116.0
+  rotation:
+  - 90.0
+  - -90.0
+  - 0.0
+- id: lower-bearing-1
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -26.0
+  - 116.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: lower-bearing-2
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -8.0
+  - 116.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: elbow-motor
+  model: parts/models/xy42sth40-1204a.step
+  kind: bought
+  component: xy42sth40-1204a
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -18.0
+  - 196.496
+  rotation:
+  - -90.0
+  - -90.0
+  - 0.0
+- id: elbow-motor-pulley
+  model: parts/models/gt2-20t-pulley.step
+  kind: bought
+  component: gt2-20t-pulley
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -14.6
+  - 196.496
+  rotation:
+  - -90.0
+  - -90.0
+  - 0.0
+- id: belt-elbow
+  model: design/v4/bought/belt_elbow.step
+  kind: bought
+  component: gt2-belt-320
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 0.0
+  - 116.0
+  rotation:
+  - -0.0
+  - -90.0
+  - 0.0
+- id: elbow-motor-screw-1
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 25.5
+  - -14.5
+  - 180.996
+  rotation:
+  - -90.0
+  - -90.0
+  - 0.0
+- id: elbow-motor-screw-2
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -5.5
+  - -14.5
+  - 180.996
+  rotation:
+  - -90.0
+  - -90.0
+  - 0.0
+- id: elbow-motor-screw-3
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 25.5
+  - -14.5
+  - 211.996
+  rotation:
+  - -90.0
+  - -90.0
+  - 0.0
+- id: elbow-motor-screw-4
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - -5.5
+  - -14.5
+  - 211.996
+  rotation:
+  - -90.0
+  - -90.0
+  - 0.0
+- id: upper-shank
+  model: design/v4/printed/upper_shank.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 10.0
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: elbow-bearing-1
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 10.0
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: elbow-bearing-2
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -7.0
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: spacer-e
+  model: design/v4/printed/spacer_e.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -2.0
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: e-bolt
+  model: parts/models/m4x30-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -13.6
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: e-washer-1
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - -8.0
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: e-washer-2
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 10.0
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: e-nut
+  model: parts/models/m4-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#D4D4D0'
+  position:
+  - 10.0
+  - 11.0
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: wrist-motor
+  model: parts/models/hem-17d2008-10.step
+  kind: bought
+  component: hem-17d2008-10
+  color: '#2F7FD8'
+  position:
+  - 101.3828
+  - 10.0
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: wrist-motor-pulley
+  model: parts/models/gt2-20t-pulley.step
+  kind: bought
+  component: gt2-20t-pulley
+  color: '#2F7FD8'
+  position:
+  - 101.3828
+  - 6.7
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: belt-wrist
+  model: design/v4/bought/belt_wrist.step
+  kind: bought
+  component: gt2-belt-200
+  color: '#2A2A2A'
+  position:
+  - 10.0
+  - 0.0
+  - 266.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: wrist-motor-screw-1
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - 85.8828
+  - 6.5
+  - 250.5
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: wrist-motor-screw-2
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - 85.8828
+  - 6.5
+  - 281.5
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: wrist-motor-screw-3
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - 116.8828
+  - 6.5
+  - 250.5
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: wrist-motor-screw-4
+  model: parts/models/m3x8-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - 116.8828
+  - 6.5
+  - 281.5
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: wrist-axle
+  model: parts/models/m4x30-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - 5.6
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: wrist-washer
+  model: design/v4/printed/race_washer_w.step
+  kind: printed
+  component: pla-filament
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -1.7
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: wrist-pulley
+  model: design/v4/printed/wrist_pulley.step
+  kind: printed
+  component: pla-filament
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -17.0
+  - 266.0
+  rotation:
+  - -90.0
+  - 90.0
+  - 0.0
+- id: wrist-flange
+  model: design/v4/printed/wrist_flange.step
+  kind: printed
+  component: pla-filament
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -1.7
+  - 266.0
+  rotation:
+  - -90.0
+  - 90.0
+  - 0.0
+- id: wrist-bearing-1
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -1.7
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: wrist-bearing-2
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -17.0
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+- id: spacer-w
+  model: design/v4/printed/spacer_w.step
+  kind: printed
+  component: pla-filament
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -12.0
+  - 266.0
+  rotation:
+  - -90.0
+  - -0.0
+  - 0.0
+- id: wrist-nut
+  model: parts/models/m4-nut.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - 160.0
+  - -17.0
+  - 266.0
+  rotation:
+  - 90.0
+  - -0.0
+  - 0.0
+allow_contact:
+- - yaw-motor-screw-1
+  - yaw-motor
+- - yaw-plate-screw-1
+  - base
+- - yaw-motor-screw-2
+  - yaw-motor
+- - yaw-plate-screw-2
+  - base
+- - yaw-motor-screw-3
+  - yaw-motor
+- - yaw-plate-screw-3
+  - base
+- - yaw-motor-screw-4
+  - yaw-motor
+- - yaw-plate-screw-4
+  - base
+- - yaw-motor-pulley
+  - yaw-motor
+- - belt-yaw
+  - yaw-motor-pulley
+- - belt-yaw
+  - yaw-pulley
+- - axk2035
+  - base
+- - axk2035
+  - yaw-pulley
+- - yaw-bearing-top
+  - base
+- - yaw-bearing-bottom
+  - base
+- - yaw-switch
+  - base
+- - yaw-switch
+  - yaw-pulley
+- - yaw-motor
+  - yaw-motor-plate
+- - yaw-motor
+  - base
+- - yaw-bolt
+  - yaw-nut
+- - yaw-bolt
+  - yaw-bearing-top
+- - yaw-bolt
+  - yaw-bearing-bottom
+- - yaw-bolt
+  - yaw-race-washer
+- - yaw-bolt
+  - axk2035
+- - yaw-bolt
+  - yaw-bolt-spacer
+- - yaw-bolt
+  - yaw-pulley
+- - yaw-bolt-spacer
+  - yaw-pulley
+- - deck-screw-1
+  - deck-nut-1
+- - deck-screw-2
+  - deck-nut-2
+- - deck-screw-3
+  - deck-nut-3
+- - deck-screw-4
+  - deck-nut-4
+- - shoulder-motor-screw-1
+  - shoulder-motor
+- - shoulder-motor-screw-2
+  - shoulder-motor
+- - shoulder-motor-screw-3
+  - shoulder-motor
+- - shoulder-motor-screw-4
+  - shoulder-motor
+- - shoulder-motor
+  - turret
+- - shoulder-motor-pulley
+  - shoulder-motor
+- - belt-sh1
+  - shoulder-motor-pulley
+- - belt-sh1
+  - sh-compound
+- - belt-sh2
+  - sh-compound
+- - belt-sh2
+  - lower-shank
+- - s-axle
+  - s-nut
+- - s-axle
+  - s-washer-left
+- - s-axle
+  - s-washer-right
+- - s-axle
+  - turret
+- - i-axle
+  - i-nut
+- - i-axle
+  - i-washer-left
+- - i-axle
+  - i-washer-right
+- - i-axle
+  - turret
+- - i-axle
+  - spacer-i-2
+- - spacer-i-2
+  - sh-compound
+- - i-axle
+  - i-bearing-1
+- - i-bearing-1
+  - sh-compound
+- - i-axle
+  - i-bearing-2
+- - i-bearing-2
+  - sh-compound
+- - i-axle
+  - spacer-i
+- - spacer-i
+  - sh-compound
+- - s-axle
+  - spacer-s
+- - s-axle
+  - spacer-ls
+- - s-axle
+  - lower-bearing-1
+- - s-axle
+  - lower-bearing-2
+- - lower-bearing-1
+  - lower-shank
+- - lower-bearing-2
+  - lower-shank
+- - spacer-ls
+  - lower-shank
+- - elbow-motor-screw-1
+  - elbow-motor
+- - elbow-motor-screw-2
+  - elbow-motor
+- - elbow-motor-screw-3
+  - elbow-motor
+- - elbow-motor-screw-4
+  - elbow-motor
+- - elbow-motor
+  - lower-shank
+- - elbow-motor-pulley
+  - elbow-motor
+- - belt-elbow
+  - elbow-motor-pulley
+- - belt-elbow
+  - upper-shank
+- - elbow-bearing-1
+  - upper-shank
+- - elbow-bearing-2
+  - upper-shank
+- - spacer-e
+  - upper-shank
+- - e-bolt
+  - lower-shank
+- - e-bolt
+  - e-washer-1
+- - e-bolt
+  - e-washer-2
+- - e-bolt
+  - e-nut
+- - e-bolt
+  - elbow-bearing-1
+- - e-bolt
+  - elbow-bearing-2
+- - e-bolt
+  - spacer-e
+- - wrist-motor-screw-1
+  - wrist-motor
+- - wrist-motor-screw-2
+  - wrist-motor
+- - wrist-motor-screw-3
+  - wrist-motor
+- - wrist-motor-screw-4
+  - wrist-motor
+- - wrist-flange
+  - wrist-pulley
+- - wrist-motor
+  - upper-shank
+- - wrist-motor-pulley
+  - wrist-motor
+- - belt-wrist
+  - wrist-motor-pulley
+- - belt-wrist
+  - wrist-pulley
+- - wrist-bearing-1
+  - wrist-pulley
+- - wrist-bearing-2
+  - wrist-pulley
+- - spacer-w
+  - wrist-pulley
+- - wrist-axle
+  - upper-shank
+- - wrist-axle
+  - wrist-washer
+- - wrist-axle
+  - wrist-bearing-1
+- - wrist-axle
+  - wrist-bearing-2
+- - wrist-axle
+  - spacer-w
+- - wrist-axle
+  - wrist-nut

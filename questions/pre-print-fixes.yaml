@@ -1,0 +1,20 @@
+id: pre-print-fixes
+asked_by: null
+text: The coupon can go now. The check found 5 things worth fixing in the arm parts
+  before the two long plates go out. How do you want to continue?
+kind: choice
+choices:
+- label: Fix them, keep PLA, re-slice
+  detail: Add a cable route through the base and turret with clearance over the Uno,
+    give the turret slot roofs flat or 45° tops, add a belt flange to the wrist pulley,
+    thicken 2 thin walls, and fix the yaw motor screw engagement. Then re-check and
+    re-slice the 2 arm plates. All PLA.
+- label: Fix them and print the motor-mount parts in PETG
+  detail: The same fixes, plus the turret, both shanks and the yaw motor plate in
+    PETG (the motors may reach ~75 °C, above PLA's ~55-60 °C). This means one PETG
+    plate and one PLA plate.
+- label: Print the arm plates as they are
+  detail: 'No changes. Risks: a sagging slot roof can stop the shoulder motor seating,
+    the wrist belt can walk off, there''s no planned cable path, and PLA may soften
+    near hot motors.'
+answer: "Fix them, keep PLA, re-slice"

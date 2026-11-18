@@ -1,0 +1,13 @@
+part: AXK2035 needle thrust bearing with 2x AS2035 washers
+model_source: datasheet
+source_url: https://www.skf.com/group/products/rolling-bearings/roller-bearings/needle-roller-bearings/needle-roller-thrust-bearings/productid-AXK%202035
+datasheet: https://www.skf.com/group/products/rolling-bearings/roller-bearings/needle-roller-bearings/needle-roller-thrust-bearings/productid-AXK%202035
+retrieved: "2026-11-04"
+generator: parts/models/axk2035-thrust-bearing.py
+frame: axis Z, origin at the bottom face centre, stack z 0..4 as three solids (washer 0..1, cage 1..3, washer 3..4)
+critical_dims:
+  - {name: inner diameter, value_mm: 20.0, tol_mm: 0.1, source: user measured and standard AXK2035 / AS2035 d=20, model_mm: 20.0}
+  - {name: outer diameter, value_mm: 35.0, tol_mm: 0.1, source: user measured and standard AXK2035 / AS2035 D=35, model_mm: 35.0}
+  - {name: stack height, value_mm: 4.0, tol_mm: 0.1, source: user measured (cage 2 + 2 x washer 1), model_mm: 4.0}
+checked: "2026-11-04: 3 of 3 critical dims within tolerance (inspect: bbox 35 x 35 x 4, bore 20.0, 3 solids)"
+note: The SKF page is JavaScript-rendered and returned no dimensions to the fetch tool, so thicknesses (cage 2.0, washer 1.0) come from the standard catalogue values given in the request and the user's 4 mm measurement. Cage bore in the real part is slightly larger than 20 (about 21, unverified); modelled as 20 for all three rings. Needles are not modelled; each ring is a plain annulus.

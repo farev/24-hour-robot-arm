@@ -1,0 +1,10 @@
+id: budget
+asked_by: null
+text: What's your budget for parts you still need to buy?
+kind: choice
+choices:
+- < $100
+- $100-300
+- $300-1000
+- '> $1000'
+answer: "< $100"

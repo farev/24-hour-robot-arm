@@ -1,0 +1,239 @@
+min_clearance_mm: 0.5
+parts:
+- id: base
+  model: design/v4/printed/base.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-plate
+  model: design/v4/printed/yaw_motor_plate.step
+  kind: printed
+  component: pla-filament
+  color: '#2F7FD8'
+  position:
+  - -83.9666
+  - 0.0
+  - 40.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor
+  model: parts/models/xy42sth40-1204a.step
+  kind: bought
+  component: xy42sth40-1204a
+  color: '#2F7FD8'
+  position:
+  - -83.9666
+  - 0.0
+  - 40.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-pulley
+  model: parts/models/gt2-20t-pulley.step
+  kind: bought
+  component: gt2-20t-pulley
+  color: '#2F7FD8'
+  position:
+  - -83.9666
+  - 0.0
+  - 43.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bearing-top
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 46.5
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-bearing-bottom
+  model: parts/models/f624zz.step
+  kind: bought
+  component: f624zz
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 8.0
+  rotation:
+  - 180.0
+  - -0.0
+  - 0.0
+- id: yaw-race-washer
+  model: design/v4/printed/race_washer.step
+  kind: printed
+  component: pla-filament
+  color: '#D4D4D0'
+  position:
+  - 0.0
+  - 0.0
+  - 7.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-switch
+  model: parts/models/kw12-3-switch.step
+  kind: bought
+  component: kw12-3-switch
+  color: '#D4D4D0'
+  position:
+  - 26.0
+  - 0.0
+  - 34.1
+  rotation:
+  - 0.0
+  - -0.0
+  - 90.0
+- id: yaw-motor-screw-1
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -99.4666
+  - -15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-1
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -109.9666
+  - -26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-screw-2
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -99.4666
+  - 15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-2
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -109.9666
+  - 26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-screw-3
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -68.4666
+  - -15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-3
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -57.9666
+  - -26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-motor-screw-4
+  model: parts/models/m3x6-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -68.4666
+  - 15.5
+  - 42.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+- id: yaw-plate-screw-4
+  model: parts/models/m3x16-shcs.step
+  kind: bought
+  component: m3-m4-kit
+  color: '#2F7FD8'
+  position:
+  - -57.9666
+  - 26.0
+  - 43.0
+  rotation:
+  - 0.0
+  - -0.0
+  - 0.0
+allow_contact:
+- - yaw-motor-screw-1
+  - yaw-motor
+- - yaw-plate-screw-1
+  - base
+- - yaw-motor-screw-2
+  - yaw-motor
+- - yaw-plate-screw-2
+  - base
+- - yaw-motor-screw-3
+  - yaw-motor
+- - yaw-plate-screw-3
+  - base
+- - yaw-motor-screw-4
+  - yaw-motor
+- - yaw-plate-screw-4
+  - base
+- - yaw-motor-pulley
+  - yaw-motor
+- - yaw-bearing-top
+  - base
+- - yaw-bearing-bottom
+  - base
+- - yaw-switch
+  - base
+- - yaw-motor
+  - yaw-motor-plate
+- - yaw-motor
+  - base

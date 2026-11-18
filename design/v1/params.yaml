@@ -1,0 +1,29 @@
+name: v1
+style: ref_arm        # 20sffactory Community Robot Arm (CC BY 4.0), vendor solids from mechy/data/reference_designs
+kinematics: parallel_level   # Dobot-style parallel linkage: wrist passive, gripper stays level
+joints:               # order: base yaw, shoulder (lower shank), elbow (upper shank via lever+pleuel), wrist (passive)
+  # gear 4.5 = owned GT2 20T motor pulley -> printed 90T gear on all three driven joints
+  - {name: base,     axis: z, limit_deg: [-150, 150],     gear_ratio: 4.5, motor: hem17d2008}  # 34 mm motor, Z socket
+  - {name: shoulder, axis: y, limit_deg: [15, 160],       gear_ratio: 4.5, motor: xy42sth40}   # Y socket
+  - {name: elbow,    axis: y, limit_deg: [-142.3, -39.2], gear_ratio: 4.5, motor: xy42sth40}   # X socket
+  - {name: wrist,    axis: y, limit_deg: [-175, 175],     gear_ratio: 4.5, motor: xy42sth40}   # passive; 3rd big motor is the spare
+links:
+  base_height_m: 0.0897
+  shoulder_x_m: 0.000011
+  upper_arm_m: 0.14
+  forearm_m: 0.14
+  hand_m: 0.054
+  tool_z_m: 0.020
+catcher:              # unused (gripper toolhead); the arm model reads it
+  type: cup
+  diameter_m: 0.095
+  depth_m: 0.070
+  liner: net_pocket
+  give_m: 0.0
+ready_pose_deg: [0, 90, -90, 0]
+ref_arm:
+  reference: 20sffactory
+  shank_mm: 140
+  toolhead: gripper   # vendor MG90S servo gripper
+  material: PLA
+  mount_mm: 0

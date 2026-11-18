@@ -1,0 +1,22 @@
+version: 1
+title: Set driver current (Vref)
+description: Step-by-step guide with drawings for setting A4988 Vref on a CNC Shield,
+  a Vref/current calculator per socket and a log of your readings.
+tags:
+- vref
+- a4988
+- drv8825
+- stepper driver
+- current
+- cnc shield
+- multimeter
+- trimpot
+- torque
+- bring-up
+reads:
+- hw/drivers.yaml
+- hw/wiring.yaml
+- windows/vref-guide/readings.yaml
+library: vref-guide
+updated: '2026-11-16T23:38:29+00:00'
+created: '2026-11-16T23:38:29+00:00'
